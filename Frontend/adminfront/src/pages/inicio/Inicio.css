@@ -1,4 +1,9 @@
-.divisor{
+.i-container{ 
+    justify-content: space-between;
+    align-items: center;    
+    position: relative; 
+}
+.i-container .i-divisor{
     background-color: black;
     height: 2px;
     color: black;

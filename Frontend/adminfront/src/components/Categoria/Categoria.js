@@ -32,8 +32,8 @@ const Categoria = () => {
   };
 
   return (
-    <div className="menu">
-      <h2 className='titulo'>Categorias</h2>
+    <div className="c-menu">
+      <h2 className='titulo'>Categorías</h2>
       <div className="categorias-container">
         {categorias.map(categoria => (
           <div

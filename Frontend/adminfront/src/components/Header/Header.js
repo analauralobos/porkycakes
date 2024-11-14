@@ -3,7 +3,7 @@ import './Header.css'
 
 const Header = () => {
   return (
-    <div className="header">
+    <div className="h-header">
       <div className="header-content">
         <img className="header-logo" src="./recursos/porkycakes_logo.png" alt="Logo" />
         <h2 className="header-title">Tortas Artesanales para cada ocasión</h2>

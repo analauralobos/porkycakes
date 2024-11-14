@@ -8,7 +8,7 @@
     src: url('../../assets/fonts/roboto/Roboto-Regular.ttf') format('truetype');
 }
 
-.logo {
+.navbar-container .logo {
     font-family: 'Paytone';
     color: #DE9999;
     font-size: 40px;
@@ -16,28 +16,27 @@
     text-decoration: none;
 }
 
-.navbar {
+.navbar-container {
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    position: sticky;
-    z-index: 10;
+    margin-bottom: 0px;  
+    position: relative;   
 }
 
-li {
+.navbar-container li {
     font-family: 'Roboto';
     font-size: 20px;
 }
 
-.navbar .logo {
+.navbar-container .logo {
     padding-left: 10px;
     width: 150px;
     margin-left: 15px;
 }
 
-.navbar-menu {
+.navbar-container .navbar-menu {
     display: flex;
     list-style: none;
     gap: 20px;
@@ -46,28 +45,28 @@ li {
     margin-top: 15px;
 }
 
-.navbar-menu a {
+.navbar-container .navbar-menu a {
     text-decoration: none;
     color: black;
     transition: color 0.3s ease;
 }
 
-.navbar-menu a:hover {
+.navbar-container .navbar-menu a:hover {
     color: #DE9999;
 }
 
-.navbar .active a {
+.navbar-container .active a {
     color: #DE9999;
     font-weight: bold;
 }
 
-.navbar-right {
+.navbar-container .navbar-right {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.navbar button {
+.navbar-container button {
     background: transparent;
     font-size: 16px;
     color: black;
@@ -81,29 +80,30 @@ li {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.navbar button:hover {
+.navbar-container button:hover {
     background-color: #DE9999;
+    color: white;
 }
 
-.navbar .active {
+.navbar-container .active {
     padding-bottom: 2px;
     border-bottom: 2px solid gray;
 }
 
-.busqueda,
-.carrito {
+.navbar-container .busqueda,
+.navbar-container .carrito {
     font-size: 25px;
 }
 
-.navbar li {
+.navbar-container li {
     cursor: pointer;
 }
 
-.navbar-search-icon {
+.navbar-container .navbar-search-icon {
     position: relative;
 }
 
-.navbar-search-icon .dot {
+.navbar-container .navbar-search-icon .dot {
     position: absolute;
     min-width: 10px;
     min-height: 10px;
@@ -114,7 +114,7 @@ li {
 }
 
 
-.hamburger-menu {
+.navbar-container .hamburger-menu {
     display: none;
     background: none;
     border: none;
@@ -122,7 +122,7 @@ li {
     cursor: pointer;
 }
 
-.navbar-menu.open {
+.navbar-container .navbar-menu.open {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -136,7 +136,7 @@ li {
 }
 
 /* Estilo para el overlay del modal */
-.login-modal-overlay {
+.navbar-container .login-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -146,12 +146,12 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 3000;
     transition: opacity 0.3s ease;
 }
 
 /* Estilo para el contenido del modal */
-.login-modal {
+.navbar-container .login-modal {
     background-color: #ffe1e1;
     padding: 20px;
     border-radius: 20px;
@@ -160,7 +160,7 @@ li {
 }
 
 /* Card para centrar el contenido */
-.login-card {
+.navbar-container .login-card {
     width: 100%;
     max-width: 300px;
     height: 350px;
@@ -171,7 +171,7 @@ li {
 }
 
 /* Fondo con gradiente difuminado */
-.login-container {
+.navbar-container .login-container {
     min-height: 85vh;
     background: linear-gradient(135deg, #ffc4c4, #ff8484);
     display: flex;
@@ -184,17 +184,20 @@ li {
 
 /* Media queries para pantallas pequeñas */
 @media (max-width: 768px) {
-    .navbar-menu {
+    .navbar-container .navbar-menu {
         display: none;
         flex-direction: column;
         gap: 15px;
+        z-index: 2000;
     }
 
-    .hamburger-menu {
+    .navbar-container .hamburger-menu {
         display: block;
+        z-index: 2000;
     }
 
-    .navbar-right {
+    .navbar-container .navbar-right {
         display: none;
+        z-index: 2000;
     }
 }

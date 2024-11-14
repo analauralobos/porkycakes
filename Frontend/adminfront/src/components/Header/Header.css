@@ -1,56 +1,84 @@
-.header {
-    background-color: #f7a8c9;
-    height: 400px; 
+.h-header {
+    background: url('../../assets/img/header.jpg') center/cover no-repeat;    
+    position: relative;
     text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-
-.header-content {
+    padding: 30px 10px;       
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    overflow: hidden;  
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
 }
 
-.header-logo {
-    max-width: 20%;
+/* Difuminado sobre la imagen */
+.h-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(148, 138, 139, 0.5); 
+    backdrop-filter: blur(3px); /* Difuminado */
+    z-index: 0;
+    pointer-events: none; /* No afecta clics */    
+}
+
+/* Contenido del header */
+.h-header .header-content {
+    position: relative;
+    z-index: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.h-header .header-logo {
+    max-width: 150px; 
     height: auto;
     margin-bottom: 20px;
+   
 }
 
-.header-title {
-    font-size: 2rem;
+.h-header .header-title {
+    font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.781); 
+    margin-bottom: 15px;
 }
 
-.header-description {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #555;
-    max-width: 80%;
+.h-header .header-description {
+    font-size: 1.5rem;
+    max-width: 70%;
     line-height: 1.5;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.842); 
+    margin-bottom: 20px;
 }
 
-.header-button {
-    background-color: white;
+/* Botones */
+.h-header .header-button {
+    background-color: rgba(255, 255, 255, 0.9);
     font-size: 16px;
-    color: black;
+    color: #000000;
     border: 1px solid tomato;
-    padding: 10px 30px;
+    padding: 12px 25px;
     border-radius: 30px;
     cursor: pointer;
-    margin-right: 20px;
-    margin-left: 20px;
-    transition: 0.3s;
+    margin: 10px;
+    transition: all 0.3s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.header-button:hover {
-    background-color: #ff5286;
+.h-header .header-button:hover {
+    background-color: #DE9999;
+    color: white;
+    box-shadow: 0px 6px 10px rgba(255, 82, 134, 0.4);
 }
+
+
