@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../../services/ProductoService";
 import { useNavigate } from "react-router-dom";
-import './ProductList.css';
+import "./ProductList.css";
+import { getCategoriasId } from "../../services/CateogriaService";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [categorias, setCategorias] = useState({});
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +16,10 @@ const ProductList = () => {
       try {
         const response = await getAllProducts();
         setProducts(response || []);
+        // Cargar categorías para cada producto
+        response.forEach((product) => {
+          fetchCategoriaNombre(product.p_categoria);
+        });
       } catch (error) {
         console.error("Error fetching products: ", error);
       } finally {
@@ -23,9 +30,27 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  const handleProductClick = (id) => {
-    navigate(`/detail-product/${id}`);
+  // Función para obtener la categoría por ID y almacenarla en caché
+  const fetchCategoriaNombre = async (id_categoria) => {
+    if (categorias[id_categoria]) {
+      return; // Si ya existe en caché, no realizar otra petición
+    }
+    try {
+      const categoria = await getCategoriasId(id_categoria);
+      setCategorias((prev) => ({ ...prev, [id_categoria]: categoria }));
+    } catch (error) {
+      console.error(`Error fetching categoria with ID ${id_categoria}:`, error);
+    }
   };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value.toLowerCase()); // Actualiza el término de búsqueda
+  };
+
+  // Filtrar productos según el término de búsqueda
+  const filteredProducts = products.filter((product) =>
+    product.Nombre_Producto.toLowerCase().includes(searchTerm)
+  );
 
   if (loading) {
     return <div className="loading">Cargando productos...</div>;
@@ -35,13 +60,23 @@ const ProductList = () => {
     <div className="product-list-container">
       <div className="header">
         <label>
-          <input className="input"></input>
-        </label>        
-        <button className="add-product-button">Agregar Producto</button>
+          <input
+            type="text"
+            className="input"
+            placeholder="Buscar productos..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </label>
+        <button
+          className="add-product-button"
+          onClick={() => navigate("/add-product")}
+        >
+          Agregar Producto
+        </button>
       </div>
 
-      
-      {products.length === 0 ? (
+      {filteredProducts.length === 0 ? (
         <p className="no-products-message">No hay productos disponibles.</p>
       ) : (
         <table className="product-table">
@@ -55,12 +90,16 @@ const ProductList = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <tr key={product.id_Producto}>
                 <td>{product.Nombre_Producto}</td>
                 <td>{product.precio_vta} $</td>
                 <td>{product.cant_porciones}</td>
-                <td>{product.p_categoria}</td>
+                <td>
+                  {categorias[product.p_categoria]?.nombre || (
+                    <span>Cargando...</span>
+                  )}
+                </td>
                 <td>
                   <button
                     className="action-button edit"

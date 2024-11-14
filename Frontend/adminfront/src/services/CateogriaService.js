@@ -11,3 +11,14 @@ export const getAllCategorias = async () => {
       throw error;
     }
 };
+
+// Obtener todas las categorias
+export const getCategoriasId= async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/obtener/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener las categorias por id:", error);
+    throw error;
+  }
+};
