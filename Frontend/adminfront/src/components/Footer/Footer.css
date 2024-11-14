@@ -1,22 +1,22 @@
-.footer{
+.container-footer {
     background-color: #262323;
     padding-top: 5px;
     border-radius: 5px;
 }
 
-.encabezado{
+.container-footer .encabezado{
     color: white;
     margin-left: 15px;
     font-size: x-large;
     font-family: Manrope;
 }
 
-.contenido{
+.container-footer .contenido{
     color: #ffffff;
     font-family: Manrope;
 }
 
-.icono{
+.container-footer .icono{
     color: #c78ca0;
     height: 50px;
     width: 35px;

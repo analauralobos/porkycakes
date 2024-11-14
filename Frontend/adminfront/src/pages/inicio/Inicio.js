@@ -7,10 +7,10 @@ import Header from '../../components/Header/Header'
 
 const Inicio = () => {
   return (
-    <div className='container'>
+    <div className='i-container'>
       <Header/>
       <Categoria/>
-      <hr className='divisor'></hr>
+      <hr className='i-divisor'></hr>
       <Producto/>
       <Footer/>
     </div>

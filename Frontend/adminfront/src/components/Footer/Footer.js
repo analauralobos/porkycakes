@@ -4,7 +4,7 @@ import { FaInstagram, FaFacebook, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 const Footer = () => {
     return (
-        <div class="container footer">
+        <div class="container-footer">
             <div class="row">
                 <div class="col-4">
                     <p className="encabezado">Redes Sociales:</p>
