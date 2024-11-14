@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './Menu.css';
+import './Categoria.css';
 import { getAllCategorias } from '../../services/CateogriaService';
 
-const Menu = () => {
+const Categoria = () => {
   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Menu = () => {
 
   return (
     <div className="menu">
-      <h2>Categorías</h2>
+      <h2 className='titulo'>Categorias</h2>
       <div className="categorias-container">
         {categorias.map(categoria => (
           <div
@@ -52,4 +52,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default Categoria;

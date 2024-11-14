@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Manrope';
+    src: url('../../assets/fonts/manrope/Manrope-Bold.otf') format('truetype');
+}
+
+.titulo{
+    color: black;
+    font-family: Manrope;
+    font-size: 35px;
+    padding-left: 15px;
+}
+
 .menu {
     text-align: left;
 }
@@ -8,6 +20,7 @@
     gap: 20px;
     flex-wrap: wrap;
     margin-top: 20px;
+    margin-left: 5px;
 }
 
 .categoria-item {
@@ -16,24 +29,20 @@
     align-items: center;
     width: 100px;
     cursor: pointer;
-    /* Hacer que el cursor cambie al estilo de "puntero" */
     transition: transform 0.2s;
-    /* Transición para la animación de escala */
 }
 
 .categoria-item:hover .categoria-imagen {
     transform: scale(1.1);
-    /* Agranda la imagen al pasar el mouse */
 }
 
 .categoria-imagen {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s;
-    /* Suavizar la transición de escala */
 }
 
 .categoria-nombre {

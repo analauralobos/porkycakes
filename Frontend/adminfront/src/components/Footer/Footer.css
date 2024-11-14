@@ -1,0 +1,27 @@
+.footer{
+    background-color: #262323;
+    padding-top: 5px;
+    border-radius: 5px;
+}
+
+.encabezado{
+    color: white;
+    margin-left: 15px;
+    font-size: x-large;
+    font-family: Manrope;
+}
+
+.contenido{
+    color: #ffffff;
+    font-family: Manrope;
+}
+
+.icono{
+    color: #c78ca0;
+    height: 50px;
+    width: 35px;
+    margin-left: 20px;
+    padding-bottom: 25px;
+}
+
+

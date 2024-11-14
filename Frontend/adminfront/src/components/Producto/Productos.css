@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'RobotoBlack';
+    src: url('../../assets/fonts/roboto/Roboto-Black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'RobotoLight';
+    src: url('../../assets/fonts/roboto/Roboto-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../assets/fonts/roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+.row{
+    padding-top: 15px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.imagen {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.Producto{
+    color: black;
+    font-family: Manrope;
+    font-size: 35px;
+}
+
+.nombre{
+    font-family: RobotoBlack;
+    color: #c78ca0;
+    font-size: xx-large;
+}
+
+.precio{
+    font-family: RobotoBlack;
+    font-size: x-large;
+}
+
+.descripcion{
+    font-family: RobotoLight;
+}

@@ -1,0 +1,64 @@
+/* Fondo con gradiente difuminado */
+.login-container {
+    min-height: 85vh;
+    background: linear-gradient(135deg, #ffc4c4, #ff8484);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    margin: 5px;
+  }
+  
+  /* Card para centrar el contenido */
+  .login-card {
+    width: 100%;
+    max-width: 300px;
+    height: 350px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: white;    
+  }
+  
+  /* Títulos con efecto degradado */
+  .text-gradient {
+    font-family: 'Paytone', sans-serif;
+    background: linear-gradient(to right, #ff8484, #ffa3a3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 32px;
+    
+  }
+  
+  /* Botón estilizado */
+  .btn-pink {
+    background-color: #ff9595;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;    
+    
+  }
+  
+  .btn-pink:hover {
+    background-color: #ff8484;
+  }
+  .form{
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  /* Inputs */
+  .form-control {
+    border: 1px solid #ff9595;
+    border-radius: 10px;
+    padding: 10px 15px;  
+    
+  }
+  
+  .form-control:focus {
+    border-color: #ff8484;
+    box-shadow: 0 0 4px #ff9595;
+  }
+  
