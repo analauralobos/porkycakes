@@ -7,6 +7,7 @@
     align-items: center;
     border-radius: 15px;
     margin: 5px;
+    z-index: 1000;
   }
   
   /* Card para centrar el contenido */
@@ -27,7 +28,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 32px;
-    
   }
   
   /* Botón estilizado */
@@ -62,3 +62,5 @@
     box-shadow: 0 0 4px #ff9595;
   }
   
+
+

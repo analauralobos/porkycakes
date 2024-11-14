@@ -22,11 +22,10 @@ public class ClienteDAO {
 
     // Método para registrar un nuevo cliente
     public boolean crearCliente(Cliente cliente) {
-        String insertSQL = "INSERT INTO cliente (id_Cliente, Nombre_Cliente, telefono_cliente, email_cliente, direccion_cliente, fecha_nac_cliente, pass_cliente) VALUES (:idCliente, :nombre, :telefono, :email, :direccion, :fecha_nac, :password);";
+        String insertSQL = "INSERT INTO cliente (nombre_cliente, telefono_cliente, email_cliente, direccion_cliente, fecha_nac_cliente, pass_cliente) VALUES (:nombre, :telefono, :email, :direccion, :fecha_nac, :password);";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             String hashedPassword = BCrypt.hashpw(cliente.getPass_cliente(), BCrypt.gensalt());
             con.createQuery(insertSQL)
-                    .addParameter("idCliente", cliente.getId_Cliente())
                     .addParameter("nombre", cliente.getNombre_Cliente())
                     .addParameter("telefono", cliente.getTelefono_cliente())
                     .addParameter("email", cliente.getEmail_cliente())
@@ -67,7 +66,7 @@ public class ClienteDAO {
 
     // Método para modificar un cliente
     public boolean modificarCliente(Cliente cliente) {
-        String updateSQL = "UPDATE cliente SET Nombre_Cliente = :nombre, telefono_cliente = :telefono, email_cliente = :email, direccion_cliente = :direccion, fecha_nac_cliente = :fecha_nac WHERE id_Cliente = :idCliente;";
+        String updateSQL = "UPDATE cliente SET nombre_cliente = :nombre, telefono_cliente = :telefono, email_cliente = :email, direccion_cliente = :direccion, fecha_nac_cliente = :fecha_nac WHERE id_cliente = :idCliente;";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             con.createQuery(updateSQL)
                     .addParameter("idCliente", cliente.getId_Cliente())
@@ -85,11 +84,11 @@ public class ClienteDAO {
     }
 
     // Método para eliminar un cliente
-    public boolean eliminarCliente(int id_Cliente) {
-        String deleteSQL = "DELETE FROM cliente WHERE id_Cliente = :idCliente;";
+    public boolean eliminarCliente(int id_cliente) {
+        String deleteSQL = "DELETE FROM cliente WHERE id_cliente = :idCliente;";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             con.createQuery(deleteSQL)
-                    .addParameter("idCliente", id_Cliente)
+                    .addParameter("idCliente", id_cliente)
                     .executeUpdate();
             return true;
         } catch (Exception e) {

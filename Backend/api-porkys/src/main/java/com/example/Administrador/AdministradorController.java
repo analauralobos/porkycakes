@@ -1,6 +1,8 @@
 package com.example.Administrador;
 
 import java.util.List;
+
+import com.example.Cliente.ClienteDAO;
 import com.example.Security.AuthService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -23,6 +25,20 @@ public class AdministradorController {
         }
     };
 
+    public static Route getIsAdmin = (Request request, Response response) -> {
+        response.type("application/json");
+        String email = request.params(":email");
+        String pass = request.params(":pass");
+
+        try {
+            Boolean res = adminDAO.authenticateAdmin(email, pass); // Llamada al DAO con email y pass
+            return gson.toJson(res); // Retorna true o false
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error controlador: " + e.getMessage());
+        }
+    };
+   
     // Crear nuevo administrador
     public static Route crearAdmin = (Request request, Response response) -> {
         response.type("application/json");

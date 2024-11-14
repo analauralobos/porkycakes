@@ -1,8 +1,6 @@
-
 package com.example.Cliente;
 
 import java.util.List;
-
 import com.example.Security.AuthService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -10,6 +8,7 @@ import spark.Response;
 import spark.Route;
 
 public class ClienteController {
+
     private static final Gson gson = new Gson();
     private static final ClienteDAO clienteDAO = new ClienteDAO();
 
@@ -17,8 +16,23 @@ public class ClienteController {
     public static Route getTodosClientes = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            List<Cliente> res = clienteDAO.selectAll();
-            return gson.toJson(res);
+            List<Cliente> clientes = clienteDAO.selectAll();
+            return gson.toJson(clientes);
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error controlador: " + e.getMessage());
+        }
+    };
+
+    // Verificar si el cliente existe con email y pass
+    public static Route getIsCliente = (Request request, Response response) -> {
+        response.type("application/json");
+        String email = request.params(":email");
+        String pass = request.params(":pass");
+
+        try {
+            Boolean existe = clienteDAO.authenticateCliente(email, pass);
+            return gson.toJson(existe);
         } catch (Exception e) {
             response.status(500);
             return gson.toJson("Error controlador: " + e.getMessage());
@@ -30,9 +44,14 @@ public class ClienteController {
         response.type("application/json");
         try {
             Cliente nuevoCliente = gson.fromJson(request.body(), Cliente.class);
-            clienteDAO.crearCliente(nuevoCliente);
-            response.status(201);
-            return gson.toJson(nuevoCliente);
+            boolean creado = clienteDAO.crearCliente(nuevoCliente);
+            if (creado) {
+                response.status(201);
+                return gson.toJson(nuevoCliente);
+            } else {
+                response.status(400);
+                return gson.toJson("Error al crear el cliente");
+            }
         } catch (Exception e) {
             response.status(500);
             return gson.toJson("Error al crear cliente: " + e.getMessage());
@@ -59,11 +78,12 @@ public class ClienteController {
     };
 
     // Modificar cliente
-    public static Route modificarCliente = (request, response) -> {
+    public static Route modificarCliente = (Request request, Response response) -> {
         response.type("application/json");
         try {
             Cliente clienteModificado = gson.fromJson(request.body(), Cliente.class);
-            if (clienteDAO.modificarCliente(clienteModificado)) {
+            boolean modificado = clienteDAO.modificarCliente(clienteModificado);
+            if (modificado) {
                 response.status(200);
                 return gson.toJson(clienteModificado);
             } else {
@@ -77,17 +97,21 @@ public class ClienteController {
     };
 
     // Eliminar cliente
-    public static Route eliminarCliente = (request, response) -> {
+    public static Route eliminarCliente = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            int id_Cliente = Integer.parseInt(request.params(":id_cliente"));
-            if (clienteDAO.eliminarCliente(id_Cliente)) {
-                response.status(204); // Sin contenido
+            int idCliente = Integer.parseInt(request.params(":id_cliente"));
+            boolean eliminado = clienteDAO.eliminarCliente(idCliente);
+            if (eliminado) {
+                response.status(204); // No Content
                 return gson.toJson("Cliente eliminado");
             } else {
                 response.status(404);
                 return gson.toJson("Cliente no encontrado");
             }
+        } catch (NumberFormatException e) {
+            response.status(400);
+            return gson.toJson("ID de cliente inválido");
         } catch (Exception e) {
             response.status(500);
             return gson.toJson("Error al eliminar el cliente: " + e.getMessage());

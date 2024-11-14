@@ -22,11 +22,10 @@ public class AdministradorDAO {
 
     // Método para registrar un nuevo administrador
     public boolean crearAdmin(Administrador admin) {
-        String insertSQL = "INSERT INTO administrador (id_administrador, nombre, apellido, email, password, rol) VALUES (:idAdmin, :nombre, :apellido, :email, :password, :rol);";
+        String insertSQL = "INSERT INTO administrador (nombre, apellido, email, password, rol) VALUES (:nombre, :apellido, :email, :password, :rol);";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             String hashedPassword = BCrypt.hashpw(admin.getPassword(), BCrypt.gensalt());
             con.createQuery(insertSQL)
-                    .addParameter("idAdmin", admin.getId_administrador())
                     .addParameter("nombre", admin.getNombre())
                     .addParameter("apellido", admin.getApellido())
                     .addParameter("email", admin.getEmail())

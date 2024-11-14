@@ -80,23 +80,27 @@ public class IngredienteController {
     };
 
     // Eliminar un ingrediente
-    public static Route eliminarIngrediente = (Request request, Response response) -> {
-        response.type("application/json");
-        try {
-            Ingrediente ingredienteAEliminar = gson.fromJson(request.body(), Ingrediente.class);
-            boolean eliminado = ingredienteDAO.eliminarIngrediente(ingredienteAEliminar);
+public static Route eliminarIngrediente = (Request request, Response response) -> {
+    response.type("application/json");
+    try {
+        // Obtener id_MateriaPrima e id_Producto desde la URL
+        int idMateriaPrima = Integer.parseInt(request.params(":idMateriaPrima"));
+        int idProducto = Integer.parseInt(request.params(":idProducto"));
 
-            if (eliminado) {
-                response.status(200);
-                return gson.toJson("Ingrediente eliminado exitosamente");
-            } else {
-                response.status(400);
-                return gson.toJson("No se pudo eliminar el ingrediente.");
-            }
-        } catch (Exception e) {
-            response.status(500);
-            return gson.toJson("Error al eliminar ingrediente: " + e.getMessage());
+        boolean eliminado = ingredienteDAO.eliminarIngrediente(idMateriaPrima, idProducto);
+
+        if (eliminado) {
+            response.status(200);
+            return gson.toJson("Ingrediente eliminado exitosamente");
+        } else {
+            response.status(400);
+            return gson.toJson("No se pudo eliminar el ingrediente.");
         }
-    };
+    } catch (Exception e) {
+        response.status(500);
+        return gson.toJson("Error al eliminar ingrediente: " + e.getMessage());
+    }
+};
+
 
 }

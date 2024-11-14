@@ -29,4 +29,18 @@ public class CategoriaDAO {
             return null;
         }
     }
+
+
+    public Categoria obtenerCategoriaPorId(int id_categoria) {
+        String selectSQL = "SELECT * FROM categoria WHERE id_categoria = :id_categoria;";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            Categoria categoria = con.createQuery(selectSQL)
+                    .addParameter("id_categoria", id_categoria)
+                    .executeAndFetchFirst(Categoria.class);
+            return categoria;
+        } catch (Exception e) {
+            System.err.println("Error al obtener la categoría por id: " + e.getMessage());
+            return null;
+        }
+    }
 }

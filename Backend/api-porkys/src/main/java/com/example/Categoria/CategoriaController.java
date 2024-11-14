@@ -39,4 +39,21 @@ public class CategoriaController {
             return gson.toJson("Error al obtener la categoría: " + e.getMessage());
         }
     };
+        // Obtener una categoría por id 
+        public static Route getCategoriaPorId = (Request request, Response response) -> {
+            response.type("application/json");
+            try {
+                int id_categoria = Integer.parseInt(request.params(":id_categoria"));
+                Categoria categoria = categoriaDAO.obtenerCategoriaPorId(id_categoria);
+                if (categoria != null) {
+                    return gson.toJson(categoria);
+                } else {
+                    response.status(404);
+                    return gson.toJson("Categoría no encontrada");
+                }
+            } catch (Exception e) {
+                response.status(500);
+                return gson.toJson("Error al obtener la categoría: " + e.getMessage());
+            }
+        };
 }

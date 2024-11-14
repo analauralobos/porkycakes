@@ -13,6 +13,7 @@
     color: #DE9999;
     font-size: 40px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
 }
 
 .navbar {
@@ -22,6 +23,7 @@
     align-items: center;
     margin-bottom: 15px;
     position: sticky;
+    z-index: 10;
 }
 
 li {
@@ -46,23 +48,17 @@ li {
 
 .navbar-menu a {
     text-decoration: none;
-    /* Elimina el subrayado predeterminado */
     color: black;
-    /* Cambia el color del texto */
     transition: color 0.3s ease;
-    /* Suaviza los cambios de color */
 }
 
 .navbar-menu a:hover {
     color: #DE9999;
-    /* Cambia el color al pasar el mouse */
 }
 
 .navbar .active a {
     color: #DE9999;
-    /* Color del enlace activo */
     font-weight: bold;
-    /* Resalta el enlace activo */
 }
 
 .navbar-right {

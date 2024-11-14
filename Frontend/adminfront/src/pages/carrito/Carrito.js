@@ -4,7 +4,7 @@ import './Carrito.css'
 const Carrito = () => {
   return (
     <div>
-      
+      <p>Aca iria el carrito</p>
     </div>
   )
 }

@@ -7,6 +7,10 @@ import PanelAdmin from './pages/PanelAdmin';
 import Inicio from './pages/inicio/Inicio';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductDetail from './components/Producto/ProductDetail';
+import Menu from './pages/menu/Menu';
+import Carrito from './pages/carrito/Carrito';
+import Contacto from './pages/contacto/Contacto';
+import Pedidos from './pages/pedidos/Pedidos';
 
 function App() {
   const [userRole, setUserRole] = useState(null); 
@@ -16,12 +20,14 @@ function App() {
       <Navbar userRole={userRole} setUserRole={setUserRole} />
            
       <Routes>
-        <Route path="/" element={<Home userRole={userRole} />} /> 
-        <Route path="/login" element={<Login setUserRole={setUserRole} />} /> 
+        <Route path="/login" element={<Login setUserRole={setUserRole} />} />
+        <Route path="/menu" element={<Menu/>} />
+        <Route path="/contacto" element={<Contacto/>} />
+        <Route path="/carrito" element={<Carrito/>} />
+        <Route path="/mispedidos" element={<Pedidos/>} />
         <Route path="/paneladmin" element={<PanelAdmin userRole={userRole} />} /> 
-        <Route path="/inicio" element={<Inicio/>} /> 
+        <Route path="/" element={<Inicio/>} /> 
         <Route path="/edit-product/:id" element={<ProductDetail/>} /> 
-        
       </Routes>
     </Router>
   );
@@ -30,7 +36,7 @@ function App() {
 
 export default App;
 
-
+/* <Route path="/" element={<Home userRole={userRole} />} />  */
 
 
 /*import React, { useState } from "react";

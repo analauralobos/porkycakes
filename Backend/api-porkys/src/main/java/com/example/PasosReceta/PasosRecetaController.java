@@ -1,8 +1,6 @@
 package com.example.PasosReceta;
 
 import java.util.List;
-
-import com.example.Ingrediente.Ingrediente;
 import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;

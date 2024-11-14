@@ -27,7 +27,7 @@ const Navbar = ({ userRole, setUserRole }) => {
   const closeLoginModal = () => setShowLoginModal(false); // Cierra el modal de login
 
   return (
-    <div className="navbar">
+    <div className="navbar container">
       <Link to="/" className="logo">PorkyCakes</Link>
       <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <GiHamburgerMenu />

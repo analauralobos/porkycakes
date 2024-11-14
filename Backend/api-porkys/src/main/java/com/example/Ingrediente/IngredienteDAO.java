@@ -64,19 +64,20 @@ public class IngredienteDAO {
         }
     }
 
-    // Método para eliminar un ingrediente existente
-    public boolean eliminarIngrediente(Ingrediente ingrediente) {
-        String deleteSQL = "DELETE FROM ingrediente WHERE id_MateriaPrima = :id_MateriaPrima AND id_Producto = :id_Producto;";
-        try (Connection con = Sql2oDAO.getSql2o().open()) {
-            con.createQuery(deleteSQL)
-                    .addParameter("id_MateriaPrima", ingrediente.getId_MateriaPrima())
-                    .addParameter("id_Producto", ingrediente.getId_Producto())
-                    .executeUpdate();
-            return true;
-        } catch (Exception e) {
-            System.err.println("Error al eliminar el ingrediente: " + e.getMessage());
-            return false;
-        }
+// Método para eliminar un ingrediente existente
+public boolean eliminarIngrediente(int idMateriaPrima, int idProducto) {
+    String deleteSQL = "DELETE FROM ingrediente WHERE id_MateriaPrima = :idMateriaPrima AND id_Producto = :idProducto;";
+    try (Connection con = Sql2oDAO.getSql2o().open()) {
+        con.createQuery(deleteSQL)
+            .addParameter("idMateriaPrima", idMateriaPrima)
+            .addParameter("idProducto", idProducto)
+            .executeUpdate();
+        return true;
+    } catch (Exception e) {
+        System.err.println("Error al eliminar el ingrediente: " + e.getMessage());
+        return false;
     }
+}
+
 
 }

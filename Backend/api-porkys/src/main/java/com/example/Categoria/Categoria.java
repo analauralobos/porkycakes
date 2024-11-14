@@ -3,7 +3,7 @@ import lombok.Data;
 
 @Data
 public class Categoria {
+    private int id_categoria;
     private String nombre;
-    private Integer id_categoria;
-    private byte[] imagen;
+    private byte[] imagen; 
 }

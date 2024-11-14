@@ -25,14 +25,14 @@ export const createProduct = async (productData) => {
 
 // Obtener un producto por id
 export const getProductById = async (id, productData) => {
-    try {
-      const response = await axios.get(`${API_URL}/detalles/${id}`, productData);
-      return response.data;
-    } catch (error) {
-      console.error(`Error al ver el producto con ID ${id}:`, error);
-      throw error;
-    }
-  };
+  try {
+    const response = await axios.get(`${API_URL}/detalles/${id}`, productData);
+    return response.data;
+  } catch (error) {
+    console.error(`Error al ver el producto con ID ${id}:`, error);
+    throw error;
+  }
+};
 
 // Actualizar un producto existente
 export const updateProduct = async (id, productData) => {
@@ -54,6 +54,12 @@ export const deleteProduct = async (id) => {
     console.error(`Error al eliminar el producto con ID ${id}:`, error);
     throw error;
   }
+};
+
+// Obtener productos por nombre de categoría
+export const getProductsByCategory = async (nombreCategoria) => {
+  const response = await axios.get(`${API_URL}/categoria/nombre/${nombreCategoria}`);
+  return response.data;
 };
 
 
