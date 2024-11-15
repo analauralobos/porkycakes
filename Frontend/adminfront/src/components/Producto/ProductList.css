@@ -10,7 +10,7 @@
 }
 
 /* Encabezado */
-.header {
+.product-list-container .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +25,7 @@
 
 }
 
-.input {
+.product-list-container .input {
   border-radius: 15px;
   background-color: #ffffff;
   border-color: #afabab;
@@ -34,10 +34,11 @@
   border-width: 0.5px;
   height: 35px;
   width: 500px;
+  padding-left: 10px;
 
 }
 
-.add-product-button {
+.product-list-container .add-product-button {
   background-color: #ff9595;
   color: white;
   border: none;
@@ -48,12 +49,12 @@
   padding-right: 15px;
 }
 
-.add-product-button:hover {
+.product-list-container .add-product-button:hover {
   background-color: #ff8484;
 }
 
 /* Tabla */
-.product-table {
+.product-list-container .product-table {
   width: 100%;
   border-collapse: collapse;
   background: white;
@@ -62,31 +63,31 @@
 
 }
 
-.product-table th,
-.product-table td {
+.product-list-container .product-table th,
+.product-list-container .product-table td {
   padding: 15px;
   text-align: left;
 }
 
-.product-table th {
+.product-list-container .product-table th {
   background-color: #ff9595;
   color: white;
 }
 
-.product-table tr {
+.product-list-container .product-table tr {
   border-bottom: 1px solid #ddd;
 }
 
-.product-table tr:hover {
+.product-list-container .product-table tr:hover {
   background-color: #ffeaea;
 }
 
-.product-table td {
+.product-list-container .product-table td {
   color: #555;
 }
 
 /* Botones de acción */
-.action-button {
+.product-list-container .action-button {
   padding: 5px 10px;
   margin: 0 5px;
   border-radius: 5px;
@@ -95,26 +96,26 @@
   font-size: 14px;
 }
 
-.action-button.edit {
+.product-list-container .action-button.edit {
   background-color: #ffc107;
   color: white;
 }
 
-.action-button.edit:hover {
+.product-list-container .action-button.edit:hover {
   background-color: #e0a800;
 }
 
-.action-button.delete {
+.product-list-container .action-button.delete {
   background-color: #dc3545;
   color: white;
 }
 
-.action-button.delete:hover {
+.product-list-container .action-button.delete:hover {
   background-color: #c82333;
 }
 
 /* Mensaje sin productos */
-.no-products-message {
+.product-list-container .no-products-message {
   color: #555;
   font-size: 18px;
   text-align: center;
@@ -122,7 +123,7 @@
 }
 
 /* Estilo de carga */
-.loading {
+.product-list-container .loading {
   font-size: 20px;
   color: #ff8484;
   text-align: center;

@@ -11,7 +11,8 @@ import Menu from './pages/menu/Menu';
 import Carrito from './pages/carrito/Carrito';
 import Contacto from './pages/contacto/Contacto';
 import Pedidos from './pages/pedidos/Pedidos';
-
+import MateriaPrimaDetail from './components/materiaprima/MateriaPrimaDetail';
+import MateriaPrimaForm from './components/materiaprima/MateriaPrimaForm';
 function App() {
   const [userRole, setUserRole] = useState(null); 
 
@@ -28,6 +29,8 @@ function App() {
         <Route path="/paneladmin" element={<PanelAdmin userRole={userRole} />} /> 
         <Route path="/" element={<Inicio/>} /> 
         <Route path="/edit-product/:id" element={<ProductDetail/>} /> 
+        <Route path="/edit-mp/:id" element={<MateriaPrimaDetail/>} /> 
+        <Route path="/add-MP" element={<MateriaPrimaForm/>} /> 
       </Routes>
     </Router>
   );

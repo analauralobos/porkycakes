@@ -1,5 +1,3 @@
-// ProductDetail.js
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById, updateProduct } from "../../services/ProductoService";
@@ -166,7 +164,7 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-container">
-      <div className="content-wrapper">
+      
         {/* Menú lateral */}
         <div className="sidebar">
           <button onClick={() => setSelectedCard("producto")}>Producto</button>
@@ -185,7 +183,7 @@ const ProductDetail = () => {
         <div className="cards-container">
           {/* Detalles del Producto */}
           {selectedCard === "producto" && (
-            <div className="card">
+            <div className="card-p">
               <h3>Detalles del Producto</h3>
               <div className="product-details">
                 <form>
@@ -256,7 +254,7 @@ const ProductDetail = () => {
 
           {/* Ingredientes */}
           {selectedCard === "ingredientes" && (
-            <div className="card">
+            <div className="card-p">
               <h3>Ingredientes</h3>
               <table className="table-ingredients">
                 <thead>
@@ -337,7 +335,7 @@ const ProductDetail = () => {
 
           {/* Pasos de la Receta */}
           {selectedCard === "receta" && (
-            <div className="card">
+            <div className="card-p">
               <h3>Pasos de la Receta</h3>
               <table className="table-steps">
                 <thead>
@@ -385,7 +383,7 @@ const ProductDetail = () => {
             </div>
           )}
         </div>
-      </div>
+      
     </div>
   );
 };
