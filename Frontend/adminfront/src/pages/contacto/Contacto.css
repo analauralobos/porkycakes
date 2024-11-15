@@ -1,0 +1,64 @@
+.contacto-container {
+    background-color: #ffffff;
+    padding: 20px;
+    padding-bottom: 80px;
+    padding-top: 60px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.form-contacto {
+    color: #DE9999;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mensaje-input {
+    padding: 10px;
+    border: 1px solid #d4a1b2;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.enviar-btn {
+    padding: 10px;
+    background-color: #f25c8e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.enviar-btn:hover {
+    background-color: #f43f6c;
+}
+
+/* Diseño responsive */
+@media (max-width: 768px) {
+    .contacto-container {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .mensaje-input {
+        font-size: 14px;
+    }
+
+    .enviar-btn {
+        font-size: 14px;
+    }
+}

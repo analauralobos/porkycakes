@@ -1,15 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';  // Añadido useNavigate
 import { getProductsByCategory, getAllProducts } from '../../services/ProductoService';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import { FaSearch } from 'react-icons/fa';
 import './Menu.css';
 
 const Menu = () => {
   const [productos, setProductos] = useState([]);
-  const [categoria, setCategoria] = useState('Todos'); // Inicializar como 'Todos'
+  const { categoria } = useParams(); 
+  const navigate = useNavigate(); 
 
   const categorias = ['Torta', 'Galletitas', 'Alfajores', 'Tartas', 'Sin T.A.C.C', 'Vegano'];
 
-  // Función para cargar todos los productos
+  // Función para obtener productos por categoría
+  const fetchProductsByCategory = async (categoriaSeleccionada) => {
+    setProductos([]);
+    try {
+      const data = await getProductsByCategory(categoriaSeleccionada);
+      const productosConImagenes = data.map((producto) => ({
+        ...producto,
+        imagen: producto.imagen
+          ? `data:image/png;base64,${btoa(
+              new Uint8Array(producto.imagen).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                ''
+              )
+            )}` 
+          : null,
+      }));
+      setProductos(productosConImagenes);
+    } catch (error) {
+      console.error("Error al cargar los productos:", error);
+    }
+  };
+
+  // Función para obtener todos los productos
   const fetchAllProducts = async () => {
     try {
       const data = await getAllProducts();
@@ -21,7 +47,7 @@ const Menu = () => {
                 (data, byte) => data + String.fromCharCode(byte),
                 ''
               )
-            )}`
+            )}` 
           : null,
       }));
       setProductos(productosConImagenes);
@@ -30,63 +56,55 @@ const Menu = () => {
     }
   };
 
-  const handleCategoryClick = async (categoriaSeleccionada) => {
-    setCategoria(categoriaSeleccionada);
-    setProductos([]);
-
-    if (categoriaSeleccionada === 'Todos') {
-      fetchAllProducts();
-    } else {
-      try {
-        const data = await getProductsByCategory(categoriaSeleccionada);
-        // Verificar si hay productos para mostrar
-        if (data.length === 0) {
-          setProductos([]);  // Si no hay productos, no se muestran
-        } else {
-          const productosConImagenes = data.map((producto) => ({
-            ...producto,
-            imagen: producto.imagen
-              ? `data:image/png;base64,${btoa(
-                  new Uint8Array(producto.imagen).reduce(
-                    (data, byte) => data + String.fromCharCode(byte),
-                    ''
-                  )
-                )}`
-              : null,
-          }));
-          setProductos(productosConImagenes);
-        }
-      } catch (error) {
-        console.error("Error al cargar los productos:", error);
-      }
-    }
+  // Función para manejar el clic en una categoría
+  const handleCategoryClick = (categoriaSeleccionada) => {
+    navigate(`/menu/${categoriaSeleccionada}`); // Cambia la URL para reflejar la categoría seleccionada
   };
 
   useEffect(() => {
-    fetchAllProducts(); // Cargar todos los productos al inicio
-  }, []);
+    if (!categorias.includes(categoria) && categoria !== 'Todos') {
+      navigate('/menu/Todos');
+    } else if (categoria === 'Todos') {
+      fetchAllProducts();
+    } else {
+      fetchProductsByCategory(categoria);
+    }
+  }, [categoria]);
+  
 
   return (
-    <div className="container mt-4">
-      <h2>Productos por categoría</h2>
-
-      {/* Fila de botones de categorías */}
-      <div className="btn-group mb-3" role="group">
-        <button
-          className={`btn btn-${categoria === 'Todos' ? 'primary' : 'outline-primary'}`}
-          onClick={() => handleCategoryClick('Todos')}
-        >
-          Todos
-        </button>
-        {categorias.map((cat) => (
+    <div>
+      {/* Fila de botones de categorías y formulario */}
+      <div className="d-flex justify-content-between mb-3">
+        <div className="btn-group grupo-botones">
           <button
-            key={cat}
-            className={`btn btn-${categoria === cat ? 'primary' : 'outline-primary'}`}
-            onClick={() => handleCategoryClick(cat)}
+            className={`${categoria === 'Todos' ? "boton-activo" : "boton-inactivo"}`}
+            onClick={() => handleCategoryClick('Todos')}
           >
-            {cat}
+            Todos
           </button>
-        ))}
+          {categorias.map((cat) => (
+            <button
+              key={cat}
+              className={`${categoria === cat ? "boton-activo" : "boton-inactivo"}`}
+              onClick={() => handleCategoryClick(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Formulario de búsqueda a la derecha de los botones */}
+        <Form inline className="d-flex form-style">
+          <Form.Control
+            type="text"
+            placeholder="Buscar producto..."
+            className="mr-2 form-style"
+          />
+          <button className="btn boton-activo-form" type="submit">
+            <FaSearch />
+          </button>
+        </Form>
       </div>
 
       {/* Mostrar productos si existen */}
@@ -113,7 +131,8 @@ const Menu = () => {
           ))
         ) : (
           <div className="col-12 text-center">
-            <img className='espera' src="./recursos/porkycakes_logo.png" alt="" />
+            <img className="espera" src="../recursos/porkycakes_logo.png" alt="" />
+            <p>Cargando...</p>
           </div>
         )}
       </div>

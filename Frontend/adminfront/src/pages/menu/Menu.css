@@ -1,5 +1,73 @@
-.espera{
+
+
+.grupo-botones {
+    padding-left: 20px;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.mr-3 {
+  margin-right: 15px;
+}
+
+.boton-activo {
+    background-color: #eea0ba;
+    color: white;
+    border: 1px solid #c78ca0;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.boton-inactivo {
+    background-color: transparent;
+    color: black;
+    border: 1px solid #c78ca0;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.boton-activo, .boton-inactivo {
+    font-family: Roboto;
+    border-radius: 15px;  
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.boton-activo:hover, .boton-inactivo:hover {
+    transform: scale(1.1);
+    background-color: #ff8ab1;
+    color: white;
+}
+
+.boton-activo-form{
+    font-family: Roboto;
+    border-radius: 10px;  
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #eea0ba;
+    color: white;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.boton-activo-form:hover{
+    transform: scale(1.1);
+    background-color: #ff8ab1;
+    color: white;
+}
+
+.espera {
     width: 200px;
-    height: 220px;
-    padding-top: 20px;
+    height: 210px;
+    margin: 30px;
+}
+
+.form-style{
+    padding-right: 20px;
 }

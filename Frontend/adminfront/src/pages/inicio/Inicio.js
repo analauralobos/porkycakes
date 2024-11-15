@@ -12,7 +12,6 @@ const Inicio = () => {
       <Categoria/>
       <hr className='i-divisor'></hr>
       <Producto/>
-      <Footer/>
     </div>
   )
 }
