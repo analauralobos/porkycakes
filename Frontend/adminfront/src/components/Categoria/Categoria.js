@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Categoria.css';
 import { getAllCategorias } from '../../services/CateogriaService';
+import { useNavigate } from 'react-router-dom';
 
 const Categoria = () => {
   const [categorias, setCategorias] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -28,12 +30,13 @@ const Categoria = () => {
   }, []);
 
   const handleCategoriaClick = (categoria) => {
-    // ACCION AL CLICKEAR CATEGORIA -> IR A MENU CON BUSQUEDA EN ESA CATEGORIA
+      navigate(`/menu/${categoria.nombre}`);
   };
+
 
   return (
     <div className="c-menu">
-      <h2 className='titulo'>Categorías</h2>
+      <h2 className="menu-titulo">Categorías</h2>
       <div className="categorias-container">
         {categorias.map(categoria => (
           <div
