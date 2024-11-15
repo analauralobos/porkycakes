@@ -11,7 +11,12 @@ import Menu from './pages/menu/Menu';
 import Carrito from './pages/carrito/Carrito';
 import Contacto from './pages/contacto/Contacto';
 import Pedidos from './pages/pedidos/Pedidos';
+
+import MateriaPrimaDetail from './components/materiaprima/MateriaPrimaDetail';
+import MateriaPrimaForm from './components/materiaprima/MateriaPrimaForm';
+
 import Footer from './components/Footer/Footer';
+
 
 function App() {
   const [userRole, setUserRole] = useState(null);
@@ -21,13 +26,17 @@ function App() {
       <Navbar userRole={userRole} setUserRole={setUserRole} />
       <Routes>
         <Route path="/login" element={<Login setUserRole={setUserRole} />} />
+
         <Route path="/menu/:categoria" element={<Menu />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/carrito" element={<Carrito />} />
-        <Route path="/mispedidos" element={<Pedidos />} />
-        <Route path="/paneladmin" element={<PanelAdmin userRole={userRole} />} />
-        <Route path="/" element={<Inicio />} />
-        <Route path="/edit-product/:id" element={<ProductDetail />} />
+        <Route path="/contacto" element={<Contacto/>} />
+        <Route path="/carrito" element={<Carrito/>} />
+        <Route path="/mispedidos" element={<Pedidos/>} />
+        <Route path="/paneladmin" element={<PanelAdmin userRole={userRole} />} /> 
+        <Route path="/" element={<Inicio/>} /> 
+        <Route path="/edit-product/:id" element={<ProductDetail/>} /> 
+        <Route path="/edit-mp/:id" element={<MateriaPrimaDetail/>} /> 
+        <Route path="/add-MP" element={<MateriaPrimaForm/>} /> 
+
       </Routes>
       <Footer />
     </Router>

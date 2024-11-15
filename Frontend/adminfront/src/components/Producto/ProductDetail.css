@@ -1,362 +1,340 @@
 .product-detail-container {
-    /*display: flex;  */
-    background-color: #f9f1f1;
-    margin: 0;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    height: 100%;
-
-}
-
-.content-wrapper {
-    /*display: flex;*/
-    flex-grow: 1;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    margin: 0px;
-    top: 100px;
-    height: 100%;
-    background-color: #f9f1f1;
-
+  display: flex;
+  background-color: #f9f1f1;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
-    background-color: #ffc4c4;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    border-right: 2px solid #f9b1b1;
-    height: auto;
-    position: absolute;
-    left: 0;
-    z-index: 10;
-    overflow-y: auto;
-
+  width: 250px;
+  background-color: #ffc4c4;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 2px solid #f9b1b1;
+  position: sticky;
+  left: 0;
+  margin-left: 0px;
 }
 
 .sidebar button {
-    background-color: #fff;
-    border: 1px solid #ffa3a3;
-    color: #ff8484;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  border: 1px solid #ffa3a3;
+  color: #ff8484;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .sidebar .button.active {
-    background-color: #ffa3a3;
-    color: #fff;
-    font-weight: bold;
+  background-color: #ffa3a3;
+  color: #fff;
+  font-weight: bold;
 }
 
 .sidebar .button-cancelar {
-    background-color: #fff;
-    border: 1px solid #ffa3a3;
-    color: #ff8484;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  border: 1px solid #ffa3a3;
+  color: #ff8484;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .sidebar button:hover,
 .sidebar .button-cancelar:hover {
-    background-color: #ff9595;
-    color: #fff;
+  background-color: #ff9595;
+  color: #fff;
 }
 
-/* Contenedor de las cards de detalles e imagen */
 .cards-container {
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-    display: flex;
-    margin-right: 15px;
-    flex-direction: column;
-    gap: 20px;
-    overflow: auto;
-    flex-grow: 1;
-
+  flex: 1;
+  display: flex;
+  margin: 0px;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
 }
 
-/* Estilos generales de las cards */
-.card {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    flex-grow: 1;
-
+.cards-container .card-p {
+  background-color: white;
+  padding: 20px;
+  flex-grow: 1;
 }
 
-
-.card h3 {
-    font-size: 1.5rem;
-    color: #ff6b6b;
-    margin-bottom: 10px;
+.cards-container .card-p h3 {
+  font-size: 1.5rem;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+/********************************************************************/
+/*DEtalles de productos*/
+.cards-container .card-p .product-details {
+  display: flex;
+  justify-content: space-between; /* Espaciado entre form e imagen */
+  align-items: center; /* Centra verticalmente */
+  gap: 20px;
+  height: 100%; /* Asegura que ocupe toda la altura disponible */
+  flex: 1;
+  overflow: hidden;
 }
 
-/* Estilos específicos para el contenedor de los detalles */
-.product-details {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
+.cards-container .card-p .product-details form {
+  flex: 0.5; /* El formulario ocupa la mitad del contenedor */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.product-details form {
-    flex: 0.5;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.cards-container .card-p .product-details input,
+.cards-container .card-p .product-details select,
+.cards-container .card-p .product-details textarea {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-.product-details input,
-select,
-textarea {
-    background-color: #ffdcdc;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.product-details label {
-    font-weight: bold;
-    margin-bottom: 5px;
+.cards-container .card-p .product-details label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 /* Estilos para la imagen */
-.product-image {
-    height: 300px;
-    width: 300px;
-    border-radius: 15px;
-    margin: 0px;
-
+.cards-container .card-p .product-details .product-image {
+  flex: 0.5; /* La imagen ocupa la otra mitad */
+  display: flex; /* Para centrar la imagen */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Para ocupar toda la altura disponible */
+  overflow: hidden;
 }
 
-.product-image img {
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
-    border-radius: 15px;
-
+.cards-container .card-p .product-details .product-image img {
+  max-height: 100%; /* Ajusta la altura máxima al contenedor */
+  max-width: 100%; /* Ajusta el ancho máximo al contenedor */
+  object-fit: cover; /* Ajusta el contenido para que no se deforme */
+  border-radius: 15px;
+  overflow: hidden;
+}
+.cards-container .card-p .product-details .save-button {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+/*****************************************************************************/
+/* ingredientes */
+.cards-container .card-p .agregar-ingrediente input,
+.cards-container .card-p .agregar-ingrediente select,
+.cards-container .card-p .agregar-ingrediente textarea {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-/* Tablas de ingredientes y pasos */
-.card .agregar-ingrediente input,
-.card .agregar-ingrediente select,
-.card .agregar-ingrediente textarea {
-    background-color: #ffffff;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
+.cards-container .card-p .agregar-ingrediente label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.card .agregar-ingrediente label {
-    font-weight: bold;
-    margin-bottom: 5px;
+.cards-container .card-p .agregar-ingrediente form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.card .agregar-ingrediente form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.cards-container .card-p .table-ingredients,
+.cards-container .card-p .table-steps {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  margin-top: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
 }
 
-.table-ingredients,
-.table-steps {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    margin-top: 10px;
-    overflow: hidden;
-    margin-bottom: 15px;
+.cards-container .card-p .table-ingredients th,
+.cards-container .card-p .table-steps th {
+  background-color: #ff9595;
+  color: white;
 }
 
-.table-ingredients th,
-.table-steps th {
-    background-color: #ff9595;
-    color: white;
+.cards-container .card-p .table-ingredients th,
+.cards-container .card-p .table-steps th,
+.cards-container .card-p .table-ingredients td,
+.cards-container .card-p .table-steps td {
+  padding: 10px;
+  padding-left: 40px;
+  text-align: left;
 }
 
-.table-ingredients th,
-.table-steps th,
-.table-ingredients td,
-.table-steps td {
-    padding: 10px;
-    padding-left: 40px;
-    text-align: left;
+.cards-container .card-p .table-ingredients td,
+.cards-container .card-p .table-steps td {
+  color: #555;
 }
 
-.table-ingredients td,
-.table-steps td {
-    color: #555;
+.cards-container .card-p .table-ingredients tr,
+.cards-container .card-p .table-steps tr {
+  border-bottom: 1px solid #ddd;
 }
 
-.table-ingredients tr,
-.table-steps tr {
-    border-bottom: 1px solid #ddd;
+.cards-container .card-p .table-ingredients tr:hover,
+.cards-container .card-p .table-steps tr:hover {
+  background-color: #ffeaea;
 }
 
-.table-ingredients tr:hover,
-.table-steps tr:hover {
-    background-color: #ffeaea;
+.cards-container .card-p .table-ingredients button,
+.cards-container .card-p .table-steps button {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.table-ingredients button,
-.table-steps button {
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.table-ingredients button:hover,
-.table-steps button:hover {
-    background-color: #ff6b6b;
+.cards-container .card-p .table-ingredients button:hover,
+.cards-container .card-p .table-steps button:hover {
+  background-color: #ff6b6b;
 }
 
 /* Botón Guardar en las Cards */
-.card button.save-button,
-.card .agregar-ingrediente button,
-.card .receta-form button {
-    background-color: #ff6b6b;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.cards-container .card-p .agregar-ingrediente button,
+.cards-container .card-p .receta-form button {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.card button.save-button:hover {
-    background-color: #ff4c4c;
+.cards-container .card-p button.save-button:hover {
+  background-color: #ff4c4c;
 }
 
-
-.card .receta-form input,
-.card .receta-formselect,
-.card .receta-form textarea {
-    background-color: #ffffff;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
+.cards-container .card-p .receta-form input,
+.cards-container .card-p .receta-formselect,
+.cards-container .card-p .receta-form textarea {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-.card .receta-form label {
-    font-weight: bold;
-    margin-bottom: 5px;
+.cards-container .card-p .receta-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.card .receta-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.cards-container .card-p .receta-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* Responsividad */
 @media (max-width: 1024px) {
+  /* Redimensiona el contenedor para pantallas medianas */
+  .product-detail-container {
+    flex-direction: column;
+  }
 
-    /* Redimensiona el contenedor para pantallas medianas */
-    .product-detail-container {
-        flex-direction: column;
-    }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    margin-bottom: 20px;
+  }
 
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        margin-bottom: 20px;
-    }
+  .cards-container {
+    padding: 10px;
+    margin-left: 0;
+  }
 
-    .cards-container {
-        padding: 10px;
-        margin-left: 0;
-        /* Elimina el margen para que las cards ocupen todo el ancho */
-    }
+  .product-details {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .product-details {
-        flex-direction: column;
-        align-items: center;
-    }
+  .product-details form {
+    width: 100%;
+  }
 
-    .product-details form {
-        width: 100%;
-    }
+  .product-image {
+    margin-top: 20px;
+    max-width: 100%;
+  }
 
-    .product-image {
-        margin-top: 20px;
-        max-width: 100%;
-    }
+  .card-p button.save-button {
+    width: 100%;
+  }
 
-    .card button.save-button {
-        width: 100%;
-        /* El botón de guardar ocupa todo el ancho en pantallas pequeñas */
-    }
-
-    .table-ingredients button,
-    .table-steps button {
-        width: 100%;
-        /* Los botones dentro de las tablas ocupan todo el ancho */
-    }
+  .table-ingredients button,
+  .table-steps button {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
 
-    /* En pantallas más pequeñas, oculta el sidebar y ajusta el layout */
-    .sidebar {
-        display: none;
-    }
+  .product-detail-container {
+    flex-direction: column;
+  }
 
-    .product-detail-container {
-        flex-direction: column;
-    }
+  .cards-container {
+    padding: 10px;
+    margin-left: 0;
+    /* Elimina el margen para que las cards ocupen todo el ancho */
+  }
 
-    .cards-container {
-        padding: 10px;
-        margin-left: 0;
-        /* Elimina el margen para que las cards ocupen todo el ancho */
-    }
+  .product-details {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .product-details {
-        flex-direction: column;
-        align-items: center;
-    }
+  .product-details form {
+    width: 100%;
+  }
 
-    .product-details form {
-        width: 100%;
-    }
+  .product-image {
+    margin-top: 20px;
+    max-width: 100%;
+  }
 
-    .product-image {
-        margin-top: 20px;
-        max-width: 100%;
-    }
+  .card button.save-button {
+    width: 100%;
+    /* El botón de guardar ocupa todo el ancho */
+  }
 
-    .card button.save-button {
-        width: 100%;
-        /* El botón de guardar ocupa todo el ancho */
-    }
-
-    .table-ingredients button,
-    .table-steps button {
-        width: 100%;
-        /* Los botones dentro de las tablas ocupan todo el ancho */
-    }
+  .table-ingredients button,
+  .table-steps button {
+    width: 100%;
+    /* Los botones dentro de las tablas ocupan todo el ancho */
+  }
 }
