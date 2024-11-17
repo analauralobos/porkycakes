@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'; 
-import { GoSearch } from "react-icons/go";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { BsBox2HeartFill } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { GiHamburgerMenu } from "react-icons/gi"; 
-import Login from '../login/Login'; 
+import { GiHamburgerMenu } from "react-icons/gi";
+import Login from '../login/Login';
 import './Navbar.css';
 
-const Navbar = ({ userRole, setUserRole }) => {
+const Navbar = ({ userRole, setUserRole, cat }) => {
   const [menu, setMenu] = useState("inicio");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false); 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/menu')) {
+      setMenu('menu');
+    } else if (location.pathname === '/') {
+      setMenu('inicio');
+    } else if (location.pathname === '/contacto') {
+      setMenu('contacto');
+    } else if (location.pathname === '/paneladmin') {
+      setMenu('paneladmin');
+    }
+  }, [location.pathname]);
 
   const handleLogout = () => {
     setUserRole(null);
@@ -20,13 +32,8 @@ const Navbar = ({ userRole, setUserRole }) => {
     navigate('/');
   };
 
-  const handleMenuClick = (menuItem) => {
-    setMenu(menuItem);
-    setIsMenuOpen(false);
-  };
-
-  const openLoginModal = () => setShowLoginModal(true); // Abre el modal de login
-  const closeLoginModal = () => setShowLoginModal(false); // Cierra el modal de login
+  const openLoginModal = () => setShowLoginModal(true);
+  const closeLoginModal = () => setShowLoginModal(false);
 
   return (
     <div className="navbar-container">
@@ -35,41 +42,39 @@ const Navbar = ({ userRole, setUserRole }) => {
         <GiHamburgerMenu />
       </button>
       <ul className={`navbar-menu ${isMenuOpen ? "open" : ""}`}>
-        <li onClick={() => handleMenuClick("inicio")} className={menu === "inicio" ? "active" : ""}>
+        <li className={menu === "inicio" ? "active" : ""}>
           <Link to="/">Inicio</Link>
         </li>
-        <li onClick={() => handleMenuClick("menu")} className={menu === "menu" ? "active" : ""}>
-          <Link to="/menu">Menú</Link>
+        <li className={menu === "menu" ? "active" : ""}>
+          <Link to={`/menu/${cat}`}>Menu</Link>
         </li>
-        <li onClick={() => handleMenuClick("contacto")} className={menu === "contacto" ? "active" : ""}>
+        <li className={menu === "contacto" ? "active" : ""}>
           <Link to="/contacto">Contacto</Link>
         </li>
         {userRole === 'admin' && (
-          <li onClick={() => handleMenuClick("paneladmin")} className={menu === "paneladmin" ? "active" : ""}>
+          <li className={menu === "paneladmin" ? "active" : ""}>
             <Link to="/paneladmin">Panel Admin</Link>
           </li>
         )}
       </ul>
       <div className="navbar-right">
-        <GoSearch className="busqueda" />
+        <BsBox2HeartFill size={25} />
         <div className="navbar-search-icon">
-          <AiOutlineShoppingCart className="carrito" />
-          <div className="dot"></div>
+          <AiOutlineShoppingCart size={30} className="carrito" />
         </div>
-
         {userRole ? (
           <div className="user-options">
             <span className="navbar-text">{`Bienvenido, ${userRole}`}</span>
             <button onClick={handleLogout}>Salir</button>
           </div>
         ) : (
-          <button onClick={openLoginModal}>Login</button> 
+          <button onClick={openLoginModal}>Login</button>
         )}
       </div>
 
-      {showLoginModal && <Login closeModal={closeLoginModal} setUserRole={setUserRole}  />}
+      {showLoginModal && <Login closeModal={closeLoginModal} setUserRole={setUserRole} />}
     </div>
-  );
+  ); 
 };
 
 export default Navbar;

@@ -29,7 +29,7 @@ const Producto = () => {
   }, []);
 
   return (
-    <div className="container mt-4">
+    <div className="mt-4">
       <h2 className="Producto">Los más comprados</h2>
       <div className="row">
         {productos.map((producto) => (

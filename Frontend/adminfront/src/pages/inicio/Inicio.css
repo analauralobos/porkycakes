@@ -1,10 +1,8 @@
-.i-container{ 
-    justify-content: space-between;
-    align-items: center;    
-    position: relative; 
-}
-.i-container .i-divisor{
+.i-divisor {
     background-color: black;
     height: 2px;
+    width: 98%;
     color: black;
+    align-items: center;
+    margin: 0 auto;
 }
