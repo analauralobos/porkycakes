@@ -5,6 +5,53 @@
   padding: 0px;
   height: 100%;
 }
+
+.sidebar {
+  width: 250px;
+  background-color: #ffc4c4;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 2px solid #f9b1b1;
+  position: sticky;
+  left: 0;
+  margin-left: 0px;
+}
+
+
+.mp-detail-container .sidebar button {
+  background-color: #fff;
+  border: 1px solid #ffa3a3;
+  color: #ff8484;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mp-detail-container .sidebar .button.active {
+  background-color: #ffa3a3;
+  color: #fff;
+  font-weight: bold;
+}
+
+.mp-detail-container .sidebar .button-cancelar {
+  background-color: #fff;
+  border: 1px solid #ffa3a3;
+  color: #ff8484;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mp-detail-container .sidebar button:hover,
+.mp-detail-container .sidebar .button-cancelar:hover {
+  background-color: #ff9595;
+  color: #fff;
+}
 .mp-detail-container .cards-container {
     flex: 1;
     display: flex;
@@ -25,51 +72,7 @@
     color: #ff6b6b;
     margin-bottom: 10px;
   }
-.mp-detail-container .sidebar {
-    width: 250px;
-    background-color: #ffc4c4;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    border-right: 2px solid #f9b1b1;
-    position: sticky;
-    left: 0;
-    margin-left: 0px;
-  }
 
-.mp-detail-container .sidebar button {
-    background-color: #fff;
-    border: 1px solid #ffa3a3;
-    color: #ff8484;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .mp-detail-container .sidebar .button.active {
-    background-color: #ffa3a3;
-    color: #fff;
-    font-weight: bold;
-  }
-  
-  .mp-detail-container .sidebar .button-cancelar {
-    background-color: #fff;
-    border: 1px solid #ffa3a3;
-    color: #ff8484;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .mp-detail-container .sidebar button:hover,
-  .mp-detail-container .sidebar .button-cancelar:hover {
-    background-color: #ff9595;
-    color: #fff;
-  }
   .mp-detail-container .cards-container form {    
     display: flex;
     flex-direction: column;

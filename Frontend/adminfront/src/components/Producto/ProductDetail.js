@@ -23,10 +23,10 @@ import "./ProductDetail.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [productI, setProductI] = useState(null);
-  const [categoria, setCategoria] = useState(null);
-  const [categoriaTodas, setCatTodas] = useState(null);
+  const [product, setProduct] = useState([]);
+  const [productI, setProductI] = useState([]);
+  const [categoria, setCategoria] = useState([]);
+  const [categoriaTodas, setCatTodas] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [receta, setReceta] = useState([]);
   const [matPrimas, setMatPrimas] = useState([]);
@@ -78,7 +78,7 @@ const ProductDetail = () => {
         const categoriaData = await getCategoriasId(productData.p_categoria);
         const categoriaTodas = await getAllCategorias();
         const matPrimasData = await getAllMatPrimas();
-
+        console.log("Materias Primas:", matPrimasData);  // Verifica los datos
         setIngredients(ingredientsWithNames || []);
         setReceta(Array.isArray(recetaData) ? recetaData : [recetaData]);
         setCategoria(categoriaData);
@@ -164,98 +164,100 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-container">
-      
-        {/* Menú lateral */}
-        <div className="sidebar">
-          <button onClick={() => setSelectedCard("producto")}>Producto</button>
-          <button onClick={() => setSelectedCard("ingredientes")}>
-            Ingredientes
-          </button>
-          <button onClick={() => setSelectedCard("receta")}>Receta</button>
-          <button
-            className="button-cancelar"
-            onClick={() => navigate("/paneladmin")}
-          >
-            Cancelar
-          </button>
-        </div>
+      {/* Menú lateral */}
+      <div className="sidebar">
+        <button onClick={() => setSelectedCard("producto")}>Producto</button>
+        <button onClick={() => setSelectedCard("ingredientes")}>
+          Ingredientes
+        </button>
+        <button onClick={() => setSelectedCard("receta")}>Receta</button>
+        <button
+          className="button-cancelar"
+          onClick={() => navigate("/paneladmin")}
+        >
+          Cancelar
+        </button>
+      </div>
 
-        <div className="cards-container">
-          {/* Detalles del Producto */}
-          {selectedCard === "producto" && (
-            <div className="card-p">
-              <h3>Detalles del Producto</h3>
-              <div className="product-details">
-                <form>
-                  <label>Nombre:</label>
-                  <input
-                    type="text"
-                    value={product.Nombre_Producto}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        Nombre_Producto: e.target.value,
-                      })
-                    }
-                  />
-                  <label>Precio:</label>
-                  <input
-                    type="number"
-                    value={product.precio_vta}
-                    onChange={(e) =>
-                      setProduct({ ...product, precio_vta: e.target.value })
-                    }
-                  />
-                  <label>Porciones:</label>
-                  <input
-                    type="number"
-                    value={product.cant_porciones}
-                    onChange={(e) =>
-                      setProduct({ ...product, cant_porciones: e.target.value })
-                    }
-                  />
-                  <label>Descripción:</label>
-                  <textarea
-                    value={product.descripcion_producto}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        descripcion_producto: e.target.value,
-                      })
-                    }
-                  />
-                  <label>Categoría:</label>
-                  <select
-                    value={product.p_categoria}
-                    onChange={(e) =>
-                      setProduct({ ...product, p_categoria: e.target.value })
-                    }
-                  >
-                    <option value="">Seleccione una categoria</option>
-                    {categoriaTodas.map((cat) => (
-                      <option key={cat.id_categoria} value={cat.id_categoria}>
-                        {cat.nombre}
-                      </option>
-                    ))}
-                  </select>
-                  <button className="save-button" onClick={handleUpdateProduct}>
-                    Guardar
-                  </button>
-                </form>
+      <div className="cards-container">
+        {/* Detalles del Producto */}
+        {selectedCard === "producto" && (
+          <div className="card-p">
+            <h3>Detalles del Producto</h3>
+            <div className="product-details">
+              <form>
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  value={product.Nombre_Producto}
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      Nombre_Producto: e.target.value,
+                    })
+                  }
+                />
+                <label>Precio:</label>
+                <input
+                  type="number"
+                  value={product.precio_vta}
+                  onChange={(e) =>
+                    setProduct({ ...product, precio_vta: e.target.value })
+                  }
+                />
+                <label>Porciones:</label>
+                <input
+                  type="number"
+                  value={product.cant_porciones}
+                  onChange={(e) =>
+                    setProduct({ ...product, cant_porciones: e.target.value })
+                  }
+                />
+                <label>Descripción:</label>
+                <textarea
+                  value={product.descripcion_producto}
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      descripcion_producto: e.target.value,
+                    })
+                  }
+                />
+                <label>Categoría:</label>
+                <select
+                  value={product.p_categoria}
+                  onChange={(e) =>
+                    setProduct({ ...product, p_categoria: e.target.value })
+                  }
+                >
+                  <option value="">Seleccione una categoria</option>
+                  {categoriaTodas.map((cat) => (
+                    <option key={cat.id_categoria} value={cat.id_categoria}>
+                      {cat.nombre}
+                    </option>
+                  ))}
+                </select>
+                <button className="save-button" onClick={handleUpdateProduct}>
+                  Guardar
+                </button>
+              </form>
 
-                <div className="product-image">
-                  {productI.imagen && (
-                    <img src={productI.imagen} alt={productI.Nombre_Producto} />
-                  )}
-                </div>
+              <div className="product-image">
+                {productI.imagen && (
+                  <img src={productI.imagen} alt={productI.Nombre_Producto} />
+                )}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Ingredientes */}
-          {selectedCard === "ingredientes" && (
-            <div className="card-p">
-              <h3>Ingredientes</h3>
+        {/* Ingredientes */}
+        {selectedCard === "ingredientes" && (
+          <div className="card-p">
+            <h3>Ingredientes</h3>
+            {ingredients.length === 0 ? (
+              <p>No hay ingredientes asociados a este producto.</p>
+            ) : (
               <table className="table-ingredients">
                 <thead>
                   <tr>
@@ -280,63 +282,67 @@ const ProductDetail = () => {
                   ))}
                 </tbody>
               </table>
-              <div className="agregar-ingrediente">
-                <h3>Agregar Ingrediente</h3>
-                <form>
-                  <label>Materia Prima:</label>
-                  <select
-                    value={newIngredient.id_MateriaPrima}
-                    onChange={(e) =>
-                      setNewIngredient({
-                        ...newIngredient,
-                        id_MateriaPrima: e.target.value,
-                      })
-                    }
-                  >
-                    <option value="">Seleccione una materia prima</option>
-                    {matPrimas.map((matPrima) => (
-                      <option
-                        key={matPrima.id_MateriaPrima}
-                        value={matPrima.id_MateriaPrima}
-                      >
-                        {matPrima.Nombre_MP}
-                      </option>
-                    ))}
-                  </select>
-                  <label>Cantidad:</label>
-                  <input
-                    type="number"
-                    value={newIngredient.cantidad}
-                    onChange={(e) =>
-                      setNewIngredient({
-                        ...newIngredient,
-                        cantidad: e.target.value,
-                      })
-                    }
-                  />
-                  <label>Unidades:</label>
-                  <input
-                    type="text"
-                    value={newIngredient.unidades}
-                    onChange={(e) =>
-                      setNewIngredient({
-                        ...newIngredient,
-                        unidades: e.target.value,
-                      })
-                    }
-                  />
-                  <button onClick={handleAddIngredient}>
-                    Agregar Ingrediente
-                  </button>
-                </form>
-              </div>
+            )}
+            <div className="agregar-ingrediente">
+              <h3>Agregar Ingrediente</h3>
+              <form>
+                <label>Materia Prima:</label>
+                <select
+                  value={newIngredient.id_MateriaPrima}
+                  onChange={(e) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      id_MateriaPrima: e.target.value,
+                    })
+                  }
+                >
+                  <option value="">Seleccione una materia prima</option>
+                  {matPrimas.map((matPrima) => (
+                    <option
+                      key={matPrima.id_MateriaPrima}
+                      value={matPrima.id_MateriaPrima}
+                    >
+                      {matPrima.Nombre_MP}
+                    </option>
+                  ))}
+                </select>
+                <label>Cantidad:</label>
+                <input
+                  type="number"
+                  value={newIngredient.cantidad}
+                  onChange={(e) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      cantidad: e.target.value,
+                    })
+                  }
+                />
+                <label>Unidades:</label>
+                <input
+                  type="text"
+                  value={newIngredient.unidades}
+                  onChange={(e) =>
+                    setNewIngredient({
+                      ...newIngredient,
+                      unidades: e.target.value,
+                    })
+                  }
+                />
+                <button onClick={handleAddIngredient}>
+                  Agregar Ingrediente
+                </button>
+              </form>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Pasos de la Receta */}
-          {selectedCard === "receta" && (
-            <div className="card-p">
-              <h3>Pasos de la Receta</h3>
+        {/* Pasos de la Receta */}
+        {selectedCard === "receta" && (
+          <div className="card-p">
+            <h3>Pasos de la Receta</h3>
+            {receta.length === 0 ? (
+              <p>No hay pasos de receta asociados a este producto.</p>
+            ) : (
               <table className="table-steps">
                 <thead>
                   <tr>
@@ -359,9 +365,10 @@ const ProductDetail = () => {
                   ))}
                 </tbody>
               </table>
-              <div className="receta-form">
-              <h3>Agregar Paso </h3>
-                <form>
+            )}
+            <div className="receta-form">
+              <h3>Agregar Paso</h3>
+              <form>
                 <label>Paso Número:</label>
                 <input
                   type="number"
@@ -378,12 +385,11 @@ const ProductDetail = () => {
                   }
                 />
                 <button onClick={handleAddStep}>Agregar Paso</button>
-                </form>
-              </div>
+              </form>
             </div>
-          )}
-        </div>
-      
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'; // Importa Link aquí
+import { Link } from 'react-router-dom'; 
 import { GoSearch } from "react-icons/go";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi"; 
-import Login from '../login/Login'; // Asegúrate de importar tu componente Login
+import Login from '../login/Login'; 
 import './Navbar.css';
 
 const Navbar = ({ userRole, setUserRole }) => {
   const [menu, setMenu] = useState("inicio");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // Estado para controlar el modal de login
+  const [showLoginModal, setShowLoginModal] = useState(false); 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setUserRole(null);
+    localStorage.removeItem('id_persona');
+    localStorage.removeItem('role');
     navigate('/');
   };
 
@@ -61,11 +63,11 @@ const Navbar = ({ userRole, setUserRole }) => {
             <button onClick={handleLogout}>Salir</button>
           </div>
         ) : (
-          <button onClick={openLoginModal}>Login</button> // Al hacer clic, se abre el modal
+          <button onClick={openLoginModal}>Login</button> 
         )}
       </div>
 
-      {showLoginModal && <Login closeModal={closeLoginModal} setUserRole={setUserRole} />} {/* Mostrar modal si showLoginModal es true */}
+      {showLoginModal && <Login closeModal={closeLoginModal} setUserRole={setUserRole}  />}
     </div>
   );
 };
