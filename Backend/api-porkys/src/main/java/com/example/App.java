@@ -135,6 +135,16 @@ public class App {
 
         // Ruta para obtener productos por categoría
         get("porkys/productos/categoria/nombre/:nombreCategoria", ProductoController.getProductosPorNombreCategoria);
+        
+        //Ruta para obtener pedidos del cliente
+        get("porkys/pedido/cliente/:id_Cliente", PedidoController.getPedidosPorCliente);
+        get("porkys/pedido/nombreCliente/:id_Cliente", PedidoController.getNombrexPedido);
+        get("porkys/pedido/productos/:id_Pedido", PedidoController.getProductosPorPedido);
+    
+        // Ruta para obtener prodxpedidos
+        get("porkys/pxp/getPxP/:id_Pedido", ProductosPorPedidoController.getProductosXpedidoPorId);
+        //Ruta para crear prodxpedidos
+        post("porkys/pxp/crearPxP", ProductosPorPedidoController.crearProductoXPedido);
 
     }
 

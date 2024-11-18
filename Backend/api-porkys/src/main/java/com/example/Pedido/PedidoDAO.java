@@ -3,6 +3,8 @@ package com.example.Pedido;
 import java.util.List;
 
 import org.sql2o.Connection;
+
+import com.example.Producto.Producto;
 import com.example.db.Sql2oDAO;
 
 public class PedidoDAO {
@@ -70,5 +72,52 @@ public class PedidoDAO {
             return false;
         }
     }
+
+    // Método para buscar pedidos por id_cliente // PedidoDAO.java
+    public List<Pedido> buscarPedidoPorIdCliente(int id_Cliente) {
+        String selectSQL = "SELECT * FROM pedido WHERE id_Cliente = :id_Cliente;";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            return con.createQuery(selectSQL)
+                    .addParameter("id_Cliente", id_Cliente)
+                    .executeAndFetch(Pedido.class);
+        } catch (Exception e) {
+            System.err.println("Error al ejecutar la query: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public String getNombrexPedido(int id_Cliente) {
+        String selectSQL = "SELECT cliente.Nombre_Cliente FROM cliente " +
+                           "INNER JOIN pedido ON cliente.id_cliente = pedido.id_cliente " +
+                           "WHERE pedido.id_cliente = :id_cliente;";
+        
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            return con.createQuery(selectSQL)
+                      .addParameter("id_cliente", id_Cliente)
+                      .executeScalar(String.class);  
+        } catch (Exception e) {
+            System.err.println("Error al obtener el nombre del cliente: " + e.getMessage());
+            return null;
+        }
+    }
+    
+
+    public List<Producto> getProductoxPedido(int id_Pedido) { 
+        String selectSQL = "SELECT producto.Nombre_Producto " +
+                "FROM pedido " +
+                "INNER JOIN productosxpedido ON pedido.id_Pedido = productosxpedido.id_Pedido " +
+                "INNER JOIN producto ON productosxpedido.id_Producto = producto.id_Producto " +
+                "WHERE pedido.id_Pedido = :id_Pedido;";
+    
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            return con.createQuery(selectSQL)
+                    .addParameter("id_Pedido", id_Pedido)
+                    .executeAndFetch(Producto.class);
+        } catch (Exception e) {
+            System.err.println("Error al obtener los productos del pedido: " + e.getMessage());
+            return null;
+        }
+    }
+    
 
 }

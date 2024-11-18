@@ -14,6 +14,7 @@ const Contacto = () => {
 
   return (
     <div className="contacto-container">
+      <img className="contacto-logo" src="../recursos/porkycakes_logo.png" alt="" />
       <h2 className="form-contacto">¿Tienes Alguna Duda o Pedido Especial?</h2>
       <form onSubmit={handleSubmit} className="formulario">
         <textarea

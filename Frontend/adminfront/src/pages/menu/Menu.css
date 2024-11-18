@@ -1,4 +1,7 @@
-
+.row{
+    padding-left: 25px;
+    padding-right: 25px;
+}
 
 .grupo-botones {
     padding-left: 20px;
@@ -70,4 +73,9 @@
 
 .form-style{
     padding-right: 20px;
+}
+
+.bordeForm{
+    border: 1px solid rgb(228, 128, 145);
+    border-radius: 12px;
 }

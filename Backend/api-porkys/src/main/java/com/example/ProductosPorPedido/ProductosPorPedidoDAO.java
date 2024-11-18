@@ -1,5 +1,9 @@
 package com.example.ProductosPorPedido;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.sql2o.Connection;
@@ -67,5 +71,19 @@ public class ProductosPorPedidoDAO {
             return false;
         }
     }
+
+    public List<ProductosPorPedido> selectByIdPedido(int id_Pedido) {
+        List<ProductosPorPedido> productosXpedido = new ArrayList<>();
+        String query = "SELECT * FROM productosxpedido WHERE id_Pedido = :id_Pedido";  
+        try (Connection con = Sql2oDAO.getSql2o().open()) {  
+            productosXpedido = con.createQuery(query)
+                    .addParameter("id_Pedido", id_Pedido)
+                    .executeAndFetch(ProductosPorPedido.class);  
+        } catch (Exception e) {
+            System.err.println("Error al obtener los productos por pedido: " + e.getMessage());
+        }
+        return productosXpedido;
+    }
+    
 
 }

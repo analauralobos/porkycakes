@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts } from '../../services/ProductoService';
 import Card from 'react-bootstrap/Card'
+import { agregarAlCarrito, eliminarDelCarrito } from '../carrito/CarritoFunciones';
 import './Productos.css'
 
 const Producto = () => {
@@ -29,7 +30,7 @@ const Producto = () => {
   }, []);
 
   return (
-    <div className="mt-4">
+    <div className="container mt-4">
       <h2 className="Producto">Los más comprados</h2>
       <div className="row">
         {productos.map((producto) => (

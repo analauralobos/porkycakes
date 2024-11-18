@@ -1,0 +1,46 @@
+.carrito-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    max-width: 80%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+    border-radius: 10px;
+  }
+  
+  .tituloCarrito {
+    text-align: center;
+    color: #d36b6b; 
+  }
+  
+  .carrito-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Roboto';
+  }
+  
+  .carrito-table th, .carrito-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #f0c0c0; 
+  }
+  
+  .carrito-table th {
+    background-color: #f8b8b8; 
+  }
+  
+  .carrito-table tr:nth-child(even) {
+    background-color: #fde8e8; 
+  }
+  
+  .carrito-table td img {
+    border-radius: 5px;
+  }
+  
+  .tituloCarrito{
+    font-family: 'Tess';
+    font-weight: bolder;
+    font-size: 45px;
+  }

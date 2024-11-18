@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';  // Añadido useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategory, getAllProducts } from '../../services/ProductoService';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import { FaSearch } from 'react-icons/fa';
+import { agregarAlCarrito, eliminarDelCarrito, vaciarCarrito } from '../../components/carrito/CarritoFunciones';
 import './Menu.css';
 
-const Menu = () => {
+const Menu = ({ userRole }) => {
   const [productos, setProductos] = useState([]);
-  const { categoria } = useParams(); 
-  const navigate = useNavigate(); 
+  const [searchTerm, setSearchTerm] = useState('');
+  const { categoria } = useParams();
+  const navigate = useNavigate();
 
   const categorias = ['Torta', 'Galletitas', 'Alfajores', 'Tartas', 'Sin T.A.C.C', 'Vegano'];
 
@@ -22,11 +23,11 @@ const Menu = () => {
         ...producto,
         imagen: producto.imagen
           ? `data:image/png;base64,${btoa(
-              new Uint8Array(producto.imagen).reduce(
-                (data, byte) => data + String.fromCharCode(byte),
-                ''
-              )
-            )}` 
+            new Uint8Array(producto.imagen).reduce(
+              (data, byte) => data + String.fromCharCode(byte),
+              ''
+            )
+          )}`
           : null,
       }));
       setProductos(productosConImagenes);
@@ -43,11 +44,11 @@ const Menu = () => {
         ...producto,
         imagen: producto.imagen
           ? `data:image/png;base64,${btoa(
-              new Uint8Array(producto.imagen).reduce(
-                (data, byte) => data + String.fromCharCode(byte),
-                ''
-              )
-            )}` 
+            new Uint8Array(producto.imagen).reduce(
+              (data, byte) => data + String.fromCharCode(byte),
+              ''
+            )
+          )}`
           : null,
       }));
       setProductos(productosConImagenes);
@@ -61,6 +62,11 @@ const Menu = () => {
     navigate(`/menu/${categoriaSeleccionada}`); // Cambia la URL para reflejar la categoría seleccionada
   };
 
+  // Filtrar productos según el término de búsqueda
+  const filteredProducts = productos.filter((producto) =>
+    producto.Nombre_Producto.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   useEffect(() => {
     if (!categorias.includes(categoria) && categoria !== 'Todos') {
       navigate('/menu/Todos');
@@ -70,7 +76,11 @@ const Menu = () => {
       fetchProductsByCategory(categoria);
     }
   }, [categoria]);
-  
+
+  // Manejar el cambio en el input de búsqueda
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <div>
@@ -94,23 +104,22 @@ const Menu = () => {
           ))}
         </div>
 
-        {/* Formulario de búsqueda a la derecha de los botones */}
+        {/* Formulario de búsqueda*/}
         <Form inline className="d-flex form-style">
           <Form.Control
             type="text"
             placeholder="Buscar producto..."
-            className="mr-2 form-style"
+            className="mr-8 form-style bordeForm"
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
-          <button className="btn boton-activo-form" type="submit">
-            <FaSearch />
-          </button>
         </Form>
       </div>
 
-      {/* Mostrar productos si existen */}
+      {/* Mostrar productos filtrados si existen */}
       <div className="row">
-        {productos.length > 0 ? (
-          productos.map((producto) => (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((producto) => (
             <div key={producto.id_producto} className="col-md-4 mb-4">
               <Card>
                 {producto.imagen && (
@@ -125,14 +134,31 @@ const Menu = () => {
                   <Card.Text className="nombre">{producto.Nombre_Producto}</Card.Text>
                   <Card.Text className="descripcion">{producto.descripcion_producto}</Card.Text>
                   <Card.Text className="precio">Precio: ${producto.precio_vta}</Card.Text>
+                  {userRole === 'cliente' && (
+                    <div>
+                      <button
+                        className="btn boton-activo"
+                        onClick={() => agregarAlCarrito(producto)}
+                      >
+                        +
+                      </button>
+                      <button
+                        className="btn boton-activo"
+                        onClick={() => eliminarDelCarrito(producto.id_Producto)}
+                      >
+                        -
+                      </button>
+                    </div>
+                  )}
                 </Card.Body>
+
               </Card>
             </div>
           ))
         ) : (
           <div className="col-12 text-center">
             <img className="espera" src="../recursos/porkycakes_logo.png" alt="" />
-            <p>Cargando...</p>
+            <p>No se encontraron productos</p>
           </div>
         )}
       </div>
@@ -141,3 +167,12 @@ const Menu = () => {
 };
 
 export default Menu;
+
+/*
+                  <button
+                    className="btn boton-activo"
+                    onClick={() => vaciarCarrito()}
+                  >
+                    Vaciar
+                  </button>
+*/

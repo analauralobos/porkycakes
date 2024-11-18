@@ -8,7 +8,6 @@ const Header = () => {
         <img className="header-logo" src="./recursos/porkycakes_logo.png" alt="Logo" />
         <h2 className="header-title">Tortas Artesanales para cada ocasión</h2>
         <p className="header-description">Crea recuerdos inolvidables con nuestros sabores irresistibles</p>
-        <button className="header-button">Ver Menú</button>
       </div>
     </div>
   )

@@ -17,6 +17,8 @@ import RecetaForm from './components/receta/RecetaForm';
 import RecetaDetail from './components/receta/RecetaDetail';
 
 
+import AgregarProducto from './components/Producto/AgregarProducto'
+
 import Footer from './components/Footer/Footer';
 
 
@@ -37,7 +39,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login setUserRole={setUserRole} />} />
 
-        <Route path="/menu/:categoria" element={<Menu  />} />
+        <Route path="/menu/:categoria" element={<Menu userRole={userRole} />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/mispedidos" element={<Pedidos />} />

@@ -37,7 +37,7 @@ const Categoria = () => {
   return (
     <div className="c-menu">
       <h2 className="menu-titulo">Categorías</h2>
-      <div className="categorias-container">
+      <div className="categorias-container container">
         {categorias.map(categoria => (
           <div
             key={categoria.id_categoria}

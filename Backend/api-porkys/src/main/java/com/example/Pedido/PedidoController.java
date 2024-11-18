@@ -1,6 +1,8 @@
 package com.example.Pedido;
 
 import java.util.List;
+
+import com.example.Producto.Producto;
 import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
@@ -11,16 +13,15 @@ public class PedidoController {
     private static final PedidoDAO pedidoDAO = new PedidoDAO();
 
     // Obtener todos los pedidos
-    public static Route getTodosPedidos = (Request request, Response response) ->
-    {
+    public static Route getTodosPedidos = (Request request, Response response) -> {
         response.type("application/json");
         try {
-        PedidoDAO p = new PedidoDAO();
-        List<Pedido> res = p.selectAll();
-        return new Gson().toJson(res);
+            PedidoDAO p = new PedidoDAO();
+            List<Pedido> res = p.selectAll();
+            return new Gson().toJson(res);
         } catch (Exception e) {
-        response.status(500);
-        return new Gson().toJson("Error controlador: " + e.getMessage());
+            response.status(500);
+            return new Gson().toJson("Error controlador: " + e.getMessage());
         }
     };
     // Crear nuevo pedido
@@ -70,6 +71,65 @@ public class PedidoController {
         } catch (Exception e) {
             response.status(500);
             return gson.toJson("Error al eliminar el pedido: " + e.getMessage());
+        }
+    };
+
+    // Obtener pedidos por id_Cliente // PedidoController.java
+    public static Route getPedidosPorCliente = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            int idCliente = Integer.parseInt(request.params(":id_Cliente"));
+
+            List<Pedido> pedidos = pedidoDAO.buscarPedidoPorIdCliente(idCliente);
+            if (pedidos != null && !pedidos.isEmpty()) {
+                return gson.toJson(pedidos);
+            } else {
+                response.status(404);
+                return gson.toJson("No se encontraron pedidos para este cliente");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error al obtener los pedidos del cliente: " + e.getMessage());
+        }
+    };
+
+    // Obtener el nombre del cliente por id_Cliente
+    public static Route getNombrexPedido = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            int idCliente = Integer.parseInt(request.params(":id_Cliente"));
+
+            // Llamamos al método getNombrexPedido del DAO
+            String nombreCliente = pedidoDAO.getNombrexPedido(idCliente);
+            if (nombreCliente != null) {
+                return gson.toJson(nombreCliente);
+            } else {
+                response.status(404);
+                return gson.toJson("Cliente no encontrado");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error al obtener el nombre del cliente: " + e.getMessage());
+        }
+    };
+
+    // Obtener productos por id_Pedido
+    public static Route getProductosPorPedido = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            int idPedido = Integer.parseInt(request.params(":id_Pedido"));
+
+            // Llamamos al método getProductoxPedido del DAO
+            List<Producto> productos = pedidoDAO.getProductoxPedido(idPedido);
+            if (productos != null && !productos.isEmpty()) {
+                return gson.toJson(productos);
+            } else {
+                response.status(404);
+                return gson.toJson("No se encontraron productos para este pedido");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error al obtener los productos del pedido: " + e.getMessage());
         }
     };
 
