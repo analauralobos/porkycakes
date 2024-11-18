@@ -6,7 +6,7 @@
   height: 100%;
     
   }
-  .admin-content {
+  .admin-panel  .admin-content {
     flex: 1;
     display: flex;
     margin: 0px;
@@ -16,7 +16,7 @@
    
   } 
   
-  .admin-menu {
+  .admin-panel  .admin-menu {
     width: 300px;
     background-color: #ffc4c4;
     padding: 20px;
@@ -25,10 +25,10 @@
     gap: 15px;
     border-right: 2px solid #f9b1b1;
     position: sticky;
-    left: 0;
+    left: 0;    
   }
   
-  .menu-item {
+  .admin-panel .menu-item {
     background-color: #fff;
     border: 1px solid #ffa3a3;
     color: #ff8484;
@@ -38,12 +38,12 @@
     transition: all 0.3s ease-in-out;
   }
   
-  .menu-item:hover {
+  .admin-panel .menu-item:hover {
     background-color: #ff9595;
     color: #fff;
   }
   
-  .menu-item.active {
+  .admin-panel .menu-item.active {
     background-color: #ffa3a3;
     color: #fff;
     font-weight: bold;
