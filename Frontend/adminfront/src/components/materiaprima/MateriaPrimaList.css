@@ -1,34 +1,35 @@
-/* Contenedor principal */
 .mp-list-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%; /* Ocupa toda la altura del contenedor */
-    margin: 0;
-    padding: 20px;
-    background: #f9f1f1;
-    font-family: "Roboto", sans-serif;
-    overflow: hidden;
-    
+ max-width: 1200px;
+  min-height: 100vh;
+  /*height: 100vh;*/
+  margin: 0px;
+  padding: 20px;
+  background: #f9f1f1;
+  font-family: "Roboto", sans-serif;    
   }
-  
-  /* Encabezado */
+
   .mp-list-container .headermp {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    height: 70px;
-    padding: 0;
-    background-color: #f5f5f5;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  height: 70px;
+  padding: 0px;
+  background-color: #f9f1f1;
+  box-shadow: none;
+  position: unset;
   }
   
   /* Input */
   .mp-list-container .input {
     border-radius: 15px;
     background-color: #ffffff;
+    border-color: #afabab;
     border: 1px solid #ddd;
+    box-shadow: none;
+    border-width: 0.5px;
     height: 35px;
     width: 500px;
     padding-left: 10px;
@@ -52,7 +53,7 @@
   /* Contenedor de la tabla */
   .mp-list-container .table-wrapper {
     flex: 1;
-    overflow: hidden; /* Permite que el contenido de la tabla sea desplazable si es necesario */
+    overflow: hidden; 
     margin-top: 10px;
     border-radius: 8px;
   }

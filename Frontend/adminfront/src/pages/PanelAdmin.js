@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./PanelAdmin.css";
 import ProductList from "../components/Producto/ProductList";
 import MateriaPrimaList from "../components/materiaprima/MateriaPrimaList";
+import Receta from "../components/receta/Receta";
 const PanelAdmin = () => {
   const [selectedSection, setSelectedSection] = useState("Productos");
 
@@ -20,7 +21,11 @@ const PanelAdmin = () => {
           </div>
         );
       case "Recetas":
-        return <div>Gestión de recetas</div>;
+        return (
+          <div>
+            <Receta />
+          </div>
+        );
       case "Pedidos":
         return <div>Gestión de pedidos</div>;
       case "Proveedores":
