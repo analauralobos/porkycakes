@@ -83,7 +83,7 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
         )}
         {userRole ? (
           <div className="user-options">
-            <span className="navbar-text">{`Bienvenido, ${userRole.nombre}`}</span>
+            <span className="navbar-text">{`Bienvenido, ${userRole}`}</span>
             <button onClick={handleLogout}>Salir</button>
           </div>
         ) : (

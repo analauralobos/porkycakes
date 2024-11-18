@@ -72,15 +72,34 @@ public class ProductosPorPedidoController {
         }
     };
 
+    
     // Obtener productos por id_Pedido
     public static Route getProductosXpedidoPorId = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            int id_Pedido = Integer.parseInt(request.params(":id"));
+            String idParam = request.params(":id_Pedido");
+            if (idParam == null || idParam.isEmpty()) {
+                response.status(400); // Bad Request
+                return gson.toJson("El parámetro id_Pedido no puede estar vacío.");
+            }
+
+            int id_Pedido;
+            try {
+                id_Pedido = Integer.parseInt(idParam);
+            } catch (NumberFormatException e) {
+                response.status(400); // Bad Request
+                return gson.toJson("El parámetro id_Pedido debe ser un número válido.");
+            }
+
             List<ProductosPorPedido> res = productosXPedidoDAO.selectByIdPedido(id_Pedido);
+            if (res == null || res.isEmpty()) {
+                response.status(404); // Not Found
+                return gson.toJson("No se encontraron productos para el id_Pedido proporcionado.");
+            }
+
             return gson.toJson(res);
         } catch (Exception e) {
-            response.status(500);
+            response.status(500); // Internal Server Error
             return gson.toJson("Error controlador: " + e.getMessage());
         }
     };
