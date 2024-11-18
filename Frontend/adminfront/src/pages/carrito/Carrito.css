@@ -44,3 +44,34 @@
     font-weight: bolder;
     font-size: 45px;
   }
+
+  .botonDeleteCarrito{
+    background-color: #751b1b;
+    color: white;
+    border: 1px solid #5c0707;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .botonDeleteCarrito:hover{
+    transform: scale(1.1);
+    background-color: #751b1b;
+    color: white;
+  }
+
+  .total-carrito {
+    font-family: Roboto;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+
+  .carritoVacio{
+    font-family: Roboto;
+    color: #db9e9e;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+  }
