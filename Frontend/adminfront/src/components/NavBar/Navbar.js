@@ -27,6 +27,8 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
 
   const handleLogout = () => {
     setUserRole(null);
+    localStorage.removeItem('id_persona');
+    localStorage.removeItem('role');
     navigate('/');
   };
 

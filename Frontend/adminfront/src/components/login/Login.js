@@ -1,43 +1,53 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 function Login({ closeModal, setUserRole }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:4567/porkys/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4567/porkys/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
-
+      console.log("data:", data);
       if (response.status === 200) {
+        // Guardar rol y cerrar modal
         setUserRole(data.role);
-        if (data.role === 'admin') {
-          navigate('/paneladmin');
-        } else if (data.role === 'cliente') {
-          navigate('/');
+        closeModal();
+
+        // Guardar el ID de la persona y el rol en localStorage
+        if (data.id) {
+          localStorage.setItem("id_persona", data.id_persona);
+          localStorage.setItem("role", data.role);
+        }
+
+        // Redirigir según el rol
+        if (data.role === "admin") {
+          navigate("/paneladmin");
+        } else if (data.role === "cliente") {
+          navigate("/");
         }
       } else {
-        alert(data.message || 'Credenciales inválidas');
+        alert(data.message || "Credenciales inválidas");
       }
     } catch (error) {
-      console.error('Error de login:', error);
-      alert('Hubo un error al intentar hacer login');
+      console.error("Error de login:", error);
+      alert("Hubo un error al intentar hacer login");
     }
   };
 
   return (
-    <div className="login-modal-overlay" onClick={closeModal}> {/* Cierra el modal si se hace clic fuera */}
-      <div className="login-modal" onClick={(e) => e.stopPropagation()}> {/* Previene el cierre si se hace clic dentro del modal */}
+    <div className="login-modal-overlay" onClick={closeModal}>
+      <div className="login-modal" onClick={(e) => e.stopPropagation()}>
         <div className="login-card">
           <h2 className="text-gradient">Iniciar sesión</h2>
           <div className="form">
