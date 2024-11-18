@@ -60,7 +60,18 @@ const RecetaForm = () => {
   };
 
   return (
+    <div className="r-detail-container">     
+      <div className="sidebar">
+        <button>Agregar Receta</button>
+        <button
+          className="button-cancelar"
+          onClick={() => navigate("/paneladmin")}
+        >
+          Cancelar
+        </button>
+      </div>
     <div className="receta-form-container">
+    <div className="card-p">
       <h2>Agregar Paso de Receta</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -97,15 +108,10 @@ const RecetaForm = () => {
         </div>
         <button type="submit" className="save-button">
           Agregar Paso de Receta
-        </button>
-        <button
-          type="button"
-          className="cancel-button"
-          onClick={() => navigate("/paneladmin")}
-        >
-          Cancelar
-        </button>
+        </button>       
       </form>
+    </div>
+    </div>
     </div>
   );
 };
