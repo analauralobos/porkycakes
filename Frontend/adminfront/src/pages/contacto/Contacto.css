@@ -1,19 +1,24 @@
 .contacto-container {
     background-color: #ffffff;
-    padding: 20px;
-    padding-bottom: 80px;
-    padding-top: 60px;
     border-radius: 10px;
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
+    padding-top: 25px;
+    padding-bottom: 40px;
+}
+
+@font-face {
+    font-family: 'Tess';
+    src: url('../../assets/fonts/tess/Tess.otf') format('truetype');
 }
 
 .form-contacto {
     color: #DE9999;
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 20px;
+    font-family: 'Tess';
+    font-size: 35px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .formulario {
@@ -24,11 +29,12 @@
 
 .mensaje-input {
     padding: 10px;
-    border: 1px solid #d4a1b2;
+    border: 2px solid #d4a1b2;
     border-radius: 5px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
+    background-color:beige;
     resize: none;
 }
 
@@ -61,4 +67,10 @@
     .enviar-btn {
         font-size: 14px;
     }
+}
+
+.contacto-logo{
+    max-width: 200px;
+    max-height: 150px;
+    padding-bottom: 40px;
 }

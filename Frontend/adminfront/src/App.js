@@ -15,6 +15,8 @@ import Pedidos from './pages/pedidos/Pedidos';
 import MateriaPrimaDetail from './components/materiaprima/MateriaPrimaDetail';
 import MateriaPrimaForm from './components/materiaprima/MateriaPrimaForm';
 
+import AgregarProducto from './components/Producto/AgregarProducto'
+
 import Footer from './components/Footer/Footer';
 
 
@@ -36,6 +38,7 @@ function App() {
         <Route path="/edit-product/:id" element={<ProductDetail/>} /> 
         <Route path="/edit-mp/:id" element={<MateriaPrimaDetail/>} /> 
         <Route path="/add-MP" element={<MateriaPrimaForm/>} /> 
+        <Route path="/add-product" element={<AgregarProducto/>} />
 
       </Routes>
       <Footer />

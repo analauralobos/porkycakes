@@ -9,7 +9,7 @@ import './Navbar.css';
 const Navbar = ({ userRole, setUserRole, cat }) => {
   const [menu, setMenu] = useState("inicio");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); 
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -53,12 +53,16 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
           <li className={menu === "paneladmin" ? "active" : ""}>
             <Link to="/paneladmin">Panel Admin</Link>
           </li>
-        )}
+        )} 
       </ul>
       <div className="navbar-right">
-        <BsBox2HeartFill size={25} />
+        <Link to="/mispedidos">
+          <BsBox2HeartFill size={25} className="mispedidos" />
+        </Link>
         <div className="navbar-search-icon">
-          <AiOutlineShoppingCart size={30} className="carrito" />
+          <Link to="/carrito">
+            <AiOutlineShoppingCart size={30} className="carrito" />
+          </Link>
         </div>
         {userRole ? (
           <div className="user-options">
@@ -72,7 +76,7 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
 
       {showLoginModal && <Login closeModal={closeLoginModal} setUserRole={setUserRole} />}
     </div>
-  ); 
+  );
 };
 
 export default Navbar;

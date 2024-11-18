@@ -68,7 +68,7 @@ const MateriaPrimaDetail = () => {
   }
 
   return (
-    <div className="mp-detail-container">     
+    <div className="mp-detail-container">
       <div className="sidebar">
         <button>Editar Mat. Prima</button>
         <button

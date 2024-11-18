@@ -20,6 +20,7 @@ function ProductoPage({ onLogout }) {
             <div>
                 <button onClick={handleAddProduct}>Agregar Producto</button> 
                 <button>Eliminar Producto</button>
+               
             </div>
             <Footer />
         </div>

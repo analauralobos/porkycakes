@@ -23,6 +23,8 @@
     align-items: center;
     margin-bottom: 0px;  
     position: relative;   
+    height: 120px;
+    margin-bottom: 20px;
 }
 
 .navbar-container li {
@@ -200,4 +202,14 @@
         display: none;
         z-index: 2000;
     }
+}
+
+.mispedidos, .carrito{
+    color: black;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.mispedidos:hover, .carrito:hover{
+    color: #DE9999;
+    transform: scale(1.3);
 }
