@@ -38,7 +38,7 @@ const PanelAdmin = () => {
   };
 
   return (
-    <div className="admin-panel d-flex">
+    <div className="admin-panel">
       {/* Menú lateral */}
       <div className="admin-menu">
         <button
