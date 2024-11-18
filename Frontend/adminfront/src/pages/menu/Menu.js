@@ -6,9 +6,9 @@ import Form from 'react-bootstrap/Form';
 import { agregarAlCarrito, eliminarDelCarrito, vaciarCarrito } from '../../components/carrito/CarritoFunciones';
 import './Menu.css';
 
-const Menu = () => {
+const Menu = ({ userRole }) => {
   const [productos, setProductos] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el texto de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
   const { categoria } = useParams();
   const navigate = useNavigate();
 
@@ -109,7 +109,7 @@ const Menu = () => {
           <Form.Control
             type="text"
             placeholder="Buscar producto..."
-            className="mr-8 form-style"
+            className="mr-8 form-style bordeForm"
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -134,20 +134,24 @@ const Menu = () => {
                   <Card.Text className="nombre">{producto.Nombre_Producto}</Card.Text>
                   <Card.Text className="descripcion">{producto.descripcion_producto}</Card.Text>
                   <Card.Text className="precio">Precio: ${producto.precio_vta}</Card.Text>
-                  <button
-                    className="btn boton-activo"
-                    onClick={() => agregarAlCarrito(producto)}
-                  >
-                    +
-                  </button>
-                  <button
-                    className="btn boton-activo"
-                    onClick={() => eliminarDelCarrito(producto.id_producto)}
-                  >
-                    -
-                  </button>
-
+                  {userRole === 'cliente' && (
+                    <div>
+                      <button
+                        className="btn boton-activo"
+                        onClick={() => agregarAlCarrito(producto)}
+                      >
+                        +
+                      </button>
+                      <button
+                        className="btn boton-activo"
+                        onClick={() => eliminarDelCarrito(producto.id_Producto)}
+                      >
+                        -
+                      </button>
+                    </div>
+                  )}
                 </Card.Body>
+
               </Card>
             </div>
           ))

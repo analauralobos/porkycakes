@@ -20,18 +20,21 @@ public class ClienteDAO {
         }
     }
 
-    // Método para registrar un nuevo cliente
     public boolean crearCliente(Cliente cliente) {
         String insertSQL = "INSERT INTO cliente (nombre_cliente, telefono_cliente, email_cliente, direccion_cliente, fecha_nac_cliente, pass_cliente) VALUES (:nombre, :telefono, :email, :direccion, :fecha_nac, :password);";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
+
+            // Encripta la contraseña
             String hashedPassword = BCrypt.hashpw(cliente.getPass_cliente(), BCrypt.gensalt());
+
+            // Ejecuta el INSERT con el ID generado
             con.createQuery(insertSQL)
                     .addParameter("nombre", cliente.getNombre_Cliente())
                     .addParameter("telefono", cliente.getTelefono_cliente())
                     .addParameter("email", cliente.getEmail_cliente())
                     .addParameter("direccion", cliente.getDireccion_cliente())
                     .addParameter("fecha_nac", cliente.getFecha_nac_cliente())
-                    .addParameter("password", hashedPassword) // Almacena la contraseña encriptada
+                    .addParameter("password", hashedPassword)
                     .executeUpdate();
             return true;
         } catch (Exception e) {

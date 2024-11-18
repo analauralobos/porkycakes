@@ -23,7 +23,7 @@ export const createProduct = async (productData) => {
   }
 };
 
-// Obtener un producto por id
+// Obtener un producto por id // ProductoService.js
 export const getProductById = async (id, productData) => {
   try {
     const response = await axios.get(`${API_URL}/detalles/${id}`, productData);

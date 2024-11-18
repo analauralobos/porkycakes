@@ -61,24 +61,5 @@
     margin-bottom: 20px;
 }
 
-/* Botones */
-.h-header .header-button {
-    background-color: rgba(255, 255, 255, 0.9);
-    font-size: 16px;
-    color: #000000;
-    border: 1px solid tomato;
-    padding: 12px 25px;
-    border-radius: 30px;
-    cursor: pointer;
-    margin: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.h-header .header-button:hover {
-    background-color: #DE9999;
-    color: white;
-    box-shadow: 0px 6px 10px rgba(255, 82, 134, 0.4);
-}
 
 

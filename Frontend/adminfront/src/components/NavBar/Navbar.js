@@ -13,6 +13,7 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Cambia el estado del menú según la ruta
   useEffect(() => {
     if (location.pathname.startsWith('/menu')) {
       setMenu('menu');
@@ -22,8 +23,12 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
       setMenu('contacto');
     } else if (location.pathname === '/paneladmin') {
       setMenu('paneladmin');
+    } else {
+      setMenu('');
     }
   }, [location.pathname]);
+
+  const isActiveRoute = (route) => location.pathname === route;
 
   const handleLogout = () => {
     setUserRole(null);
@@ -55,20 +60,30 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
           <li className={menu === "paneladmin" ? "active" : ""}>
             <Link to="/paneladmin">Panel Admin</Link>
           </li>
-        )} 
+        )}
       </ul>
       <div className="navbar-right">
-        <Link to="/mispedidos">
-          <BsBox2HeartFill size={25} className="mispedidos" />
-        </Link>
-        <div className="navbar-search-icon">
-          <Link to="/carrito">
-            <AiOutlineShoppingCart size={30} className="carrito" />
-          </Link>
-        </div>
+        {userRole === 'cliente' && (
+          <>
+            <Link to="/mispedidos">
+              <BsBox2HeartFill 
+                size={25} 
+                className={`mispedidos ${isActiveRoute('/mispedidos') ? 'active' : ''}`} 
+              />
+            </Link>
+            <div className="navbar-search-icon">
+              <Link to="/carrito">
+                <AiOutlineShoppingCart 
+                  size={30} 
+                  className={`carrito ${isActiveRoute('/carrito') ? 'active' : ''}`} 
+                />
+              </Link>
+            </div>
+          </>
+        )}
         {userRole ? (
           <div className="user-options">
-            <span className="navbar-text">{`Bienvenido, ${userRole}`}</span>
+            <span className="navbar-text">{`Bienvenido, ${userRole.nombre}`}</span>
             <button onClick={handleLogout}>Salir</button>
           </div>
         ) : (

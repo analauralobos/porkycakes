@@ -21,8 +21,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0px;  
-    position: relative;   
+    margin-bottom: 0px;
+    position: relative;
     height: 120px;
     margin-bottom: 20px;
 }
@@ -204,12 +204,21 @@
     }
 }
 
-.mispedidos, .carrito{
+.mispedidos,
+.carrito {
     color: black;
     transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-.mispedidos:hover, .carrito:hover{
+.mispedidos:hover,
+.carrito:hover {
     color: #DE9999;
     transform: scale(1.3);
 }
+
+.mispedidos.active,
+.carrito.active {
+    color: #DE9999;
+    transform: scale(1.2);
+}
+

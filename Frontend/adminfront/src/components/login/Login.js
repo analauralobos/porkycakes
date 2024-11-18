@@ -25,10 +25,13 @@ function Login({ closeModal, setUserRole }) {
         closeModal();
 
         // Guardar el ID de la persona y el rol en localStorage
-        if (data.id) {
-          localStorage.setItem("id_persona", data.id_persona);
-          localStorage.setItem("role", data.role);
+        if (data.id_persona && data.role) {
+          localStorage.setItem(
+            "userinfo",
+            JSON.stringify({ id_persona: data.id_persona, role: data.role })
+          );
         }
+
 
         // Redirigir según el rol
         if (data.role === "admin") {
