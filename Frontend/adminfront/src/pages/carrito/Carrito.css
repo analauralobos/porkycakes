@@ -46,16 +46,28 @@
   }
 
   .botonDeleteCarrito{
+    font-family: Roboto;
     background-color: #751b1b;
     color: white;
     border: 1px solid #5c0707;
     transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+    border-radius: 7px;
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
   }
 
   .botonDeleteCarrito:hover{
     transform: scale(1.1);
     background-color: #751b1b;
     color: white;
+  }
+
+  .botonDeleteCarrito:active{
+    background-color: #751b1b;
+    color: white;
+    transform: scale(1.05); /* Efecto opcional de reducción */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra al presionar */
   }
 
   .total-carrito {
@@ -75,3 +87,84 @@
     text-align: center;
     margin-top: 20px;
   }
+
+  .enviarPedido{
+    font-family: Roboto;
+    background-color: #d36b6b;
+    color: white;
+    border: 1px solid #d36b6b;
+    transition: transform 0.2s ease;
+    border-radius: 12px;
+    height: 40px;
+    width: 120px;
+    margin-top: 10px;
+  }
+
+  .enviarPedido:hover{
+    transform: scale(1.1);
+    background-color: #ff8080;
+    color: white;
+  }
+
+  .enviarPedido:active{
+    background-color: #ff8080;
+    color: white;
+    transform: scale(1.05); /* Efecto opcional de reducción */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra al presionar */
+  }
+
+  /* Contenedor principal */
+.tipo-pago {
+  margin: 20px 0;
+  font-family: Roboto;
+}
+
+/* Etiqueta */
+.tipo-pago label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Estilo del select */
+.tipo-pago select {
+  font-family: Roboto;
+  width: 20%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(248, 248, 235);
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover y focus del select */
+.tipo-pago select:hover {
+  border-color: #d36b6b;
+}
+
+.tipo-pago select:focus {
+  border-color: #d36b6b;
+  box-shadow: 0 0 5px rgba(211, 107, 107, 0.5);
+  outline: none;
+}
+
+/* Opciones del select */
+.tipo-pago option {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Cambiar el cursor si el valor es "-- Selecciona --" */
+.tipo-pago select:invalid {
+  color: #999; /* Texto gris para indicar selección requerida */
+}
+
+.metodoPagoTitulo{
+  font-family: Roboto;
+  font-weight: 100;
+  font-size: 16px;
+}

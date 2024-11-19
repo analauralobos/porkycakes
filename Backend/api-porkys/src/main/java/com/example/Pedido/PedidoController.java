@@ -1,6 +1,7 @@
 package com.example.Pedido;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.Producto.Producto;
 import com.google.gson.Gson;
@@ -24,17 +25,19 @@ public class PedidoController {
             return new Gson().toJson("Error controlador: " + e.getMessage());
         }
     };
-    // Crear nuevo pedido
     public static Route crearPedido = (Request request, Response response) -> {
         response.type("application/json");
         try {
             Pedido nuevoPedido = gson.fromJson(request.body(), Pedido.class);
-            pedidoDAO.crearPedido(nuevoPedido);
+            int idPedido = pedidoDAO.crearPedido(nuevoPedido); // Obtén el ID generado
             response.status(201);
-            return gson.toJson(nuevoPedido);
+            return gson.toJson(Map.of(
+                    "id_Pedido", idPedido,
+                    "mensaje", "Pedido creado exitosamente"));
         } catch (Exception e) {
             response.status(500);
-            return gson.toJson("Error al crear pedido: " + e.getMessage());
+            return gson.toJson(Map.of(
+                    "error", "Error al crear pedido: " + e.getMessage()));
         }
     };
 
@@ -120,9 +123,9 @@ public class PedidoController {
             int idPedido = Integer.parseInt(request.params(":id_Pedido"));
 
             // Llamamos al método getProductoxPedido del DAO
-            List<Producto> productos = pedidoDAO.getProductoxPedido(idPedido);
+            List<ProductoPedido> productos = pedidoDAO.getProductoxPedido(idPedido); // Cambia el tipo a ProductoPedido
             if (productos != null && !productos.isEmpty()) {
-                return gson.toJson(productos);
+                return gson.toJson(productos); // Serializa la lista de ProductoPedido
             } else {
                 response.status(404);
                 return gson.toJson("No se encontraron productos para este pedido");

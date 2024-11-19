@@ -1,31 +1,94 @@
 import React, { useState, useEffect } from 'react';
 import './Carrito.css';
-import { obtenerCarrito, eliminarDelCarrito } from '../../components/carrito/CarritoFunciones';
+import { obtenerCarrito, eliminarDelCarrito, vaciarCarrito } from '../../components/carrito/CarritoFunciones';
+import { createPedido } from '../../services/PedidoService';
+import { createProductoxPedido } from '../../services/ProductosxPedidoService';
 
 const Carrito = () => {
   const [carrito, setCarrito] = useState([]);
+  const [tipoPago, setTipoPago] = useState(""); // Estado para el tipo de pago
 
-  // Función para cargar el carrito
   const cargarCarrito = () => {
     const carritoGuardado = obtenerCarrito();
     setCarrito(carritoGuardado);
   };
 
   useEffect(() => {
-    cargarCarrito(); // Cargar el carrito al montar el componente
+    cargarCarrito();
   }, []);
 
   const manejarEliminacion = (idProducto) => {
-    eliminarDelCarrito(idProducto); // Llamada a la función para eliminar del almacenamiento
-    cargarCarrito(); // Recargar el carrito después de eliminar
+    eliminarDelCarrito(idProducto);
+    cargarCarrito();
   };
 
-  // Calcular el total del carrito
   const calcularTotal = () => {
     return carrito.reduce(
       (acumulador, producto) => acumulador + producto.precio_vta * producto.cantidad,
       0
     );
+  };
+
+  const obtenerFechaEntrega = () => {
+    const fechaActual = new Date();
+    fechaActual.setDate(fechaActual.getDate() + 5); // Sumar 5 días
+    return fechaActual.toISOString().slice(0,10); // Devolver como un objeto Date
+  };
+
+  // Nueva función para crear productos por pedido
+  const crearProductosPorPedido = async (idPedido) => {
+    for (const producto of carrito) {
+      const pxpData = {
+        id_Pedido: parseInt(idPedido),
+        id_Producto: parseInt(producto.id_Producto),
+        cantidad_pedido: parseInt(producto.cantidad),
+        precio: parseFloat(producto.precio_vta * producto.cantidad), // Calcular precio total correctamente
+        observacion: " ", // Opcional
+      };
+
+      try {
+        await createProductoxPedido(pxpData);
+      } catch (error) {
+        console.error("Error al asociar el producto con el pedido:", error);
+        alert("Hubo un problema al agregar un producto al pedido. Inténtalo de nuevo.");
+        return;
+      }
+    }
+  };
+
+  const enviarPedido = async () => {
+    if (!tipoPago) {
+      alert("Por favor, selecciona un método de pago.");
+      return;
+    }
+
+    const cliente = JSON.parse(localStorage.getItem("userinfo"));
+    const fecha_pedido = new Date();
+
+    // Crear un objeto FormData
+    const pedidoData = {
+      id_Cliente: parseInt(cliente.id_persona),
+      fecha_pedido: fecha_pedido.toISOString().slice(0,10),
+      fecha_entrega: obtenerFechaEntrega(),
+      lugar_entrega: "Local",
+      id_Estado: 1,
+      id_TipoPago: parseInt(tipoPago, 10),
+    };
+
+    try {
+      const pedidoResponse = await createPedido(pedidoData);
+      const idPedido = pedidoResponse.id_Pedido;
+
+      //Llamamos a la nueva función para asociar productos con el pedido
+      crearProductosPorPedido(idPedido);
+
+      alert("Pedido enviado con éxito.");
+      vaciarCarrito();
+      cargarCarrito();
+      setTipoPago("");
+    } catch (error) {
+      console.error("Error al enviar el pedido:", error);
+    }
   };
 
   return (
@@ -56,7 +119,7 @@ const Carrito = () => {
                   <td>${producto.precio_vta * producto.cantidad}</td>
                   <td>
                     <button
-                      className="btn botonDeleteCarrito"
+                      className="botonDeleteCarrito"
                       onClick={() => manejarEliminacion(producto.id_Producto)}
                     >
                       X
@@ -66,10 +129,30 @@ const Carrito = () => {
               ))}
             </tbody>
           </table>
-          {/* Mostrar el total*/}
           <div className="total-carrito">
             <p>Total del carrito: ${calcularTotal().toFixed(2)}</p>
           </div>
+
+          {/* Selección del tipo de pago */}
+          <div className="tipo-pago">
+            <p className="metodoPagoTitulo">Selecciona el método de pago:</p>
+            <select
+              id="tipoPago"
+              value={tipoPago}
+              onChange={(e) => setTipoPago(e.target.value)}
+            >
+              <option value="">-- Selecciona --</option>
+              <option value="1">Efectivo</option>
+              <option value="2">Crédito</option>
+              <option value="3">Débito</option>
+              <option value="4">Transferencia</option>
+              <option value="5">Mercado Pago</option>
+            </select>
+          </div>
+
+          <button className="enviarPedido" onClick={enviarPedido}>
+            Enviar Pedido
+          </button>
         </>
       ) : (
         <p className="carritoVacio">¡El carrito está vacío!</p>
@@ -79,3 +162,4 @@ const Carrito = () => {
 };
 
 export default Carrito;
+

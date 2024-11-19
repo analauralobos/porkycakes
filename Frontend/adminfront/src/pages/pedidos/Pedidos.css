@@ -1,0 +1,70 @@
+.pedidos-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.pedidos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pedido-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: #f8ecec;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.pedido-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pedido-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.pedido-details {
+    flex: 1;
+}
+
+.pedido-details h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.pedido-details p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.pedido-status {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    border-radius: 12px;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.pedido-status.Produccion, .pedido-status.Pendiente {
+    background-color: #f0ad4e;
+}
+
+.pedido-status.Terminado, .pedido-status.Entregado {
+    background-color: #5cb85c;
+}
+
+.pedido-status.Anulado {
+    background-color: #d9534f;
+}

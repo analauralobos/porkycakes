@@ -1,14 +1,13 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4567/porkys/pedido";
+const API_URL = "http://localhost:4567/porkys/pedidos";
 
-// Crear un nuevo pedido
 export const createPedido = async (pedidoData) => {
   try {
     const response = await axios.post(`${API_URL}/crear`, pedidoData);
     return response.data;
   } catch (error) {
-    console.error("Error al crear el producto:", error);
+    console.error("Error al crear el pedido:", error);
     throw error;
   }
 };
