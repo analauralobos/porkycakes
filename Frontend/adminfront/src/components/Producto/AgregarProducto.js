@@ -1,31 +1,44 @@
-import React, { useState } from "react";
-import { createProduct } from "../../services/ProductoService"; // Asegúrate de importar el servicio
+import React, { useState, useRef } from "react";
+import { createProduct } from "../../services/ProductoService";
+import './AgregarProducto.css';
 
 const AgregarProducto = () => {
-  const [nombre, setNombre] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [cantPorciones, setCantPorciones] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [imagen, setImagen] = useState(null); // Imagen en formato de archivo
+  const [formData, setformData] = useState({ nombre: '', precio: '', cantPorciones: '', descripcion: '', categoria: '', imagen: '' });
+  const fileInputRef = useRef(null);  
 
-  const handleSubmit = async (e) => {
+  const categorias = [
+    { id: 1, nombre: 'Torta' },
+    { id: 2, nombre: 'Galletitas' },
+    { id: 3, nombre: 'Alfajores' },
+    { id: 4, nombre: 'Tartas' },
+    { id: 5, nombre: 'Sin T.A.C.C' },
+    { id: 6, nombre: 'Vegano' }
+  ];
+
+  const handleAgregarProducto = async (e) => {
     e.preventDefault();
-  
-    // Crear un objeto FormData
-    const formData = new FormData();
-    formData.append("Nombre_Producto", nombre);
-    formData.append("precio_vta", parseFloat(precio));
-    formData.append("cant_porciones", parseInt(cantPorciones));
-    formData.append("descripcion_producto", descripcion);
-    formData.append("p_categoria", categoria);
-    formData.append("imagen", imagen);
-    
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("Nombre_Producto", formData.nombre);
+    formDataToSend.append("precio_vta", parseFloat(formData.precio));
+    formDataToSend.append("cant_porciones", parseInt(formData.cantPorciones));
+    formDataToSend.append("descripcion_producto", formData.descripcion);
+    formDataToSend.append("p_categoria", parseInt(formData.categoria));  // Se envía el ID de la categoría
+
+    // Adjuntar archivo
+    if (formData.imagen) {
+      formDataToSend.append("imagen", formData.imagen);
+    }
+
     try {
-      // Enviar la solicitud con FormData
-      const response = await createProduct(formData);
+      const response = await createProduct(formDataToSend);
       console.log("Producto creado:", response);
       alert("Producto creado exitosamente");
+      setformData({ nombre: '', precio: '', cantPorciones: '', descripcion: '', categoria: '', imagen: '' });
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';  
+      }
+
     } catch (error) {
       console.error("Error al crear el producto:", error);
       alert("Hubo un error al crear el producto");
@@ -33,61 +46,74 @@ const AgregarProducto = () => {
   };
 
   return (
-    <div>
+    <div className="agregar-producto-container">
       <h2>Agregar Producto</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleAgregarProducto} className="agregar-producto-form">
+        <div className="form-group">
           <label>Nombre del Producto:</label>
           <input
             type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            value={formData.nombre}
+            onChange={(e) => setformData({ ...formData, nombre: e.target.value })}
             required
+            className="form-control"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Precio de Venta:</label>
           <input
             type="number"
-            value={precio}
-            onChange={(e) => setPrecio(e.target.value)}
+            value={formData.precio}
+            onChange={(e) => setformData({ ...formData, precio: e.target.value })}
             required
+            className="form-control"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Cantidad de Porciones:</label>
           <input
             type="number"
-            value={cantPorciones}
-            onChange={(e) => setCantPorciones(e.target.value)}
+            value={formData.cantPorciones}
+            onChange={(e) => setformData({ ...formData, cantPorciones: e.target.value })}
             required
+            className="form-control"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Descripción:</label>
           <textarea
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
+            value={formData.descripcion}
+            onChange={(e) => setformData({ ...formData, descripcion: e.target.value })}
             required
+            className="form-control"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Categoría:</label>
-          <input
-            type="text"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
+          <select
+            value={formData.categoria}
+            onChange={(e) => setformData({ ...formData, categoria: e.target.value })}
             required
-          />
+            className="form-control"
+          >
+            <option value="">Seleccione una categoría</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.id} value={categoria.id}>
+                {categoria.nombre}
+              </option>
+            ))}
+          </select>
         </div>
-        <div>
+        <div className="form-group">
           <label>Imagen:</label>
           <input
             type="file"
-            onChange={(e) => setImagen(e.target.files[0])}
+            onChange={(e) => setformData({ ...formData, imagen: e.target.files[0] })}
+            className="form-control"
+            ref={fileInputRef} 
           />
         </div>
-        <button type="submit">Agregar Producto</button>
+        <button type="submit" className="submit-button">Agregar Producto</button>
       </form>
     </div>
   );

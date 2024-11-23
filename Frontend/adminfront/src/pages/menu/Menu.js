@@ -3,18 +3,20 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategory, getAllProducts } from '../../services/ProductoService';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import { agregarAlCarrito, eliminarDelCarrito, vaciarCarrito } from '../../components/carrito/CarritoFunciones';
+import { agregarAlCarrito, eliminarDelCarrito } from '../../components/carrito/CarritoFunciones';
 import './Menu.css';
+import ModalCarrito from '../../components/carrito/ModalCarrito';
 
 const Menu = ({ userRole }) => {
   const [productos, setProductos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [mensajeToast, setMensajeToast] = useState('');
   const { categoria } = useParams();
   const navigate = useNavigate();
 
   const categorias = ['Torta', 'Galletitas', 'Alfajores', 'Tartas', 'Sin T.A.C.C', 'Vegano'];
 
-  // Función para obtener productos por categoría
   const fetchProductsByCategory = async (categoriaSeleccionada) => {
     setProductos([]);
     try {
@@ -36,7 +38,6 @@ const Menu = ({ userRole }) => {
     }
   };
 
-  // Función para obtener todos los productos
   const fetchAllProducts = async () => {
     try {
       const data = await getAllProducts();
@@ -57,12 +58,23 @@ const Menu = ({ userRole }) => {
     }
   };
 
-  // Función para manejar el clic en una categoría
   const handleCategoryClick = (categoriaSeleccionada) => {
-    navigate(`/menu/${categoriaSeleccionada}`); // Cambia la URL para reflejar la categoría seleccionada
+    navigate(`/menu/${categoriaSeleccionada}`);
   };
 
-  // Filtrar productos según el término de búsqueda
+  const handleAgregarAlCarrito = (producto) => {
+    agregarAlCarrito(producto);
+    setMensajeToast(`${producto.Nombre_Producto} agregado al carrito`);
+    setShowToast(true);
+  };
+
+  const handleEliminarDelCarrito = (idProducto, producto) => {
+    eliminarDelCarrito(idProducto);
+    setMensajeToast(`${producto.Nombre_Producto} eliminado del carrito`);
+    setShowToast(true);
+  };
+
+
   const filteredProducts = productos.filter((producto) =>
     producto.Nombre_Producto.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -77,14 +89,12 @@ const Menu = ({ userRole }) => {
     }
   }, [categoria]);
 
-  // Manejar el cambio en el input de búsqueda
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   return (
     <div>
-      {/* Fila de botones de categorías y formulario */}
       <div className="d-flex justify-content-between mb-3">
         <div className="btn-group grupo-botones">
           <button
@@ -103,8 +113,6 @@ const Menu = ({ userRole }) => {
             </button>
           ))}
         </div>
-
-        {/* Formulario de búsqueda*/}
         <Form inline className="d-flex form-style">
           <Form.Control
             type="text"
@@ -115,8 +123,6 @@ const Menu = ({ userRole }) => {
           />
         </Form>
       </div>
-
-      {/* Mostrar productos filtrados si existen */}
       <div className="row">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((producto) => (
@@ -137,21 +143,21 @@ const Menu = ({ userRole }) => {
                   {userRole === 'cliente' && (
                     <div>
                       <button
-                        className="btn boton-activo"
-                        onClick={() => agregarAlCarrito(producto)}
+                        className="boton-activo"
+                        onClick={() => handleAgregarAlCarrito(producto)}
                       >
                         +
                       </button>
                       <button
-                        className="btn boton-activo"
-                        onClick={() => eliminarDelCarrito(producto.id_Producto)}
+                        className="boton-activo"
+                        onClick={() => handleEliminarDelCarrito(producto.id_Producto, producto)}
                       >
                         -
                       </button>
+
                     </div>
                   )}
                 </Card.Body>
-
               </Card>
             </div>
           ))
@@ -162,17 +168,13 @@ const Menu = ({ userRole }) => {
           </div>
         )}
       </div>
+      <ModalCarrito
+        show={showToast}
+        toggleShow={() => setShowToast(false)}
+        mensaje={mensajeToast}
+      />
     </div>
   );
 };
 
 export default Menu;
-
-/*
-                  <button
-                    className="btn boton-activo"
-                    onClick={() => vaciarCarrito()}
-                  >
-                    Vaciar
-                  </button>
-*/

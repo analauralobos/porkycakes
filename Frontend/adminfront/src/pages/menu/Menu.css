@@ -65,6 +65,13 @@
     color: white;
 }
 
+.boton-activo:active{
+    background-color: #d27493;
+    color: white;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
 .espera {
     width: 200px;
     height: 210px;

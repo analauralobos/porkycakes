@@ -75,32 +75,30 @@ const Pedidos = () => {
     }
   };
 
-
   return (
     <div className="pedidos-container">
-      <h2>Pedidos de {nombreCliente}</h2>
+      <h2 className="nombreCliente-Pedido">Pedidos de {nombreCliente}</h2>
       {pedidos.length === 0 ? (
-        <p>No hay pedidos disponibles.</p>
+        <p className="pedidosVacios">No hay pedidos disponibles.</p>
       ) : (
         <div className="pedidos-list">
           {pedidos.map((pedido) => (
             <div key={pedido.id_pedido} className="pedido-card">
               <div className="pedido-details">
-                <p><strong>Pedido:</strong>
+                <p><strong>Pedido: </strong>
                   {pedido.productos.map((producto, index) => (
                     <span key={index}>{producto.Nombre_Producto} (x{producto.cantidad_pedido}), </span>
                   ))}
                 </p>
                 <p><strong>Estado del producto:</strong>
                   <span className={`pedido-status ${getEstadoPedido(pedido.id_Estado)}`}>
-                    {getEstadoPedido(pedido.id_Estado)}
+                    <b style={{color: 'black'}}>{getEstadoPedido(pedido.id_Estado)}</b>
                   </span>
                 </p>
-                <p><strong>Medio de pago:</strong> {getMedioPago(pedido.id_TipoPago)}</p>
+                <p className="PedidosTitulos"><strong>Medio de pago:</strong> {getMedioPago(pedido.id_TipoPago)}</p>
                 <p><strong>Fecha de pedido:</strong> {pedido.fecha_pedido}</p>
               </div>
             </div>
-
           ))}
         </div>
       )}

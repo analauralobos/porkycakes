@@ -9,6 +9,6 @@ public class Producto {
     private float precio_vta;
     private Integer cant_porciones;
     private String descripcion_producto;
-    private String p_categoria;
+    private Integer p_categoria;
     private byte[] imagen;    
 }

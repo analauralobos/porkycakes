@@ -2,6 +2,10 @@ package com.example.Producto;
 
 import com.google.gson.Gson;
 import java.util.List;
+
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.Part;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -45,11 +49,33 @@ public class ProductoController {
         }
     };
 
-    // Crear nuevo producto
+    // Crear nuevo producto PRODUCTOCONTROLLLER.JAVA
     public static Route crearProducto = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            Producto nuevoProducto = gson.fromJson(request.body(), Producto.class);
+            MultipartConfigElement multipartConfigElement = new MultipartConfigElement("/tmp");
+            request.raw().setAttribute("org.eclipse.jetty.multipartConfig", multipartConfigElement);
+
+            String nombre = request.raw().getParameter("Nombre_Producto");
+            String precio = request.raw().getParameter("precio_vta");
+            String porciones = request.raw().getParameter("cant_porciones");
+            String descripcion = request.raw().getParameter("descripcion_producto");
+            String categoria = request.raw().getParameter("p_categoria");
+
+            Part filePart = request.raw().getPart("imagen");
+            byte[] imagenBytes = null;
+            if (filePart != null) {
+                imagenBytes = filePart.getInputStream().readAllBytes();
+            }
+
+            Producto nuevoProducto = new Producto();
+            nuevoProducto.setNombre_Producto(nombre);
+            nuevoProducto.setPrecio_vta(Integer.parseInt(precio));
+            nuevoProducto.setCant_porciones(Integer.parseInt(porciones));
+            nuevoProducto.setDescripcion_producto(descripcion);
+            nuevoProducto.setP_categoria(Integer.parseInt(categoria));
+            nuevoProducto.setImagen(imagenBytes);
+
             productoDAO.crearProducto(nuevoProducto);
             response.status(201);
             return gson.toJson(nuevoProducto);
@@ -98,7 +124,7 @@ public class ProductoController {
             return gson.toJson("Error al eliminar el producto: " + e.getMessage());
         }
     };
-    
+
     // Obtener productos por nombre de categoría
     public static Route getProductosPorNombreCategoria = (Request request, Response response) -> {
         response.type("application/json");

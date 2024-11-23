@@ -15,11 +15,11 @@
 }
 
 .menu-titulo{
-    padding-left: 90px;
-    font-size: 35px;
-    font-size: Manrope;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    font-family: 'Tess';
+    font-weight: bolder;
+    font-size: 45px;
+    text-align: left;
+    color: #d36b6b; 
 }
 
 /* Contenedor de categorías */
@@ -29,7 +29,7 @@
     gap: 20px;
     flex-wrap: wrap;
     margin-top: 20px;
-    padding-left: 20px;
+    padding-left: 15px;
 }
 
 /* Cada categoría */

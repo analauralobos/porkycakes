@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Categoria.css';
 import { getAllCategorias } from '../../services/CateogriaService';
 import { useNavigate } from 'react-router-dom';
+import logopig from '../../assets/img/logopig.png'
 
 const Categoria = () => {
   const [categorias, setCategorias] = useState([]);
@@ -30,29 +31,29 @@ const Categoria = () => {
   }, []);
 
   const handleCategoriaClick = (categoria) => {
-      navigate(`/menu/${categoria.nombre}`);
+    navigate(`/menu/${categoria.nombre}`);
   };
 
 
   return (
-    <div className="c-menu">
-      <h2 className="menu-titulo">Categorías</h2>
-      <div className="categorias-container container">
-        {categorias.map(categoria => (
-          <div
-            key={categoria.id_categoria}
-            className="categoria-item"
-            onClick={() => handleCategoriaClick(categoria)}
-          >
-            {categoria.imagen && (
-              <img src={categoria.imagen} alt={categoria.nombre} className="categoria-imagen" />
-            )}
-            <p className="categoria-nombre">{categoria.nombre}</p>
-          </div>
-        ))}
+    <div className="c-menu container">
+        <h2 className="menu-titulo">Categorías</h2>
+        <div className="categorias-container">
+          {categorias.map(categoria => (
+            <div
+              key={categoria.id_categoria}
+              className="categoria-item"
+              onClick={() => handleCategoriaClick(categoria)}
+            >
+              {categoria.imagen && (
+                <img src={categoria.imagen} alt={categoria.nombre} className="categoria-imagen" />
+              )}
+              <p className="categoria-nombre">{categoria.nombre}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+      );
 };
 
-export default Categoria;
+      export default Categoria;

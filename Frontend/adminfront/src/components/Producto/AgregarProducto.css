@@ -1,0 +1,65 @@
+.agregar-producto-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f8d5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .agregar-producto-container h2 {
+    font-family: 'Tess';
+    text-align: center;
+    font-weight: bolder;
+    font-size: 40px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #d36b6b; 
+  }
+  
+  .agregar-producto-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    font-family: Roboto;
+    color: #3f3b3b;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .form-control:focus {
+    border-color: #b000ab;
+    outline: none;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  

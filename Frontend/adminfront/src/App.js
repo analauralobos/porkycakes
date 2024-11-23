@@ -16,10 +16,10 @@ import MateriaPrimaForm from './components/materiaprima/MateriaPrimaForm';
 import RecetaForm from './components/receta/RecetaForm';
 import RecetaDetail from './components/receta/RecetaDetail';
 
-
 import AgregarProducto from './components/Producto/AgregarProducto'
 
 import Footer from './components/Footer/Footer';
+import Producto from './components/Producto/Producto';
 
 
 function App() {
@@ -44,13 +44,13 @@ function App() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/mispedidos" element={<Pedidos />} />
         <Route path="/paneladmin" element={<PanelAdmin userRole={userRole} />} />
-        <Route path="/" element={<Inicio />} />
+        <Route path="/" element={<Inicio userRole={userRole}/>} />
         <Route path="/edit-product/:id" element={<ProductDetail />} />
         <Route path="/edit-mp/:id" element={<MateriaPrimaDetail />} />
         <Route path="/add-MP" element={<MateriaPrimaForm />} />
         <Route path="/add-receta" element={<RecetaForm />} />
         <Route path="/edit-receta/:id" element={<RecetaDetail />} />
-
+        <Route path="/add-product" element={<AgregarProducto />} />
       </Routes>
       <Footer />
     </Router>

@@ -31,9 +31,11 @@
 }
 
 .Producto{
-    color: black;
-    font-family: Manrope;
-    font-size: 35px;
+    font-family: 'Tess';
+    font-weight: bolder;
+    font-size: 45px;
+    text-align: left;
+    color: #d36b6b; 
 }
 
 .nombre{
@@ -51,3 +53,11 @@
     font-family: RobotoLight;
 }
 
+.logopig{
+    height: 50px;
+    width: 50px;
+}
+
+.displayTituloyLogo{
+    display: flex;
+}

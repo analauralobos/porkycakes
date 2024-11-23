@@ -30,7 +30,7 @@ public class ProductoDAO {
         }
     }
 
-    // Método para crear un nuevo producto
+    // Método para crear un nuevo producto PRODUCTODAO.JAVA
     public boolean crearProducto(Producto producto) {
         String insertSQL = "INSERT INTO producto (Nombre_Producto, precio_vta, cant_porciones, descripcion_producto, p_categoria, imagen) VALUES (:Nombre_Producto, :precio_vta, :cant_porciones, :descripcion_producto, :p_categoria, :imagen);";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
