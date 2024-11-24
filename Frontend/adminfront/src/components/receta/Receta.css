@@ -67,6 +67,16 @@
   height: 100%;
 }
 
+.receta-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .receta-list-container .receta-card h3 {
   font-size: 18px;
   color: #333;
@@ -74,6 +84,13 @@
 }
 
 .receta-list-container .receta-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.receta-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -88,8 +105,20 @@
   border-radius: 8px;
   overflow: hidden;
 }
+.receta-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
 
 .receta-list-container .receta-table thead {
+  background-color: #ff9595;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+.receta-table thead {
   background-color: #ff9595;
   color: white;
   border-radius: 8px 8px 0 0;
@@ -99,9 +128,17 @@
   padding: 10px;
   text-align: left;
 }
+.receta-table th {
+  padding: 10px;
+  text-align: left;
+}
 
 .receta-list-container .receta-table th,
 .receta-list-container .receta-table td {
+  padding: 10px;
+  font-size: 14px;
+}
+.receta-table th, .receta-table td {
   padding: 10px;
   font-size: 14px;
 }
@@ -123,6 +160,13 @@
 }
 
 .receta-actions button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+button {
   padding: 5px 10px;
   border-radius: 5px;
   border: none;
@@ -177,7 +221,14 @@
   gap: 20px;
   flex-grow: 1;
 }
-
+.receta-form-container {
+  flex: 1;
+  display: flex;
+  margin: 0px;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+}
 .r-detail-container .receta-form-container .card-p {
   background-color: white;
   padding: 20px;
@@ -189,8 +240,17 @@
   color: #ff6b6b;
   margin-bottom: 10px;
 }
-
+h3 {
+  font-size: 1.5rem;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
 .r-detail-container .receta-form-container form {    
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+form {    
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -206,13 +266,35 @@ border: 1px solid #ddd;
 border-radius: 5px;
 box-sizing: border-box;
 }
-
+input, select,textarea {
+background-color: #ffffff;
+width: 100%;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 5px;
+box-sizing: border-box;
+}
 .r-detail-container .receta-form-container .card-p label {
 font-weight: bold;
 margin-bottom: 5px;
 }
-
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  }
 .r-detail-container .receta-form-container .card-p .save-button {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.agregar-paso{
   background-color: #ff6b6b;
   color: white;
   padding: 10px 15px;
