@@ -56,4 +56,4 @@ const Categoria = () => {
       );
 };
 
-      export default Categoria;
+export default Categoria;

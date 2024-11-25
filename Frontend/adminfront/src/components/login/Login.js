@@ -28,10 +28,9 @@ function Login({ closeModal, setUserRole }) {
         if (data.id_persona && data.role) {
           localStorage.setItem(
             "userinfo",
-            JSON.stringify({ id_persona: data.id_persona, role: data.role })
+            JSON.stringify({ id_persona: data.id_persona, role: data.role, token: data.token })
           );
         }
-
 
         // Redirigir según el rol
         if (data.role === "admin") {

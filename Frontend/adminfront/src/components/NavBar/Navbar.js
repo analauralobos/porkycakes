@@ -13,6 +13,7 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   // Cambia el estado del menú según la ruta
   useEffect(() => {
     if (location.pathname.startsWith('/menu')) {

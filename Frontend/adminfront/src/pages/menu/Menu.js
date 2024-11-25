@@ -117,7 +117,7 @@ const Menu = ({ userRole }) => {
           <Form.Control
             type="text"
             placeholder="Buscar producto..."
-            className="mr-8 form-style bordeForm"
+            className="mr-8 bordeForm"
             value={searchTerm}
             onChange={handleSearchChange}
           />

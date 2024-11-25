@@ -99,4 +99,17 @@ public class ClienteDAO {
             return false;
         }
     }
+
+    public void updateToken(int idCliente, String token) {
+        String sql = "UPDATE cliente SET token = :token WHERE id_cliente = :id";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            con.createQuery(sql)
+                    .addParameter("token", token)
+                    .addParameter("id", idCliente)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.err.println("Error al obtener el cliente: " + e.getMessage());
+        }
+    }
+
 }

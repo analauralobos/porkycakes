@@ -11,6 +11,7 @@ public class Cliente {
     private String direccion_cliente;
     private String fecha_nac_cliente;
     private String pass_cliente;
+    private String token;
 }
 
 

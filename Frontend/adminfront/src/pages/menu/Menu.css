@@ -80,9 +80,18 @@
 
 .form-style{
     padding-right: 20px;
+    width: 23%;
+    
 }
 
-.bordeForm{
-    border: 1px solid rgb(228, 128, 145);
-    border-radius: 12px;
+.bordeForm {
+    border: 2px solid #d27493; 
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    transition: border-color 0.3s ease;
 }
+
+.bordeForm:focus-within {
+    border-color: #6c63ff; 
+}
+

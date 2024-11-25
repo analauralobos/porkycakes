@@ -52,7 +52,6 @@ const Producto = ({ userRole }) => {
       <div className="container mt-4">
         <div className='displayTituloyLogo'>
         <h2 className="Producto">Los más comprados</h2>
-        <img src={logopig} alt="logopig" className="logopig" />
         </div>
         <div className="row">
           {productos.map((producto) => (

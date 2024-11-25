@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import { createProduct } from "../../services/ProductoService";
+import { useNavigate } from "react-router-dom";
 import './AgregarProducto.css';
 
 const AgregarProducto = () => {
   const [formData, setformData] = useState({ nombre: '', precio: '', cantPorciones: '', descripcion: '', categoria: '', imagen: '' });
-  const fileInputRef = useRef(null);  
+  const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const categorias = [
     { id: 1, nombre: 'Torta' },
@@ -23,7 +25,7 @@ const AgregarProducto = () => {
     formDataToSend.append("precio_vta", parseFloat(formData.precio));
     formDataToSend.append("cant_porciones", parseInt(formData.cantPorciones));
     formDataToSend.append("descripcion_producto", formData.descripcion);
-    formDataToSend.append("p_categoria", parseInt(formData.categoria));  // Se envía el ID de la categoría
+    formDataToSend.append("p_categoria", parseInt(formData.categoria));
 
     // Adjuntar archivo
     if (formData.imagen) {
@@ -36,7 +38,7 @@ const AgregarProducto = () => {
       alert("Producto creado exitosamente");
       setformData({ nombre: '', precio: '', cantPorciones: '', descripcion: '', categoria: '', imagen: '' });
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';  
+        fileInputRef.current.value = '';
       }
 
     } catch (error) {
@@ -46,75 +48,91 @@ const AgregarProducto = () => {
   };
 
   return (
-    <div className="agregar-producto-container">
-      <h2>Agregar Producto</h2>
-      <form onSubmit={handleAgregarProducto} className="agregar-producto-form">
-        <div className="form-group">
-          <label>Nombre del Producto:</label>
-          <input
-            type="text"
-            value={formData.nombre}
-            onChange={(e) => setformData({ ...formData, nombre: e.target.value })}
-            required
-            className="form-control"
-          />
+    <div className="mp-detail-container">
+      <div className="sidebar">
+        <button>Agregar Productos</button>
+        <button
+          className="button-cancelar"
+          onClick={() => navigate("/paneladmin")}
+        >
+          Cancelar
+        </button>
+      </div>
+      <div className="cards-container">
+        <div className="card-p">
+          <h2 className="h2AgrProd">Agregar Producto</h2>
+          <form onSubmit={handleAgregarProducto} className="agregar-producto-form">
+            <div>
+              <label>Nombre del Producto:</label>
+              <input
+                type="text"
+                value={formData.nombre}
+                onChange={(e) => setformData({ ...formData, nombre: e.target.value })}
+                required
+                className="form-control"
+              />
+            </div>
+            <div>
+              <label>Precio de Venta:</label>
+              <input
+                type="number"
+                min={0}
+                value={formData.precio}
+                onChange={(e) => setformData({ ...formData, precio: e.target.value })}
+                required
+                className="form-control"
+              />
+            </div>
+            <div>
+              <label>Cantidad de Porciones:</label>
+              <input
+                type="number"
+                min={0}
+                value={formData.cantPorciones}
+                onChange={(e) => setformData({ ...formData, cantPorciones: e.target.value })}
+                required
+                className="form-control"
+              />
+            </div>
+            <div>
+              <label>Descripción:</label>
+              <textarea
+                value={formData.descripcion}
+                onChange={(e) => setformData({ ...formData, descripcion: e.target.value })}
+                required
+                className="form-control"
+              />
+            </div>
+            <div>
+              <label>Categoría:</label>
+              <select
+                value={formData.categoria}
+                onChange={(e) => setformData({ ...formData, categoria: e.target.value })}
+                required
+                className="form-control"
+              >
+                <option value="">Seleccione una categoría</option>
+                {categorias.map((categoria) => (
+                  <option key={categoria.id} value={categoria.id}>
+                    {categoria.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Imagen:</label>
+              <input
+                type="file"
+                required
+                onChange={(e) => setformData({ ...formData, imagen: e.target.files[0] })}
+                className="form-control"
+                ref={fileInputRef}
+              />
+            </div>
+            <button type="submit" className="save-button">Agregar Producto</button>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Precio de Venta:</label>
-          <input
-            type="number"
-            value={formData.precio}
-            onChange={(e) => setformData({ ...formData, precio: e.target.value })}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label>Cantidad de Porciones:</label>
-          <input
-            type="number"
-            value={formData.cantPorciones}
-            onChange={(e) => setformData({ ...formData, cantPorciones: e.target.value })}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label>Descripción:</label>
-          <textarea
-            value={formData.descripcion}
-            onChange={(e) => setformData({ ...formData, descripcion: e.target.value })}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label>Categoría:</label>
-          <select
-            value={formData.categoria}
-            onChange={(e) => setformData({ ...formData, categoria: e.target.value })}
-            required
-            className="form-control"
-          >
-            <option value="">Seleccione una categoría</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Imagen:</label>
-          <input
-            type="file"
-            onChange={(e) => setformData({ ...formData, imagen: e.target.files[0] })}
-            className="form-control"
-            ref={fileInputRef} 
-          />
-        </div>
-        <button type="submit" className="submit-button">Agregar Producto</button>
-      </form>
+      </div>
     </div>
   );
 };
