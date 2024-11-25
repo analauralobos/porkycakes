@@ -123,7 +123,7 @@ public class ClienteController {
     public static Route obtenerNombreClientePorId = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            int idCliente = Integer.parseInt(request.params(":id_cliente"));
+            int idCliente = Integer.parseInt(request.params(":id_Cliente"));
             String nombreCliente = clienteDAO.obtenerNombreClientePorId(idCliente);
             if (nombreCliente != null) {
                 return gson.toJson(nombreCliente);
@@ -136,5 +136,6 @@ public class ClienteController {
             return gson.toJson("Error controlador: " + e.getMessage());
         }
     };
+    
 
 }
