@@ -115,7 +115,7 @@
   display: flex; /* Para centrar la imagen */
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
-  height: 100%; /* Para ocupar toda la altura disponible */
+  height: 80%; /* Para ocupar toda la altura disponible */
   overflow: hidden;
 }
 
@@ -129,6 +129,7 @@
 .cards-container .card-p .product-details .save-button {
   background-color: #ff6b6b;
   color: white;
+  width: 140px;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -136,6 +137,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 /*****************************************************************************/
 /* ingredientes */
@@ -211,6 +213,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  
 }
 
 .cards-container .card-p .table-ingredients button:hover,
@@ -229,6 +232,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 140px;
 }
 
 .cards-container .card-p button.save-button:hover {

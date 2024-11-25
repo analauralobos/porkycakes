@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getProductById, updateProduct } from "../../services/ProductoService";
-import {
-  getCategoriasId,
-  getAllCategorias,
+import { 
+  getProductById, 
+  updateProduct 
+} from "../../services/ProductoService";
+import { 
+  getCategoriasId, 
+  getAllCategorias 
 } from "../../services/CateogriaService";
-import {
-  getIngredientById,
-  createIngredient,
-  deleteIngredient,
+import { 
+  getIngredientById, 
+  createIngredient, 
+  deleteIngredient 
 } from "../../services/IngredienteService";
-import {
-  getPasoRecetaById,
-  createPasoReceta,
-  deletePasoReceta,
+import { 
+  getPasoRecetaById, 
+  createPasoReceta, 
+  deletePasoReceta 
 } from "../../services/RecetaService";
-import {
-  getAllMatPrimas,
-  getMatPrimaById,
+import { 
+  getAllMatPrimas, 
+  getMatPrimaById 
 } from "../../services/MateriaPrimaService";
 import "./ProductDetail.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
-  const [productI, setProductI] = useState([]);
-  const [categoria, setCategoria] = useState([]);
+  const [product, setProduct] = useState({});
+  const [productI, setProductI] = useState({});
+  const [categoria, setCategoria] = useState({});
   const [categoriaTodas, setCatTodas] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [receta, setReceta] = useState([]);
@@ -39,9 +42,10 @@ const ProductDetail = () => {
     cantidad: 0,
     unidades: "",
   });
+
   const [newStep, setNewStep] = useState({
     descripcion: "",
-    paso_nro: receta.length + 1,
+    paso_nro: 1,
   });
 
   const arrayBufferToBase64 = (buffer) => {
@@ -54,8 +58,10 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+
+        // Producto e imagen
         const productData = await getProductById(id);
-        // Convertir la imagen
         const productWithImage = {
           ...productData,
           imagen: productData.imagen
@@ -65,22 +71,33 @@ const ProductDetail = () => {
         setProductI(productWithImage);
         setProduct(productData);
 
-        const ingredientsData = await getIngredientById(id);
-        const ingredientsWithNames = await Promise.all(
-          ingredientsData.map(async (ingredient) => {
-            const materiaPrima = await getMatPrimaById(
-              ingredient.id_MateriaPrima
-            );
-            return { ...ingredient, Nombre_MP: materiaPrima.Nombre_MP };
-          })
-        );
-        const recetaData = await getPasoRecetaById(id);
+        // Ingredientes
+        try {
+          const ingredientsData = await getIngredientById(id);
+          const ingredientsWithNames = await Promise.all(
+            ingredientsData.map(async (ingredient) => {
+              const materiaPrima = await getMatPrimaById(ingredient.id_MateriaPrima);
+              return { ...ingredient, Nombre_MP: materiaPrima.Nombre_MP };
+            })
+          );
+          setIngredients(ingredientsWithNames);
+        } catch {
+          setIngredients([]); // Si falla, inicializamos como un arreglo vacío
+        }
+
+        // Pasos de la receta
+        try {
+          const recetaData = await getPasoRecetaById(id);
+          setReceta(Array.isArray(recetaData) ? recetaData : []);
+        } catch {
+          setReceta([]); // Si falla, inicializamos como un arreglo vacío
+        }
+
+        // Categoría y materias primas
         const categoriaData = await getCategoriasId(productData.p_categoria);
         const categoriaTodas = await getAllCategorias();
         const matPrimasData = await getAllMatPrimas();
-        console.log("Materias Primas:", matPrimasData);  // Verifica los datos
-        setIngredients(ingredientsWithNames || []);
-        setReceta(Array.isArray(recetaData) ? recetaData : [recetaData]);
+
         setCategoria(categoriaData);
         setCatTodas(categoriaTodas);
         setMatPrimas(matPrimasData);
@@ -120,12 +137,9 @@ const ProductDetail = () => {
   };
 
   const handleDeleteIngredient = async (index) => {
-    const ingredient = ingredients[index];
+    const ingredientToDelete = ingredients[index];
     try {
-      await deleteIngredient(
-        ingredient.id_MateriaPrima,
-        ingredient.id_Producto
-      );
+      await deleteIngredient(ingredientToDelete.id_MateriaPrima, ingredientToDelete.id_Producto);
       setIngredients(ingredients.filter((_, i) => i !== index));
       alert("Ingrediente eliminado con éxito.");
     } catch (error) {
@@ -329,7 +343,7 @@ const ProductDetail = () => {
                   }
                 />
                 <button onClick={handleAddIngredient}>
-                  Agregar Ingrediente
+                  Guardar
                 </button>
               </form>
             </div>
@@ -384,7 +398,7 @@ const ProductDetail = () => {
                     setNewStep({ ...newStep, descripcion: e.target.value })
                   }
                 />
-                <button onClick={handleAddStep}>Agregar Paso</button>
+                <button onClick={handleAddStep}>Guardar</button>
               </form>
             </div>
           </div>

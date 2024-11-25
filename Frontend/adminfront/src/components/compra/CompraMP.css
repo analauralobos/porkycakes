@@ -1,0 +1,159 @@
+/* Contenedor principal */
+.compra-list-container {
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0px;
+  padding: 20px;
+  background: #f9f1f1;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+/* Encabezado */
+.compra-list-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  height: 70px;
+  padding: 0px;
+  background-color: #f9f1f1;
+  box-shadow: none;
+  position: unset;
+
+}
+
+
+.compra-list-container .add-compra-button {
+  background-color: #ff9595;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding-right: 15px;
+}
+
+.compra-list-container .add-compra-button:hover {
+  background-color: #ff8484;
+}
+
+/* Tabla */
+.compra-list-container .compra-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+
+}
+
+.compra-list-container .compra-table th,
+.compra-list-container .compra-table td {
+  padding: 15px;
+  text-align: left;
+}
+
+.compra-list-container .compra-table th {
+  background-color: #ff9595;
+  color: white;
+}
+
+.compra-list-container .compra-table tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.compra-list-container .compra-table tr:hover {
+  background-color: #ffeaea;
+}
+
+.compra-list-container .compra-table td {
+  color: #555;
+}
+
+/* Botones de acción */
+.compra-list-container  .action-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.compra-list-container  .action-button .edit {
+  background-color: #ffc107;
+  color: white;
+}
+
+.compra-list-container  .action-button .edit:hover {
+  background-color: #e0a800;
+}
+
+.compra-list-container  .action-button .delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.compra-list-container  .action-button .delete:hover {
+  background-color: #c82333;
+}
+
+/* Mensaje sin productos */
+.compra-list-container  .no-proveedor-message {
+  color: #555;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Estilo de carga */
+.compra-list-container  .loading {
+  font-size: 20px;
+  color: #ff8484;
+  text-align: center;
+  margin-top: 50px;
+}
+
+
+/* Fondo del modal */
+.compra-list-container .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Contenido del modal */
+.compra-list-container .modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 600px; /* Más ancho */
+  max-width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Estilo del formulario */
+.compra-list-container .modal-content .formPr {
+  display: grid;    
+} 
+
+
+.compra-list-container .modal-content .formPr input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+

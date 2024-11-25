@@ -18,7 +18,7 @@ public class CompraDAO {
 
     // Método para crear una nueva compra
     public boolean crearCompra(Compra compra) {
-        String insertSQL = "INSERT INTO compras (id_Proveedor, id_MateriaPrima, fecha_compra, cantidad_compra, precio_compra) VALUES (:id_Proveedor, :id_MateriaPrima, :fecha_compra, :cantidad_compra, :precio_compra);";
+        String insertSQL = "INSERT INTO compra (id_Proveedor, id_MateriaPrima, fecha_compra, cantidad_compra, precio_compra) VALUES (:id_Proveedor, :id_MateriaPrima, :fecha_compra, :cantidad_compra, :precio_compra);";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             con.createQuery(insertSQL)
                     .addParameter("id_Proveedor", compra.getId_Proveedor())
@@ -36,7 +36,7 @@ public class CompraDAO {
 
     // Método para modificar una compra
     public boolean modificarCompra(Compra compra) {
-        String updateSQL = "UPDATE compras SET id_Proveedor = :id_Proveedor, id_MateriaPrima = :id_MateriaPrima, fecha_compra = :fecha_compra, cantidad_compra = :cantidad_compra, precio_compra = :precio_compra WHERE id_Compra = :id_Compra;";
+        String updateSQL = "UPDATE compra SET id_Proveedor = :id_Proveedor, id_MateriaPrima = :id_MateriaPrima, fecha_compra = :fecha_compra, cantidad_compra = :cantidad_compra, precio_compra = :precio_compra WHERE id_Compra = :id_Compra;";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             con.createQuery(updateSQL)
                     .addParameter("id_Compra", compra.getId_Compra())
@@ -55,7 +55,7 @@ public class CompraDAO {
 
     // Método para eliminar una compra
     public boolean eliminarCompra(int id_Compra) {
-        String deleteSQL = "DELETE FROM compras WHERE id_Compra = :id_Compra;";
+        String deleteSQL = "DELETE FROM compra WHERE id_Compra = :id_Compra;";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             con.createQuery(deleteSQL)
                     .addParameter("id_Compra", id_Compra)
