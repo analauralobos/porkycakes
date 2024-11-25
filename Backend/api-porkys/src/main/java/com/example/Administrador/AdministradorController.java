@@ -2,7 +2,6 @@ package com.example.Administrador;
 
 import java.util.List;
 
-import com.example.Cliente.ClienteDAO;
 import com.example.Security.AuthService;
 import com.google.gson.Gson;
 import spark.Request;

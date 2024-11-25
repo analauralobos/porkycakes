@@ -140,6 +140,7 @@ public class App {
         get("porkys/pedidos/cliente/:id_Cliente", PedidoController.getPedidosPorCliente);
         get("porkys/pedidos/nombreCliente/:id_Cliente", PedidoController.getNombrexPedido);
         get("porkys/pedidos/productos/:id_Pedido", PedidoController.getProductosPorPedido);
+        put("porkys/pedidos/modificar/:idPedido",PedidoController.modificarPedido);
     
         // Ruta para obtener prodxpedidos
         get("porkys/pxp/getPxP/:id_Pedido", ProductosPorPedidoController.getProductosXpedidoPorId);

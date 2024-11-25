@@ -70,7 +70,7 @@ const RecetaForm = () => {
           Cancelar
         </button>
       </div>
-    <div className="receta-form-container">
+    <div className="cards-container">
     <div className="card-p">
       <h2>Agregar Paso de Receta</h2>
       <form onSubmit={handleSubmit}>
