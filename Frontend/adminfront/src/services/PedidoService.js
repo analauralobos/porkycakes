@@ -89,3 +89,14 @@ export const updatePedido = async (pedido) => {
   }
   return response.json();
 };
+
+
+export const modificarEstadoPedido = async (idPedido, idEstado) => {
+  const response = await axios.post(`${API_URL}/modificarEstado/${idPedido}/${idEstado}`);
+  return response.data;
+};
+
+export const eliminarPedido = async (id) => {
+  const response = await axios.delete(`${API_URL}/eliminar/${id}`);
+  return response.data;
+};

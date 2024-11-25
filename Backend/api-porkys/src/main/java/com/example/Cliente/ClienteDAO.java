@@ -99,4 +99,32 @@ public class ClienteDAO {
             return false;
         }
     }
+
+    public void updateToken(int idCliente, String token) {
+        String sql = "UPDATE cliente SET token = :token WHERE id_cliente = :id";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            con.createQuery(sql)
+                    .addParameter("token", token)
+                    .addParameter("id", idCliente)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.err.println("Error al obtener el cliente: " + e.getMessage());
+        }
+    }
+
+    public String obtenerNombreClientePorId(int idCliente) {
+        String selectSQL = "SELECT Nombre_Cliente FROM cliente" + "WHERE id_cliente = :id_cliente;";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            // Ejecuta la consulta y obtiene el nombre del cliente
+            return con.createQuery(selectSQL)
+                    .addParameter("id_cliente", idCliente)
+                    .executeScalar(String.class); // Retorna el nombre como String
+        } catch (Exception e) {
+            System.err.println("Error al obtener el nombre del cliente: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    
+
 }

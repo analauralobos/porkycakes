@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './Pedidos.css';
-import { getPedidosByCliente, getNombreByCliente, getProductosByPedido } from '../../services/PedidoService';
+import { getPedidosByCliente, getNombreByCliente, getProductosByPedido, modificarEstadoPedido, eliminarPedido } from '../../services/PedidoService';
 
 const Pedidos = () => {
   const [nombreCliente, setNombreCliente] = useState('');
   const [pedidos, setPedidos] = useState([]);
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
+  const [actionToPerform, setActionToPerform] = useState(null); // Estado para almacenar la acción a realizar (cancelar o eliminar)
+  const [pedidoId, setPedidoId] = useState(null); // Estado para almacenar el id del pedido que se va a cancelar/eliminar
 
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
-        // Obtener el ID del cliente desde el localStorage
         const cliente = JSON.parse(localStorage.getItem("userinfo"));
         const idCliente = cliente?.id_persona;
 
@@ -18,14 +20,11 @@ const Pedidos = () => {
           return;
         }
 
-        // Obtener el nombre del cliente
         const nombre = await getNombreByCliente(idCliente);
         setNombreCliente(nombre);
 
-        // Obtener los pedidos del cliente
         const pedidosData = await getPedidosByCliente(idCliente);
 
-        // Mapear cada pedido para incluir los productos relacionados
         const pedidosConDetalles = await Promise.all(
           pedidosData.map(async (pedido) => {
             const productos = await getProductosByPedido(pedido.id_Pedido);
@@ -34,45 +33,57 @@ const Pedidos = () => {
         );
 
         setPedidos(pedidosConDetalles);
-        console.log(pedidosConDetalles);
       } catch (error) {
         console.error("Error al cargar los pedidos: ", error);
       }
     };
 
     fetchPedidos();
-  }, []);
+  }, [pedidos]);
 
   const getEstadoPedido = (estado) => {
     switch (estado) {
-      case 1:
-        return "Pendiente";
-      case 2:
-        return "Produccion";
-      case 3:
-        return "Terminado";
-      case 4:
-        return "Anulado";
-      case 5:
-        return "Entregado";
-      default:
-        return "";
+      case 1: return "Pendiente";
+      case 2: return "Producción";
+      case 3: return "Terminado";
+      case 4: return "Anulado";
+      case 5: return "Entregado";
+      default: return "";
     }
   };
 
   const getMedioPago = (tipoPago) => {
     switch(tipoPago){
-      case 1:
-        return "Efectivo";
-      case 2:
-        return "Credito";
-      case 3:
-        return "Debito";
-      case 4:
-        return "Transferencia";
-      case 5:
-        return "Mercado Pago";
+      case 1: return "Efectivo";
+      case 2: return "Crédito";
+      case 3: return "Débito";
+      case 4: return "Transferencia";
+      case 5: return "Mercado Pago";
+      default: return "";
     }
+  };
+
+  const handleConfirmarAccion = async () => {
+    if (actionToPerform === 'cancelar') {
+      try {
+        await modificarEstadoPedido(pedidoId, 4); // Cambia a Anulado
+      } catch (error) {
+        console.error("Error al cancelar el pedido: ", error);
+      }
+    } else if (actionToPerform === 'eliminar') {
+      try {
+        await eliminarPedido(pedidoId); 
+      } catch (error) {
+        console.error("Error al eliminar el pedido: ", error);
+      }
+    }
+    setShowModal(false); // Cierra el modal
+  };
+
+  const abrirModal = (idPedido, accion) => {
+    setPedidoId(idPedido);
+    setActionToPerform(accion);
+    setShowModal(true); // Abre el modal
   };
 
   return (
@@ -90,16 +101,48 @@ const Pedidos = () => {
                     <span key={index}>{producto.Nombre_Producto} (x{producto.cantidad_pedido}), </span>
                   ))}
                 </p>
-                <p><strong>Estado del producto:</strong>
+                <p><strong>Estado del pedido:</strong>
                   <span className={`pedido-status ${getEstadoPedido(pedido.id_Estado)}`}>
                     <b style={{color: 'black'}}>{getEstadoPedido(pedido.id_Estado)}</b>
                   </span>
                 </p>
-                <p className="PedidosTitulos"><strong>Medio de pago:</strong> {getMedioPago(pedido.id_TipoPago)}</p>
+                <p><strong>Medio de pago:</strong> {getMedioPago(pedido.id_TipoPago)}</p>
                 <p><strong>Fecha de pedido:</strong> {pedido.fecha_pedido}</p>
               </div>
+
+              {/* Botón para eliminar pedido (solo si el estado es 'Entregado' o 'Anulado') */}
+              {pedido.id_Estado === 5 || pedido.id_Estado === 4 ? (
+                <button
+                  className="btn-eliminar"
+                  onClick={() => abrirModal(pedido.id_Pedido, 'eliminar')}
+                >
+                  X
+                </button>
+              ) : null}
+
+              {/* Botón para cancelar pedido (solo si el estado es 'Pendiente') */}
+              {pedido.id_Estado === 1 ? (
+                <button
+                  className="btn-cancelar"
+                  onClick={() => abrirModal(pedido.id_Pedido, 'cancelar')}
+                >
+                  Cancelar
+                </button>
+              ) : null}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Modal de confirmación */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>¿Estás seguro?</h3>
+            <p>¿Deseas {actionToPerform === 'cancelar' ? 'cancelar' : 'eliminar'} este pedido?</p>
+            <button className="botonConfirmarAccion" onClick={handleConfirmarAccion}>Sí</button>
+            <button className="botonCancelarAccion" onClick={() => setShowModal(false)}>No</button>
+          </div>
         </div>
       )}
     </div>

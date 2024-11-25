@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllProducts } from "../../services/ProductoService";
+import { deleteProduct, getAllProducts } from "../../services/ProductoService";
 import { useNavigate } from "react-router-dom";
 import "./ProductList.css";
 import { getCategoriasId } from "../../services/CateogriaService";
@@ -8,8 +8,22 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categorias, setCategorias] = useState({});
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
   const navigate = useNavigate();
+
+  // Función para abrir el modal
+  const handleShowModal = (id) => {
+    setProductIdToDelete(id);
+    setShowModal(true);
+  };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setProductIdToDelete(null);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,7 +42,7 @@ const ProductList = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [products]);
 
   // Función para obtener la categoría por ID y almacenarla en caché
   const fetchCategoriaNombre = async (id_categoria) => {
@@ -56,6 +70,18 @@ const ProductList = () => {
     return <div className="loading">Cargando productos...</div>;
   }
 
+  const handleDelete = async () => {
+    if (!productIdToDelete) return;
+    try {
+      const response = await deleteProduct(productIdToDelete);
+      console.log("Producto eliminado:", response);
+      setShowModal(false);
+      setProductIdToDelete(null);
+
+    } catch (err) {
+      console.error("Error al eliminar producto: ", err);
+    }
+  };
   return (
     <div className="product-list-container">
       <div className="header">
@@ -114,7 +140,7 @@ const ProductList = () => {
                     className="action-button delete"
                     onClick={(e) => {
                       e.stopPropagation();
-                      alert(`Eliminar producto ${product.Nombre_Producto}`);
+                      handleShowModal(product.id_Producto);
                     }}
                   >
                     Eliminar
@@ -124,6 +150,48 @@ const ProductList = () => {
             ))}
           </tbody>
         </table>
+      )}
+      {/* Modal de confirmación */}
+      {showModal && (
+        <>
+          {/* Fondo borroso */}
+          <div className="modal-overlay"></div>
+
+          {/* Modal de confirmación */}
+          <div className="modal show" style={{ display: "block" }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirmar eliminación</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={handleCloseModal}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleCloseModal}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={handleDelete}
+                  >
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

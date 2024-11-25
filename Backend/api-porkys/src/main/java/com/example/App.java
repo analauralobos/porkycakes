@@ -11,6 +11,7 @@ import com.example.Estado.EstadoController;
 import com.example.Ingrediente.IngredienteController;
 import com.example.MateriaPrima.MateriaPrimaController;
 import com.example.PasosReceta.PasosRecetaController;
+import com.example.Pedido.Pedido;
 import com.example.Pedido.PedidoController;
 import com.example.Producto.ProductoController;
 import com.example.ProductosPorPedido.ProductosPorPedidoController;
@@ -50,6 +51,7 @@ public class App {
         post("porkys/clientes/login", ClienteController.loginCliente);
         post("porkys/clientes/modificar", ClienteController.modificarCliente);
         delete("porkys/clientes/eliminar/:id_cliente", ClienteController.eliminarCliente);
+        get("porkys/clientes/nombreCliente/:id_cliente", ClienteController.obtenerNombreClientePorId);
 
         // Compras
         get("porkys/compras/todas", CompraController.getTodasCompras);
@@ -89,6 +91,7 @@ public class App {
         post("porkys/pedidos/crear", PedidoController.crearPedido);
         post("porkys/pedidos/modificar/:id", PedidoController.modificarPedido);
         delete("porkys/pedidos/eliminar/:id", PedidoController.eliminarPedido);
+        post("porkys/pedidos/modificarEstado/:id_Pedido/:id_Estado", PedidoController.modificarEstadoPedido);
 
         // Productos
         get("porkys/productos/todos", ProductoController.getTodosProductos);

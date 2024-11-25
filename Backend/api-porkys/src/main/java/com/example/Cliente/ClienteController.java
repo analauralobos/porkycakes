@@ -117,4 +117,24 @@ public class ClienteController {
             return gson.toJson("Error al eliminar el cliente: " + e.getMessage());
         }
     };
+
+    // Obtener el nombre del cliente por id_cliente
+    // Agregar al controlador
+    public static Route obtenerNombreClientePorId = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            int idCliente = Integer.parseInt(request.params(":id_cliente"));
+            String nombreCliente = clienteDAO.obtenerNombreClientePorId(idCliente);
+            if (nombreCliente != null) {
+                return gson.toJson(nombreCliente);
+            } else {
+                response.status(404);
+                return gson.toJson("Cliente no encontrado");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error controlador: " + e.getMessage());
+        }
+    };
+
 }

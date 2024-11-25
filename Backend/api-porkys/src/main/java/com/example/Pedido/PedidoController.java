@@ -136,4 +136,31 @@ public class PedidoController {
         }
     };
 
+    // Modificar un pedido Controller Java
+    public static Route modificarEstadoPedido = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            // Obtener los parámetros desde la URL
+            int idPedido = Integer.parseInt(request.params(":id_Pedido"));
+            int idEstado = Integer.parseInt(request.params(":id_Estado"));
+            
+            // Crear un objeto Pedido con esos valores
+            Pedido pedidoModificado = new Pedido();
+            pedidoModificado.setId_Pedido(idPedido);
+            pedidoModificado.setId_Estado(idEstado);
+            
+            if (pedidoDAO.modificarEstado(pedidoModificado)) {
+                response.status(200);
+                return gson.toJson(pedidoModificado);
+            } else {
+                response.status(404);
+                return gson.toJson("Pedido no encontrado");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error al modificar el pedido: " + e.getMessage());
+        }
+    };
+    
+
 }
