@@ -49,12 +49,14 @@ export const updateIngredient = async (id, ingredientData) => {
 };
 
 // Eliminar un ingrediente
-export const deleteIngredient = async (id) => {
+export const deleteIngredient = async (idMateriaPrima, idProducto) => {
   try {
-    const response = await axios.delete(`${API_URL}/eliminar/${id}`);
+    const response = await axios.delete(
+      `http://localhost:4567/porkys/ingredientes/eliminar/${idMateriaPrima}/${idProducto}`
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error al eliminar el ingrediente con ID ${id}:`, error);
+    console.error("Error al eliminar el ingrediente:", error);
     throw error;
   }
 };

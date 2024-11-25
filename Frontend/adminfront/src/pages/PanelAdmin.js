@@ -4,6 +4,8 @@ import ProductList from "../components/Producto/ProductList";
 import MateriaPrimaList from "../components/materiaprima/MateriaPrimaList";
 import Receta from "../components/receta/Receta";
 import Pedido from "../components/pedidos/PedidoList"
+import ProveedorList from "../components/proveedores/ProveedorList";
+import CompraMP from "../components/compra/CompraMP"
 const PanelAdmin = () => {
   const [selectedSection, setSelectedSection] = useState("Productos");
 
@@ -30,9 +32,9 @@ const PanelAdmin = () => {
       case "Pedidos":
         return <div><Pedido/></div>;
       case "Proveedores":
-        return <div>Gestión de proveedores</div>;
-      case "Configuracion":
-        return <div>Configuración</div>;
+        return <div><ProveedorList/></div>;
+      case "Compra":
+        return <div><CompraMP/></div>;
       default:
         return <div>Seleccione una opción del menú</div>;
     }
@@ -84,11 +86,11 @@ const PanelAdmin = () => {
 
         <button
           className={`menu-item ${
-            selectedSection === "Configuracion" ? "active" : ""
+            selectedSection === "Compra" ? "active" : ""
           }`}
-          onClick={() => setSelectedSection("Configuracion")}
+          onClick={() => setSelectedSection("Compra")}
         >
-          Configuracion
+          Compra Materia Prima
         </button>
       </div>
 

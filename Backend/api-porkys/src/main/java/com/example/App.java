@@ -96,7 +96,7 @@ public class App {
         post("porkys/productos/crear", ProductoController.crearProducto);
         put("porkys/productos/modificar/:id", ProductoController.modificarProducto);
         delete("porkys/productos/eliminar/:id", ProductoController.eliminarProducto);
-
+        post("porkys/productos/:id/imagen", ProductoController.crearProducto);
         // ProductosXPedido
         get("porkys/productosXpedido/todos", ProductosPorPedidoController.getTodosProductosXpedido);
         post("porkys/productosXpedido/crear", ProductosPorPedidoController.crearProductoXPedido);
@@ -135,16 +135,16 @@ public class App {
 
         // Ruta para obtener productos por categoría
         get("porkys/productos/categoria/nombre/:nombreCategoria", ProductoController.getProductosPorNombreCategoria);
-        
-        //Ruta para obtener pedidos del cliente
+
+        // Ruta para obtener pedidos del cliente
         get("porkys/pedidos/cliente/:id_Cliente", PedidoController.getPedidosPorCliente);
         get("porkys/pedidos/nombreCliente/:id_Cliente", PedidoController.getNombrexPedido);
         get("porkys/pedidos/productos/:id_Pedido", PedidoController.getProductosPorPedido);
-        put("porkys/pedidos/modificar/:idPedido",PedidoController.modificarPedido);
-    
+        put("porkys/pedidos/modificar/:idPedido", PedidoController.modificarPedido);
+
         // Ruta para obtener prodxpedidos
         get("porkys/pxp/getPxP/:id_Pedido", ProductosPorPedidoController.getProductosXpedidoPorId);
-        //Ruta para crear prodxpedidos
+        // Ruta para crear prodxpedidos
         post("porkys/pxp/crearPxP", ProductosPorPedidoController.crearProductoXPedido);
 
     }

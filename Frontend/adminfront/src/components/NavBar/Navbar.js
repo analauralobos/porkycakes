@@ -51,7 +51,7 @@ const Navbar = ({ userRole, setUserRole, cat }) => {
           <Link to="/">Inicio</Link>
         </li>
         <li className={menu === "menu" ? "active" : ""}>
-          <Link to={`/menu/${cat}`}>Menu</Link>
+          <Link to={`/menu/${cat}`}>Menú</Link>
         </li>
         <li className={menu === "contacto" ? "active" : ""}>
           <Link to="/contacto">Contacto</Link>

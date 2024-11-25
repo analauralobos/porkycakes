@@ -88,9 +88,8 @@ public class ProductoController {
     public static Route modificarProducto = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            int idProducto = Integer.parseInt(request.params(":id")); // Obtener el id de la URL
-            Producto producto = gson.fromJson(request.body(), Producto.class); // Obtener los datos del producto desde
-                                                                               // el body
+            int idProducto = Integer.parseInt(request.params(":id"));
+            Producto producto = gson.fromJson(request.body(), Producto.class);
 
             boolean actualizado = productoDAO.modificarProducto(idProducto, producto);
 
