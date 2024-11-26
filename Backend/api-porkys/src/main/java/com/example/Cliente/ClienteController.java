@@ -1,6 +1,7 @@
 package com.example.Cliente;
 
 import java.util.List;
+
 import com.example.Security.AuthService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -119,12 +120,13 @@ public class ClienteController {
     };
 
     // Obtener el nombre del cliente por id_cliente
-    // Agregar al controlador
-    public static Route obtenerNombreClientePorId = (Request request, Response response) -> {
+  /*  public static Route obtenerNombreClientePorId = (Request request, Response response) -> {
         response.type("application/json");
         try {
-            int idCliente = Integer.parseInt(request.params(":id_cliente"));
+            int idCliente = Integer.parseInt(request.params(":id_cliente"));            
             String nombreCliente = clienteDAO.obtenerNombreClientePorId(idCliente);
+            System.out.println("ID Cliente recibido: " + idCliente);
+
             if (nombreCliente != null) {
                 return gson.toJson(nombreCliente);
             } else {
@@ -136,5 +138,27 @@ public class ClienteController {
             return gson.toJson("Error controlador: " + e.getMessage());
         }
     };
+
+    
+*/
+public static Route obtenerClientePorId = (Request request, Response response) -> {
+    response.type("application/json");
+    try {       
+        int idCliente = Integer.parseInt(request.params(":id_cliente"));        
+        Cliente cliente = clienteDAO.obtenerClientePorId(idCliente);
+        
+        if (cliente != null && cliente.getNombre_Cliente() != null) {           
+            String nombreCliente = cliente.getNombre_Cliente();           
+            return gson.toJson(nombreCliente); 
+        } else {
+            response.status(404);
+            return gson.toJson("Cliente no encontrado");
+        }
+    } catch (Exception e) {
+        response.status(500);
+        System.err.println("Error en el controlador: " + e.getMessage());
+        return gson.toJson("Error en el controlador: " + e.getMessage());
+    }
+};
 
 }

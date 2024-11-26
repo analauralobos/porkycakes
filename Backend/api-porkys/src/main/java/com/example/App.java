@@ -51,7 +51,9 @@ public class App {
         post("porkys/clientes/login", ClienteController.loginCliente);
         post("porkys/clientes/modificar", ClienteController.modificarCliente);
         delete("porkys/clientes/eliminar/:id_cliente", ClienteController.eliminarCliente);
-        get("porkys/clientes/nombreCliente/:id_cliente", ClienteController.obtenerNombreClientePorId);
+        // get("porkys/clientes/nombreCliente/:id_cliente",
+        // ClienteController.obtenerClientePorId);
+        get("/porkys/clientes/:id_cliente", ClienteController.obtenerClientePorId);
 
         // Compras
         get("porkys/compras/todas", CompraController.getTodasCompras);
