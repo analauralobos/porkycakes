@@ -1,3 +1,29 @@
-.navbarMarginTop{
+/*.navbarMarginTop{
     margin-top: 120px;
+}
+*/
+/* Asegurar que la página ocupe toda la altura de la ventana */
+html, body, #root {
+    margin-top: 35px;
+    padding: 0;
+    height: 100%; /* Ocupa toda la altura */
+    display: flex;
+    flex-direction: column; /* Organiza en columnas */
+}
+
+/* El contenedor principal debe ocupar el espacio restante */
+.navbarMarginTop {
+    flex: 1; /* Ocupa el espacio disponible entre el navbar y el footer */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ajustar el footer para que quede en el fondo */
+footer, .container-footer {
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    background-color: rgba(38, 35, 35, 0.8); /* Fondo gris translúcido */
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    position: relative;
 }

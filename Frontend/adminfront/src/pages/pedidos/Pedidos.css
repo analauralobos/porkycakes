@@ -61,16 +61,16 @@
 
 .pedido-status.Produccion,
 .pedido-status.Pendiente {
-    background-color: #eeff00;
+    background-color: #d9e25b;
 }
 
 .pedido-status.Terminado,
 .pedido-status.Entregado {
-    background-color: #00ff00;
+    background-color: #40c740;
 }
 
 .pedido-status.Anulado {
-    background-color: #ff0800;
+    background-color: #c53e3a;
 }
 
 .nombreCliente-Pedido {
@@ -106,9 +106,9 @@
 
 .btn-eliminar {
     font-family: Roboto;
-    background-color: #ff0000;
+    background-color: #cc4141;
     color: white;
-    border: 1px solid #ff0000;
+    border: 1px solid #cc4141;
     transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
     border-radius: 7px;
     height: 40px;
@@ -121,9 +121,9 @@
 
 .btn-cancelar {
     font-family: Roboto;
-    background-color: #ff0000;
+    background-color: #cc4141;
     color: white;
-    border: 1px solid #ff0000;
+    border: 1px solid #cc4141;
     transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
     border-radius: 7px;
     height: 40px;
@@ -132,7 +132,7 @@
 }
 
 .btn-cancelar:active, .btn-eliminar:active{
-    background-color: #751b1b;
+    background-color: #b60a0a;
     color: white;
     transform: scale(1.05); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 

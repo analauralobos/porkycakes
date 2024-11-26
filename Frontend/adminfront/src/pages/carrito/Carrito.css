@@ -3,10 +3,12 @@
     padding: 20px;
     background-color: #ffffff; 
     border-radius: 10px;
-    max-width: 80%;
-    margin: 0 auto;
+    /*max-width: 80%;*/
+    margin: 0;
+    margin-left: 20px;
+    margin-right: 20px;
     padding-bottom: 50px;
-    border-radius: 10px;
+    border-radius: 10px;    
   }
   
   .tituloCarrito {
@@ -95,8 +97,8 @@
     border: 1px solid #d36b6b;
     transition: transform 0.2s ease;
     border-radius: 12px;
-    height: 40px;
-    width: 120px;
+    /*height: 40px;
+    width: 120px;*/
     margin-top: 10px;
   }
 
