@@ -96,4 +96,23 @@ public class AdministradorDAO {
             return false;
         }
     }
+
+    public String NombreAdminPorId(int id_administrador) {
+        String selectSQL = "SELECT nombre FROM administrador WHERE id_administrador = :idAdmin;";
+
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            //System.out.println("Ejecutando consulta para id_cliente: " + id_cliente);
+
+            String resultado = con.createQuery(selectSQL)
+                .addParameter("idAdmin", id_administrador)
+                .executeScalar(String.class);
+
+            //System.out.println("Resultado obtenido del DAO: '" + resultado + "'");
+            return resultado;
+        } catch (Exception e) {
+            System.err.println("Error al obtener el nombre del cliente: " +
+                    e.getMessage());
+            return null;
+        }
+    }
 }

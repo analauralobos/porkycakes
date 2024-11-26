@@ -113,4 +113,23 @@ public class AdministradorController {
             return gson.toJson("Error al eliminar administrador: " + e.getMessage());
         }
     };
+
+    public static Route obtenerNombreAdminPorId = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+
+            int idAdmin = Integer.parseInt(request.params(":id_administrador"));            
+            String nombreAdmin = adminDAO.NombreAdminPorId(idAdmin);
+            
+            if (nombreAdmin != null) {
+                return gson.toJson(nombreAdmin);
+            } else {
+                response.status(404);
+                return gson.toJson("Admin no encontrado");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error controlador: " + e.getMessage());
+        }
+    };
 }

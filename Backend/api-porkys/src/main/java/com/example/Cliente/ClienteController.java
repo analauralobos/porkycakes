@@ -138,7 +138,6 @@ public class ClienteController {
             response.status(500);
             return gson.toJson("Error controlador: " + e.getMessage());
         }
-
     };
 
     

@@ -17,14 +17,21 @@
 }
 
 .navbar-container {
+    position: fixed; /* Fija el navbar en la parte superior */
+    top: 0; /* Posición en la parte superior de la página */
+    left: 0;
+    width: 100%;
+    z-index: 1000; 
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0px;
-    position: relative;
-    height: 120px;
-    margin-bottom: 20px;
+    background-color: white; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+body {
+    margin-top: 120px; 
 }
 
 .navbar-container li {
@@ -186,23 +193,18 @@
 
 /* Media queries para pantallas pequeñas */
 @media (max-width: 768px) {
-    .navbar-container .navbar-menu {
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        z-index: 2000;
+    .navbar-container {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
     }
-
-    .navbar-container .hamburger-menu {
-        display: block;
-        z-index: 2000;
-    }
-
-    .navbar-container .navbar-right {
-        display: none;
-        z-index: 2000;
+    .navbar-container .navbar-menu.open {
+        position: absolute;
+        top: 70px; /* Ajusta según la altura del navbar */
+        right: 20px;
     }
 }
+
 
 .mispedidos,
 .carrito {

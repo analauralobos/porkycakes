@@ -43,6 +43,7 @@ public class App {
         post("porkys/administrador/login", AdministradorController.loginAdmin);
         put("porkys/administrador/modificar", AdministradorController.modificarAdmin);
         delete("porkys/administrador/eliminar/:id", AdministradorController.eliminarAdmin);
+        get("porkys/administrador/:id_administrador", AdministradorController.obtenerNombreAdminPorId);
 
         // Rutas para Clientes
         get("porkys/clientes/todos", ClienteController.getTodosClientes);

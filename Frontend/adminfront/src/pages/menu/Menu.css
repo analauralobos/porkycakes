@@ -1,97 +1,202 @@
-.row{
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
+/* Aseguramos que los botones de la categoría se centren */
 .grupo-botones {
-    padding-left: 20px;
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    flex-wrap: wrap; /* Los botones se envuelven en pantallas pequeñas */
+    gap: 10px; /* Añade espacio entre los botones */
 }
 
-.d-flex {
-  display: flex;
-  align-items: center;
-}
-
-.mr-3 {
-  margin-right: 15px;
-}
-
-.boton-activo {
-    background-color: #eea0ba;
-    color: white;
-    border: 1px solid #c78ca0;
-    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
-.boton-inactivo {
-    background-color: transparent;
-    color: black;
-    border: 1px solid #c78ca0;
-    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
+/* Ajustes para los botones */
 .boton-activo, .boton-inactivo {
-    font-family: Roboto;
-    border-radius: 15px;  
+    font-family: Roboto, sans-serif;
+    border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
 }
 
+/* Cambios de estilo para botones activos */
+.boton-activo {
+    background-color: #eea0ba;
+    color: white;
+    border: none;
+}
+
+/* Cambios de estilo para botones inactivos */
+.boton-inactivo {
+    background-color: white;
+    color: #c78ca0;
+    border: 2px solid #c78ca0;
+}
+
+/* Efectos hover para botones */
 .boton-activo:hover, .boton-inactivo:hover {
     transform: scale(1.1);
     background-color: #ff8ab1;
     color: white;
 }
 
-.boton-activo-form{
-    font-family: Roboto;
-    border-radius: 10px;  
+/* Para pantallas pequeñas, los botones se ajustan mejor */
+@media (max-width: 768px) {
+    .boton-activo, .boton-inactivo {
+        font-size: 14px; /* Reduce el tamaño en pantallas más pequeñas */
+        padding: 8px 16px; /* Menos padding en pantallas pequeñas */
+    }
+}
+
+/* Aseguramos que la barra de búsqueda también sea responsiva */
+.form-style {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 70px;
+    align-items: center;
+}
+
+/* Responsive adjustments for form input */
+@media (max-width: 768px) {
+    .form-style {
+        margin-left: 10px;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .form-style .bordeForm {
+        width: 100%;
+        max-width: none;
+        margin-top: 10px;
+    }
+}
+
+/* Asegura que los productos se muestren en una fila adecuada en pantallas pequeñas */
+.row {
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Espacio entre las tarjetas */
+}
+
+/* Asegura que las tarjetas sean responsivas */
+.col-md-4 {
+    flex: 1 1 calc(33.33% - 15px); /* Tres columnas en pantallas grandes */
+    max-width: calc(33.33% - 15px);
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 1 1 100%; /* Ocupa el 100% del ancho en pantallas pequeñas */
+        max-width: 100%;
+    }
+}
+
+/* Estilos generales para la página */
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para los botones dentro de los productos */
+.boton-activoProd, .boton-inactivoProd {
+    font-family: Roboto, sans-serif;
+    border-radius: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #eea0ba;
-    color: white;
-    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-.boton-activo-form:hover{
-    transform: scale(1.1);
-    background-color: #ff8ab1;
-    color: white;
+
+/* Ajustes al campo de entrada del formulario */
+.form-style .bordeForm {
+    border: 2px solid #d27493;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    height: 50px;
+    max-width: 300px; /* Ajusta el tamaño máximo en pantallas grandes */
+    width: 100%; /* Asegura que el campo ocupe el 100% del ancho disponible */
 }
 
-.boton-activo:active{
-    background-color: #d27493;
-    color: white;
-    transform: scale(1.05); 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+/* Asegura que el campo de texto se vea bien cuando está enfocado */
+.bordeForm:focus {
+    border-color: #e447aa;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(194, 78, 161, 0.5);
 }
 
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+    /* Ajusta la posición y el tamaño del formulario */
+    .form-style {
+        margin-left: 0; /* Elimina el margen izquierdo */
+        justify-content: center; /* Centra el formulario */
+        width: 100%; /* El formulario ocupa el 100% del ancho */
+    }
+
+    /* Ajustes al campo de entrada del formulario */
+    .form-style .bordeForm {
+        max-width: 100%; /* El campo de búsqueda ocupa todo el ancho disponible */
+        margin-top: 10px; /* Da un poco de espacio por encima */
+    }
+}
+
+
+/* Estilo para las tarjetas de productos */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para la imagen del producto */
+.imagen {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Estilo para el nombre del producto */
+.nombre {
+    font-weight: bold;
+    font-size: 18px;
+    color: #4a4a4a;
+}
+
+/* Estilo para la descripción del producto */
+.descripcion {
+    color: #777;
+    font-size: 14px;
+}
+
+/* Estilo para el precio del producto */
+.precio {
+    color: #c78ca0;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Estilo para la imagen de espera */
 .espera {
-    width: 200px;
-    height: 210px;
-    margin: 30px;
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
 }
 
-.form-style{
-    padding-right: 20px;
-    width: 23%;
-    
+/* Estilo para el texto cuando no hay productos */
+.text-center p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
 }
-
-.bordeForm {
-    border: 2px solid #d27493; 
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
-    transition: border-color 0.3s ease;
-}
-
-.bordeForm:focus-within {
-    border-color: #6c63ff; 
-}
-

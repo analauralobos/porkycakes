@@ -1,0 +1,6 @@
+/* archivo CSS */
+.toast-custom {
+    z-index: 1050;
+    /* Mayor que los otros componentes */
+}
+

@@ -51,7 +51,7 @@ const Producto = ({ userRole }) => {
     <div>
       <div className="container mt-4">
         <div className='displayTituloyLogo'>
-        <h2 className="Producto">Los más comprados</h2>
+          <h2 className="Producto">Los más comprados</h2>
         </div>
         <div className="row">
           {productos.map((producto) => (
@@ -66,22 +66,22 @@ const Producto = ({ userRole }) => {
                   />
                 )}
                 <Card.Body>
-                  <Card.Text className="nombre">{producto.Nombre_Producto}</Card.Text>
-                  <Card.Text className="descripcion">{producto.descripcion_producto}</Card.Text>
-                  <Card.Text className="precio">Precio: ${producto.precio_vta}</Card.Text>
+                  <p className="nombre"> {producto.Nombre_Producto}</p>
+                  <p className="descripcion">{producto.descripcion_producto}</p>
+                  <p className="precio">Precio: ${producto.precio_vta}</p>
                   {userRole === 'cliente' && (
                     <div>
                       <button
-                        className="boton-activo"
+                        className="boton-activoProd"
                         onClick={() => handleAgregarAlCarrito(producto)}
                       >
-                        +
+                        🛒 Agregar
                       </button>
                       <button
-                        className="boton-activo"
+                        className="boton-activoProd"
                         onClick={() => handleEliminarDelCarrito(producto.id_Producto, producto)}
                       >
-                        -
+                        ❌ Quitar
                       </button>
                     </div>
                   )}
@@ -96,7 +96,7 @@ const Producto = ({ userRole }) => {
         toggleShow={() => setShowToast(false)}
         mensaje={mensajeToast}
       />
-      </div>
+    </div>
   );
 };
 

@@ -95,7 +95,7 @@ const Menu = ({ userRole }) => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between mb-3">
+      <div className="d-flex justify-content-between mb-3 o container">
         <div className="btn-group grupo-botones">
           <button
             className={`${categoria === 'Todos' ? "boton-activo" : "boton-inactivo"}`}
@@ -142,20 +142,19 @@ const Menu = ({ userRole }) => {
                   <Card.Text className="precio">Precio: ${producto.precio_vta}</Card.Text>
                   {userRole === 'cliente' && (
                     <div>
-                      <button
-                        className="boton-activo"
-                        onClick={() => handleAgregarAlCarrito(producto)}
-                      >
-                        +
-                      </button>
-                      <button
-                        className="boton-activo"
-                        onClick={() => handleEliminarDelCarrito(producto.id_Producto, producto)}
-                      >
-                        -
-                      </button>
-
-                    </div>
+                    <button
+                      className="boton-activoProd"
+                      onClick={() => handleAgregarAlCarrito(producto)}
+                    >
+                      🛒 Agregar
+                    </button>
+                    <button
+                      className="boton-activoProd"
+                      onClick={() => handleEliminarDelCarrito(producto.id_Producto, producto)}
+                    >
+                      ❌ Quitar
+                    </button>
+                  </div>
                   )}
                 </Card.Body>
               </Card>
