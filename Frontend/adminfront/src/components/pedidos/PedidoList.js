@@ -136,7 +136,7 @@ const PedidoList = () => {
       <table className="pedido-table">
         <thead>
           <tr>
-            <th>ID Pedido</th>
+            
             <th>Cliente</th>
             <th>Fecha Pedido</th>
             <th>Fecha Entrega</th>
@@ -149,7 +149,7 @@ const PedidoList = () => {
         <tbody>
           {pedidos.map((pedido) => (
             <tr key={pedido.id_Pedido}>
-              <td>{pedido.id_Pedido}</td>
+              
               <td>{pedido.cliente?.Nombre_Cliente || "Desconocido"}</td>
               <td>{pedido.fecha_pedido}</td>
               <td>{pedido.fecha_entrega}</td>
@@ -174,7 +174,7 @@ const PedidoList = () => {
                   className="button"
                   onClick={() => handleShowProductos(pedido.id_Pedido)}
                 >
-                  Ver productos
+                  Productos
                 </button>
               </td>
             </tr>

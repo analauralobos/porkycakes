@@ -46,7 +46,7 @@ const Pedidos = () => {
   const getEstadoPedido = (estado) => {
     switch (estado) {
       case 1: return "Pendiente";
-      case 2: return "Producción";
+      case 2: return "En Producción";
       case 3: return "Terminado";
       case 4: return "Anulado";
       case 5: return "Entregado";
@@ -118,7 +118,7 @@ const Pedidos = () => {
                   className="btn-eliminar"
                   onClick={() => abrirModal(pedido.id_Pedido, 'eliminar')}
                 >
-                  X
+                  Eliminar
                 </button>
               ) : null}
 
