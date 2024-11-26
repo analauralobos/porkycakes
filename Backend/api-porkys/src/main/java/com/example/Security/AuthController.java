@@ -16,6 +16,7 @@ public class AuthController {
     public AuthController(ClienteDAO clienteDAO) {
         this.clienteDAO = clienteDAO;
 
+        // Ruta para login
         post("/login", (req, res) -> {
             String email = req.queryParams("email");
             String password = req.queryParams("password");
@@ -41,16 +42,40 @@ public class AuthController {
             return "{ \"token\": \"" + token + "\" }";
         });
 
+        // Ruta protegida
         before("/ruta-protegida/*", (req, res) -> {
             String token = req.headers("Authorization");
             if (token == null || !validateToken(token)) {
                 halt(401, "No autorizado");
             }
         });
+
+        // Nueva ruta para validar el token
+        post("/validate-token", (req, res) -> {
+            String token = req.headers("Authorization");
+            if (token == null) {
+                res.status(400);
+                return "Token no proporcionado";
+            }
+
+            if (validateToken(token)) {
+                res.status(200);
+                return "{ \"message\": \"Token válido\" }";
+            } else {
+                res.status(401);
+                return "{ \"message\": \"Token inválido o expirado\" }";
+            }
+        });
     }
 
+    // Método para validar tokens
     private boolean validateToken(String token) {
         try {
+            // Remover "Bearer " si existe
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+
             Jwts.parserBuilder()
                     .setSigningKey(SECRET_KEY) // Usar la misma clave que para generar el token
                     .build()
@@ -60,5 +85,4 @@ public class AuthController {
             return false;
         }
     }
-
 }

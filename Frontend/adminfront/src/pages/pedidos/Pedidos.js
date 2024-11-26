@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Pedidos.css';
 import { getPedidosByCliente, getNombreByCliente, getProductosByPedido, modificarEstadoPedido, eliminarPedido } from '../../services/PedidoService';
+import { getNombreCli } from '../../services/ClienteService';
 
 const Pedidos = () => {
   const [nombreCliente, setNombreCliente] = useState('');
@@ -20,7 +21,7 @@ const Pedidos = () => {
           return;
         }
 
-        const nombre = await getNombreByCliente(idCliente);
+        const nombre = await getNombreCli(idCliente);
         setNombreCliente(nombre);
 
         const pedidosData = await getPedidosByCliente(idCliente);

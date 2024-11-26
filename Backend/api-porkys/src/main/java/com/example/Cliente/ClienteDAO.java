@@ -112,7 +112,7 @@ public class ClienteDAO {
         }
     }
 
-    public String obtenerNombreClientePorId(int id_cliente) {
+    public String NombreClientePorId(int id_cliente) {
         String selectSQL = "SELECT cliente.Nombre_Cliente FROM cliente WHERE cliente.id_cliente = :idCliente;";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             // Ejecuta la consulta y obtiene el nombre del cliente
@@ -124,8 +124,4 @@ public class ClienteDAO {
             return null;
         }
     }
-    
-    
-    
-
 }

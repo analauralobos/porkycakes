@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Administrador {    
-    public Long id_administrador; 
+    public Integer id_administrador; 
     private String nombre;
     private String apellido;
     private String email;   

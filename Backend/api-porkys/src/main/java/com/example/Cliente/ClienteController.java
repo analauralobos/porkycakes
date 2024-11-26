@@ -119,12 +119,12 @@ public class ClienteController {
     };
 
     // Obtener el nombre del cliente por id_cliente
-    // Agregar al controlador
     public static Route obtenerNombreClientePorId = (Request request, Response response) -> {
         response.type("application/json");
+        
         try {
             int idCliente = Integer.parseInt(request.params(":id_Cliente"));
-            String nombreCliente = clienteDAO.obtenerNombreClientePorId(idCliente);
+            String nombreCliente = clienteDAO.NombreClientePorId(idCliente);
             if (nombreCliente != null) {
                 return gson.toJson(nombreCliente);
             } else {
@@ -135,7 +135,5 @@ public class ClienteController {
             response.status(500);
             return gson.toJson("Error controlador: " + e.getMessage());
         }
-    };
-    
-
+        };
 }

@@ -42,7 +42,7 @@ public class UsuarioController {
                 String token = generateToken(email, "admin");
                 Optional<Administrador> admin = adminDAO.buscarPorEmail(email);
                 if (admin.isPresent()) {
-                    Long id = admin.get().id_administrador;
+                    Integer id = admin.get().id_administrador;
                     return gson.toJson(new LoginResponse("admin", token, id));
                 }
             }
@@ -51,7 +51,7 @@ public class UsuarioController {
                 String token = generateToken(email, "cliente");
                 Optional<Cliente> cliente = clienteDAO.buscarPorEmail(email);
                 if (cliente.isPresent()) {
-                    Long id = cliente.get().id_Cliente; 
+                    Integer id = cliente.get().id_Cliente; 
                     return gson.toJson(new LoginResponse("cliente", token, id));
                 }
             }
@@ -125,9 +125,9 @@ public class UsuarioController {
     public static class LoginResponse {
         String role;
         String token;
-        Long id_persona;
+        Integer id_persona;
 
-        LoginResponse(String role, String token, Long id_persona) {
+        LoginResponse(String role, String token, Integer id_persona) {
             this.role = role;
             this.token = token;
             this.id_persona = id_persona;

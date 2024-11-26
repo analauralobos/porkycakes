@@ -47,11 +47,12 @@ public class App {
         // Rutas para Clientes
         get("porkys/clientes/todos", ClienteController.getTodosClientes);
         get("porkys/clientes/:email/:pass", ClienteController.getIsCliente);
+        get("porkys/clientes/:id_Cliente", ClienteController.obtenerNombreClientePorId);
+
         post("porkys/clientes/crear", ClienteController.crearCliente);
         post("porkys/clientes/login", ClienteController.loginCliente);
         post("porkys/clientes/modificar", ClienteController.modificarCliente);
-        delete("porkys/clientes/eliminar/:id_cliente", ClienteController.eliminarCliente);
-        get("porkys/clientes/nombreCliente/:id_Cliente", ClienteController.obtenerNombreClientePorId);
+        delete("porky/clientes/eliminar/:id_cliente", ClienteController.eliminarCliente);
 
         // Compras
         get("porkys/compras/todas", CompraController.getTodasCompras);
