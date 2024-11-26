@@ -1,4 +1,4 @@
-.pedidos-container {
+/*.pedidos-container {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
@@ -183,4 +183,202 @@
 
   .botonCancelarAccion{
     background-color: #f48fb1; 
-  }
+  }*/
+
+
+  /* Contenedor principal de los pedidos */
+.pedidos-container {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background-color: #ffffff;     
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Lista de pedidos */
+.pedidos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Tarjetas de los pedidos */
+.pedido-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: #ffecf0; /* Color rosado pastel */
+    border: 1px solid #f1b7bb; /* Sutil borde rosado */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.pedido-card:hover {
+    background-color: #f7d7d9; /* Color rosado pastel */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del pedido */
+.pedido-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+/* Detalles del pedido */
+.pedido-details {
+    flex: 1;
+}
+
+.pedido-details h3 {
+    margin: 0;
+    font-size: 1.3em;
+    color: #d36b6b;
+    font-weight: bold;
+}
+
+.pedido-details p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #404040;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Estado del pedido */
+.pedido-status {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    border-radius: 12px;
+    color: #fff;
+    margin-top: 5px;
+    margin-left: 7px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pedido-status.Producción,
+.pedido-status.Pendiente {
+    background-color: #ffdd85;
+}
+
+.pedido-status.Terminado,
+.pedido-status.Entregado {
+    background-color: #a1eab6;
+}
+
+.pedido-status.Anulado {
+    background-color: #e57373;
+}
+
+/* Nombre del cliente */
+.nombreCliente-Pedido {
+    text-align: center;
+    color: #d36b6b;
+    font-family: 'Tess', sans-serif;
+    font-weight: bolder;
+    font-size: 45px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensaje de pedidos vacíos */
+.pedidosVacios {
+    font-family: 'Roboto', sans-serif;
+    color: #db9e9e;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Títulos de pedidos */
+.PedidosTitulos {
+    font-family: 'Roboto', sans-serif;
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Botones eliminar y cancelar */
+.btn-eliminar, .btn-cancelar {
+    font-family: 'Roboto', sans-serif;
+    background-color: #cc4141;
+    color: white;
+    border: 1px solid #cc4141;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+    border-radius: 7px;
+    height: 40px;
+    width: 120px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn-eliminar:hover, .btn-cancelar:hover {
+    background-color: #b60a0a;
+}
+
+.btn-cancelar:active, .btn-eliminar:active {
+    background-color: #b60a0a;
+    color: white;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+/* Modal de confirmación */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); 
+    z-index: 999; 
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #ffeef4; 
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid #f48fb1; 
+}
+
+/* Título del modal */
+.modal h3 {
+    color: #d36b6b; 
+    font-weight: bold;
+}
+
+/* Botones del modal */
+.botonConfirmarAccion, .botonCancelarAccion  {
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.botonConfirmarAccion {
+    background-color: #ea2366; 
+}
+
+.botonCancelarAccion {
+    background-color: #f48fb1; 
+}
+
