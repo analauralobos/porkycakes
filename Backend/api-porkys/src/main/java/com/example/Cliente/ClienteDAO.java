@@ -112,20 +112,40 @@ public class ClienteDAO {
         }
     }
 
-    public String obtenerNombreClientePorId(int id_cliente) {
-        String selectSQL = "SELECT cliente.Nombre_Cliente FROM cliente WHERE cliente.id_cliente = :idCliente;";
+    /*
+     * public String obtenerNombreClientePorId(int id_cliente) {
+     * String selectSQL =
+     * "SELECT Nombre_Cliente FROM cliente WHERE id_cliente = :id_cliente;";
+     * 
+     * try (Connection con = Sql2oDAO.getSql2o().open()) {
+     * System.out.println("Ejecutando consulta para id_cliente: " + id_cliente);
+     * 
+     * String resultado = con.createQuery(selectSQL)
+     * .addParameter("id_cliente", id_cliente)
+     * .executeScalar(String.class);
+     * 
+     * System.out.println("Resultado obtenido del DAO: '" + resultado + "'");
+     * return resultado;
+     * } catch (Exception e) {
+     * System.err.println("Error al obtener el nombre del cliente: " +
+     * e.getMessage());
+     * return null;
+     * }
+     * }
+     */
+
+    public Cliente obtenerClientePorId(int id_Cliente) {
+        String selectSQL = "SELECT Nombre_Cliente FROM cliente WHERE id_Cliente = :id_Cliente;";
         try (Connection con = Sql2oDAO.getSql2o().open()) {
-            // Ejecuta la consulta y obtiene el nombre del cliente
-            return con.createQuery(selectSQL)
-                    .addParameter("idCliente", id_cliente) 
-                    .executeScalar(String.class); // Retorna el nombre como String
+            Cliente cliente = con.createQuery(selectSQL)
+                    .addParameter("id_Cliente", id_Cliente)
+                    .executeAndFetchFirst(Cliente.class);
+            return cliente;
         } catch (Exception e) {
-            System.err.println("Error al obtener el nombre del cliente: " + e.getMessage());
+            System.err.println("Error en la prueba con ID " + id_Cliente + ": " + e.getMessage());
             return null;
         }
     }
-    
-    
     
 
 }
