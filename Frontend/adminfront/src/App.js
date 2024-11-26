@@ -17,7 +17,7 @@ import RecetaForm from './components/receta/RecetaForm';
 import RecetaDetail from './components/receta/RecetaDetail';
 import AgregarProducto from './components/Producto/AgregarProducto'
 import Footer from './components/Footer/Footer';
-import Producto from './components/Producto/Producto';
+import ScrollToTop from './components/Scroll/ScrollToTop';
 import './style.css'
 
 function App() {
@@ -33,6 +33,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Navbar userRole={userRole} setUserRole={setUserRole} />
       <div className="navbarMarginTop">
         <Routes>
