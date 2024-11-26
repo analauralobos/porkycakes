@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Login from './components/login/Login';
 import Navbar from './components/NavBar/Navbar';
 import PanelAdmin from './pages/PanelAdmin';
