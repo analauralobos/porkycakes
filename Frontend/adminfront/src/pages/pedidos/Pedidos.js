@@ -12,10 +12,11 @@ const Pedidos = () => {
 
   useEffect(() => {
     const fetchPedidos = async () => {
+      const cliente = JSON.parse(localStorage.getItem("userinfo"));
+      const idCliente = cliente?.id_persona;
+      // VER SI EL IDLCIENTE ESTA EN PEDIDOS, SI LO ESTÁ PASA POR TRY-CATCH Y SINO PONE EN [] 
+      // LOS PEDIDOS
       try {
-        const cliente = JSON.parse(localStorage.getItem("userinfo"));
-        const idCliente = cliente?.id_persona;
-
         if (!idCliente) {
           console.error("No se encontró información del cliente.");
           return;
