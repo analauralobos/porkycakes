@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Pedidos.css';
-import { getPedidosByCliente, getNombreByCliente, getProductosByPedido, modificarEstadoPedido, eliminarPedido } from '../../services/PedidoService';
+import { getPedidosByCliente, getNombreByCliente, getProductosByPedido, modificarEstadoPedido, eliminarPedido, getPedidos } from '../../services/PedidoService';
 import { getNombreCli } from '../../services/ClienteService';
 
 const Pedidos = () => {
@@ -14,16 +14,28 @@ const Pedidos = () => {
     const fetchPedidos = async () => {
       const cliente = JSON.parse(localStorage.getItem("userinfo"));
       const idCliente = cliente?.id_persona;
-      // VER SI EL IDLCIENTE ESTA EN PEDIDOS, SI LO ESTÁ PASA POR TRY-CATCH Y SINO PONE EN [] 
-      // LOS PEDIDOS
+
       try {
         if (!idCliente) {
           console.error("No se encontró información del cliente.");
           return;
         }
 
+        // Obtener todos los pedidos
+        const todosLosPedidos = await getPedidos();
         const nombre = await getNombreCli(idCliente);
         setNombreCliente(nombre);
+
+        // Verificar si el idCliente está en los pedidos
+        const clienteEnPedidos = todosLosPedidos.some(pedido => pedido.id_Cliente === idCliente);
+
+        if (!clienteEnPedidos) {
+          console.log("El cliente no tiene pedidos.");
+          setPedidos([]);  // Si el cliente no tiene pedidos, establecer arreglo vacío
+          return;
+        }
+
+        // Si el cliente está en los pedidos, buscar los pedidos específicos
 
         const pedidosData = await getPedidosByCliente(idCliente);
 
@@ -43,6 +55,7 @@ const Pedidos = () => {
     fetchPedidos();
   }, [pedidos]);
 
+
   const getEstadoPedido = (estado) => {
     switch (estado) {
       case 1: return "Pendiente";
@@ -55,7 +68,7 @@ const Pedidos = () => {
   };
 
   const getMedioPago = (tipoPago) => {
-    switch(tipoPago){
+    switch (tipoPago) {
       case 1: return "Efectivo";
       case 2: return "Crédito";
       case 3: return "Débito";
@@ -74,7 +87,7 @@ const Pedidos = () => {
       }
     } else if (actionToPerform === 'eliminar') {
       try {
-        await eliminarPedido(pedidoId); 
+        await eliminarPedido(pedidoId);
       } catch (error) {
         console.error("Error al eliminar el pedido: ", error);
       }
@@ -105,7 +118,7 @@ const Pedidos = () => {
                 </p>
                 <p><strong>Estado del pedido:</strong>
                   <span className={`pedido-status ${getEstadoPedido(pedido.id_Estado)}`}>
-                    <b style={{color: 'black'}}>{getEstadoPedido(pedido.id_Estado)}</b>
+                    <b style={{ color: 'black' }}>{getEstadoPedido(pedido.id_Estado)}</b>
                   </span>
                 </p>
                 <p><strong>Medio de pago:</strong> {getMedioPago(pedido.id_TipoPago)}</p>

@@ -165,6 +165,28 @@ public class ProductoController {
         }
     };
 
+    // Agregar porciones de un producto
+    public static Route aumentarPorcionesProducto = (Request request, Response response) -> {
+        response.type("application/json");
+        try {
+            int idProducto = Integer.parseInt(request.params(":id"));
+            int cantPorciones = Integer.parseInt(request.queryParams("cant_porciones"));
+
+            boolean resultado = productoDAO.aumentarPorcionesProducto(idProducto, cantPorciones);
+
+            if (resultado) {
+                response.status(200);
+                return gson.toJson("Porciones disminuidas exitosamente.");
+            } else {
+                response.status(400);
+                return gson.toJson("No se pudieron disminuir las porciones.");
+            }
+        } catch (Exception e) {
+            response.status(500);
+            return gson.toJson("Error al disminuir las porciones del producto: " + e.getMessage());
+        }
+    };
+
     // Obtener porciones de un producto
     public static Route getPorcionesProducto = (Request request, Response response) -> {
         response.type("application/json");

@@ -116,6 +116,21 @@ public class ProductoDAO {
         }
     }
 
+    // Método para agregar porciones de un producto
+    public boolean aumentarPorcionesProducto(int id_Producto, int cant_porciones) {
+        String disminuirSQL = "UPDATE producto SET cant_porciones = cant_porciones + :cant_porciones WHERE id_Producto = :id_Producto;";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            con.createQuery(disminuirSQL)
+                    .addParameter("id_Producto", id_Producto)
+                    .addParameter("cant_porciones", cant_porciones)
+                    .executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error al disminuir la cantidad de producto: " + e.getMessage());
+            return false;
+        }
+    }
+
     // Método para obtener porciones un producto
     public Integer getPorcionesProducto(int id_Producto) {
         String porcionesSQL = "SELECT cant_porciones FROM producto WHERE id_Producto = :id_Producto;"; // Añadido 'FROM
@@ -135,10 +150,10 @@ public class ProductoDAO {
     public boolean disminuirMPdeProducto(int id_Producto, int cantComprado) {
         // Primero, verificar que hay suficiente stock de cada materia prima
         String verificarStockSQL = "SELECT materia_prima.id_MateriaPrima, materia_prima.unidades, " +
-                "ingrediente.cantidad * :cantComprado AS cantidadNecesaria " + 
-                "FROM materia_prima " + 
-                "JOIN ingrediente ON materia_prima.id_MateriaPrima = ingrediente.id_MateriaPrima " + 
-                                                                                                    
+                "ingrediente.cantidad * :cantComprado AS cantidadNecesaria " +
+                "FROM materia_prima " +
+                "JOIN ingrediente ON materia_prima.id_MateriaPrima = ingrediente.id_MateriaPrima " +
+
                 "WHERE ingrediente.id_Producto = :id_Producto;";
 
         try (Connection con = Sql2oDAO.getSql2o().open()) {
@@ -157,15 +172,8 @@ public class ProductoDAO {
 
             // Iterar sobre los materiales para verificar si hay suficiente stock
             for (Material material : materiales) {
-                // Asegurarse de que los valores no sean nulos
                 Object unidadesDisponiblesObj = material.getUnidades();
-                // Object cantidadObj = material.get("cantidad");
                 Object cantidadNecesariaObj = material.getCantidadNecesaria();
-
-                // Depuración para ver los valores
-                System.out.println("Unidad disponible: " + unidadesDisponiblesObj);
-                // System.out.println("Cantidad: " + cantidadObj);
-                System.out.println("Cantidad necesaria: " + cantidadNecesariaObj);
 
                 // Si alguna de las propiedades es null, mostramos un mensaje de error
                 if (unidadesDisponiblesObj == null || cantidadNecesariaObj == null) {

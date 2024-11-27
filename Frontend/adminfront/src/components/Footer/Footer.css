@@ -30,7 +30,7 @@
 
 .footer-item {
     display: flex;
-    align-items: center; /* Alinea verticalmente los iconos y el texto */
+    align-items: center;
     margin: 10px 0;
     padding-left: 10px;
 }
@@ -39,7 +39,7 @@
     color: #c78ca0;
     height: 30px;
     width: 30px;
-    margin-right: 12px; /* Ajusta el espacio entre el icono y el texto */
+    margin-right: 12px; 
     transition: transform 0.3s ease;
 }
 
@@ -51,7 +51,7 @@
     font-size: 1rem;
     color: #fff;
     text-transform: capitalize;
-    margin-top: 5px; /* Baja un poco el texto al lado del icono */
+    margin-top: 15px; 
 }
 
 @media screen and (max-width: 768px) {

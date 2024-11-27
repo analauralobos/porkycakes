@@ -6,6 +6,15 @@ import Receta from "../components/receta/Receta";
 import Pedido from "../components/pedidos/PedidoList"
 import ProveedorList from "../components/proveedores/ProveedorList";
 import CompraMP from "../components/compra/CompraMP"
+import Cocinar from "../components/cocina/Cocinar";
+import { LuCakeSlice } from "react-icons/lu";
+import { GiFlour } from "react-icons/gi";
+import { FaBook } from "react-icons/fa6";
+import { IoMdHeart } from "react-icons/io";
+import { FaPerson } from "react-icons/fa6";
+import { FaShoppingBasket } from "react-icons/fa";
+import { GiCook } from "react-icons/gi";
+
 const PanelAdmin = () => {
   const [selectedSection, setSelectedSection] = useState("Productos");
 
@@ -35,6 +44,8 @@ const PanelAdmin = () => {
         return <div><ProveedorList/></div>;
       case "Compra":
         return <div><CompraMP/></div>;
+      case "Cocinar":
+          return <div><Cocinar/></div>;
       default:
         return <div>Seleccione una opción del menú</div>;
     }
@@ -50,13 +61,13 @@ const PanelAdmin = () => {
           }`}
           onClick={() => setSelectedSection("Productos")}
         >
-          Productos
+        <LuCakeSlice /> Productos
         </button>
         <button
           className={`menu-item ${selectedSection === "Stock" ? "active" : ""}`}
           onClick={() => setSelectedSection("Stock")}
         >
-          Stock
+          <GiFlour /> Stock
         </button>
         <button
           className={`menu-item ${
@@ -64,7 +75,7 @@ const PanelAdmin = () => {
           }`}
           onClick={() => setSelectedSection("Recetas")}
         >
-          Recetas
+          <FaBook /> Recetas
         </button>
         <button
           className={`menu-item ${
@@ -72,7 +83,7 @@ const PanelAdmin = () => {
           }`}
           onClick={() => setSelectedSection("Pedidos")}
         >
-          Pedidos
+          <IoMdHeart /> Pedidos
         </button>
 
         <button
@@ -81,7 +92,7 @@ const PanelAdmin = () => {
           }`}
           onClick={() => setSelectedSection("Proveedores")}
         >
-          Proveedores
+          <FaPerson /> Proveedores
         </button>
 
         <button
@@ -90,7 +101,15 @@ const PanelAdmin = () => {
           }`}
           onClick={() => setSelectedSection("Compra")}
         >
-          Compra Materia Prima
+          <FaShoppingBasket /> Compra Materia Prima
+        </button>
+        <button
+          className={`menu-item ${
+            selectedSection === "Cocinar" ? "active" : ""
+          }`}
+          onClick={() => setSelectedSection("Cocinar")}
+        >
+          <GiCook /> Cocinar
         </button>
       </div>
 

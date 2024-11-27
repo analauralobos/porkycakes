@@ -3,10 +3,15 @@ import './Carrito.css';
 import { obtenerCarrito, eliminarDelCarrito, vaciarCarrito } from '../../components/carrito/CarritoFunciones';
 import { createPedido } from '../../services/PedidoService';
 import { createProductoxPedido } from '../../services/ProductosxPedidoService';
+import { useNavigate } from 'react-router-dom';
+import shop from '../../assets/img/shop.svg'
+import { disminuirPorciones } from '../../services/ProductoService';
 
 const Carrito = () => {
   const [carrito, setCarrito] = useState([]);
-  const [tipoPago, setTipoPago] = useState(""); // Estado para el tipo de pago
+  const [tipoPago, setTipoPago] = useState("");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const cargarCarrito = () => {
     const carritoGuardado = obtenerCarrito();
@@ -32,7 +37,7 @@ const Carrito = () => {
   const obtenerFechaEntrega = () => {
     const fechaActual = new Date();
     fechaActual.setDate(fechaActual.getDate() + 5); // Sumar 5 días
-    return fechaActual.toISOString().slice(0,10); // Devolver como un objeto Date
+    return fechaActual.toISOString().slice(0, 10); 
   };
 
   // Nueva función para crear productos por pedido
@@ -48,6 +53,7 @@ const Carrito = () => {
 
       try {
         await createProductoxPedido(pxpData);
+        await disminuirPorciones(producto.id_Producto, producto.cantidad);
       } catch (error) {
         console.error("Error al asociar el producto con el pedido:", error);
         alert("Hubo un problema al agregar un producto al pedido. Inténtalo de nuevo.");
@@ -65,10 +71,9 @@ const Carrito = () => {
     const cliente = JSON.parse(localStorage.getItem("userinfo"));
     const fecha_pedido = new Date();
 
-    // Crear un objeto FormData
     const pedidoData = {
       id_Cliente: parseInt(cliente.id_persona),
-      fecha_pedido: fecha_pedido.toISOString().slice(0,10),
+      fecha_pedido: fecha_pedido.toISOString().slice(0, 10),
       fecha_entrega: obtenerFechaEntrega(),
       lugar_entrega: "Local",
       id_Estado: 1,
@@ -78,8 +83,6 @@ const Carrito = () => {
     try {
       const pedidoResponse = await createPedido(pedidoData);
       const idPedido = pedidoResponse.id_Pedido;
-
-      //Llamamos a la nueva función para asociar productos con el pedido
       crearProductosPorPedido(idPedido);
 
       alert("Pedido enviado con éxito.");
@@ -155,7 +158,10 @@ const Carrito = () => {
           </button>
         </>
       ) : (
-        <p className="carritoVacio">¡El carrito está vacío!</p>
+        <div className="center-content">
+          <p className="carritoVacio">¡El carrito está vacío!</p>
+          <img src={shop} alt="shop" className='imagencarritoshop' onClick={() => navigate('/menu/Todos')} />
+        </div>
       )}
     </div>
   );
