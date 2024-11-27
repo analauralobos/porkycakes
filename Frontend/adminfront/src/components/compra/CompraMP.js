@@ -152,12 +152,13 @@ const CompraMP = () => {
           </tbody>
         </table>
 
+
         {/* Modal */}
         {showModal && (
           <div className="modal">
             <div className="modal-content">              
               <h3>Formulario de Compra</h3>
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form className="formPr" onSubmit={(e) => e.preventDefault()}>
                 <label>Proveedor:</label>
                 <select
                   value={newCompra.id_Proveedor}
@@ -222,12 +223,12 @@ const CompraMP = () => {
                     setNewCompra({ ...newCompra, fecha_compra: e.target.value })
                   }
                 />
-                <label>
+                 <div className="botones-f">
                   <button
                     className="action-button edit"
                     onClick={handleAddCompra}
                   >
-                    Agregar
+                    Guardar
                   </button>
                   <button
                     className="action-button delete"
@@ -235,7 +236,7 @@ const CompraMP = () => {
                   >
                     Cancelar
                   </button>
-                </label>
+                </div>
               </form>
             </div>
           </div>

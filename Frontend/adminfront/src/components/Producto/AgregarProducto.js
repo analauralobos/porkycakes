@@ -129,7 +129,7 @@ const AgregarProducto = () => {
                 ref={fileInputRef}
               />
             </div>
-            <button type="submit" className="save-button">Agregar Producto</button>
+            <button type="submit" className="save-button">Guardar</button>
           </form>
         </div>
       </div>

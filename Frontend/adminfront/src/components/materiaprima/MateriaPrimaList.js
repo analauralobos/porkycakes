@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/*import React, { useEffect, useState } from "react";
 import {
   getAllMatPrimas,
   getAllTMatPrimas,
@@ -150,6 +150,207 @@ const MateriaPrimaList = () => {
             })}
           </tbody>
         </table>
+      )}
+    </div>
+  );
+};
+
+export default MateriaPrimaList;
+*/
+import React, { useEffect, useState } from "react";
+import {
+  getAllMatPrimas,
+  getAllTMatPrimas,
+  deleteMatPrima,
+} from "../../services/MateriaPrimaService";
+import { useNavigate } from "react-router-dom";
+import "./MateriaPrimaList.css";
+
+const MateriaPrimaList = () => {
+  const [matPrimas, setMatPrimas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [tmatPrimas, settMatPrimas] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para el filtro de búsqueda
+  const [showModal, setShowModal] = useState(false); // Estado del modal
+  const [deleteId, setDeleteId] = useState(null); // ID de la materia prima a eliminar
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchMatPrimas = async () => {
+      try {
+        const response = await getAllMatPrimas();
+        setMatPrimas(response || []);
+        const tmpData = await getAllTMatPrimas();
+        settMatPrimas(tmpData);
+      } catch (error) {
+        console.error("Error fetching mat primas: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMatPrimas();
+  }, []);
+
+  const getTipoDescripcion = (idTipoMP) => {
+    const tipo = tmatPrimas.find((t) => t.id_TipoMP === idTipoMP);
+    return tipo ? tipo.descripcion_TipoMP : "Sin descripción";
+  };
+
+  const filteredMatPrimas = matPrimas.filter((matPrima) => {
+    return (
+      matPrima.Nombre_MP.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      getTipoDescripcion(matPrima.id_TipoMP)
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+  });
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setDeleteId(null);
+  };
+
+  const handleDelete = async () => {
+    try {
+      if (deleteId) {
+        await deleteMatPrima(deleteId);
+        setMatPrimas((prevMatPrimas) =>
+          prevMatPrimas.filter((mp) => mp.id_MateriaPrima !== deleteId)
+        );
+        alert("Materia prima eliminada con éxito.");
+      }
+    } catch (error) {
+      console.error("Error al eliminar la materia prima:", error);
+      alert("No se pudo eliminar la materia prima.");
+    } finally {
+      handleCloseModal();
+    }
+  };
+
+  if (loading) {
+    return <div className="loading">Cargando materia primas...</div>;
+  }
+
+  return (
+    <div className="mp-list-container">
+      <div className="headermp">
+        <label>
+          <input
+            type="text"
+            className="input"
+            placeholder="Buscar materia prima..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </label>
+        <button
+          className="add-mp-button"
+          onClick={() => navigate("/add-MP")}
+        >
+          Agregar Materia Prima
+        </button>
+      </div>
+
+      {filteredMatPrimas.length === 0 ? (
+        <p className="no-matPrimas-message">No hay materias primas disponibles.</p>
+      ) : (
+        <table className="mp-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cantidad</th>
+              <th>Un. Medida</th>
+              <th>Vencimiento</th>
+              <th>Tipo</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredMatPrimas.map((matPrima) => {
+              const isLowStock =
+                (matPrima.Un_de_Medida === "gramos" &&
+                  matPrima.unidades <= 100) ||
+                (matPrima.Un_de_Medida === "unidad" &&
+                  matPrima.unidades <= 10) ||
+                (matPrima.Un_de_Medida === "litros" && matPrima.unidades <= 2);
+
+              return (
+                <tr
+                  key={matPrima.id_MateriaPrima}
+                  className={isLowStock ? "low-stock" : ""}
+                >
+                  <td>{matPrima.Nombre_MP}</td>
+                  <td>{matPrima.unidades}</td>
+                  <td>{matPrima.Un_de_Medida}</td>
+                  <td>{matPrima.Fecha_Vto_Proxima}</td>
+                  <td>{getTipoDescripcion(matPrima.id_TipoMP)}</td>
+                  <td>
+                    <button
+                      className="action-button edit"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/edit-MP/${matPrima.id_MateriaPrima}`);
+                      }}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="action-button delete"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeleteId(matPrima.id_MateriaPrima);
+                        setShowModal(true);
+                      }}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+
+      {/* Modal de confirmación */}
+      {showModal && (
+        <>
+          {/* Fondo borroso */}
+          <div className="modal-overlay"></div>
+
+          {/* Modal de confirmación */}
+          <div className="modal show" style={{ display: "block" }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-headerr">
+                  <h5 className="modal-title">Confirmar eliminación</h5>                  
+                </div>
+                <div className="modal-body">
+                  <p>¿Estás seguro de que deseas eliminar esta materia prima?</p>
+                </div>
+                <div className="modal-footerr">
+                <button
+                    type="button"
+                    className="btn btn-secondaryModal"
+                    onClick={handleDelete}
+                  >
+                    Aceptar
+                  </button>
+                  <button
+                    type="button"
+                    
+                    className="btn btn-dangerModal"
+                    onClick={handleCloseModal}
+                  >
+                    Cancelar
+                  </button>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

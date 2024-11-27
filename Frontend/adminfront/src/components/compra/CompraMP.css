@@ -119,18 +119,19 @@
 }
 
 
+
 /* Fondo del modal */
 .compra-list-container .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
 /* Contenido del modal */
@@ -138,7 +139,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  width: 600px; /* Más ancho */
+  width: 400px; /* Más ancho */
   max-width: 90%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -152,8 +153,11 @@
 
 .compra-list-container .modal-content .formPr input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
-
+.compra-list-container .modal-content .formPr label {
+  width: 100%;    
+  text-align: left;   
+}

@@ -25,7 +25,8 @@
     gap: 15px;
     border-right: 2px solid #f9b1b1;
     position: sticky;
-    left: 0;    
+    left: 0;
+    margin-top: 10px;    
   }
   
   .admin-panel .menu-item {

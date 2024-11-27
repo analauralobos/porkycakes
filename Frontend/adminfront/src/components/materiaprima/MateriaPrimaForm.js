@@ -115,8 +115,8 @@ const MateriaPrimaForm = () => {
                 ))}
               </select>
             </div>
-
-            <button type="submit" className="save-button">Agregar Materia Prima</button>
+               
+            <button type="submit" className="save-buttonn">Guardar</button>
           </form>
         </div>
       </div>

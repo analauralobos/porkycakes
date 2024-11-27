@@ -72,7 +72,7 @@ const RecetaForm = () => {
       </div>
     <div className="cards-container">
     <div className="card-p">
-      <h2>Agregar Paso de Receta</h2>
+      <h3>Agregar Paso de Receta</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Producto (sin receta):</label>
@@ -106,8 +106,8 @@ const RecetaForm = () => {
             required
           />
         </div>
-        <button type="submit" className="save-button">
-          Agregar Paso de Receta
+        <button type="submit" className="agregar-paso">
+          Guardar
         </button>       
       </form>
     </div>

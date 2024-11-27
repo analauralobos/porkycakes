@@ -294,6 +294,18 @@ label {
   margin-top: 10px;
 }
 
+.receta-form-container .agregar-paso{
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  
+}
 .agregar-paso{
   background-color: #ff6b6b;
   color: white;
@@ -304,4 +316,96 @@ label {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 10px;
+  width: 100px;
 }
+
+  
+  /* Fondo borroso cuando se abre el modal */
+  .modal-overlayy {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurecer fondo */
+  }
+  .modal-overlayy  .modal-dialog .modal-content {
+    background-color: white;
+    padding: 0px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    width: 400px; /* Más ancho */
+    max-width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  /* Header del modal */
+
+  .modal-overlayy .modal-headerr {
+    background: #ffb6c1;
+    border-bottom: 2px solid #ffc0cb;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  /* Título del modal */
+  .modal-overlayy .modal-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .modal-overlayy .modal-footerr {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    gap: 10px; /* Espaciado entre los botones */
+  }
+  
+  /* Botones del modal */
+  .modal-overlayy .modal-footerr .btn-secondaryModal {
+    background: #f5c842;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #ffffff;
+  }
+  
+  .modal-overlayy  .modal-footerr .btn-dangerModal {
+    background: #db2a54e8;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #ffffff;
+  }
+  
+  .modal-overlayy  .modal-footerr .btn-dangerModal:hover {
+    background: #ff3856;
+  }
+  
+  .modal-overlayy  .modal-footerr .btn-secondaryModal:hover {
+    background: #ffbf01;
+  }
+  
+  
+  /* Animación de aparición del modal */
+  .modal-overlayy  .modal-content {
+    margin-top: 150px;
+    margin-left: 50px; 
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  

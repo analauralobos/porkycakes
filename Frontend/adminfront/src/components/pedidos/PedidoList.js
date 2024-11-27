@@ -186,7 +186,7 @@ const PedidoList = () => {
       {pedidoSeleccionado && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Productos del Pedido {pedidoSeleccionado}</h2>
+            <h3>Productos del Pedido {pedidoSeleccionado}</h3>
             {noProductos ? (
               <p>No hay productos en este pedido.</p>
             ) : (
@@ -199,7 +199,9 @@ const PedidoList = () => {
                 ))}
               </ul>
             )}
+            <div className="button-pp"> 
             <button onClick={() => setPedidoSeleccionado(null)}>Cerrar</button>
+              </div>
           </div>
         </div>
       )}
