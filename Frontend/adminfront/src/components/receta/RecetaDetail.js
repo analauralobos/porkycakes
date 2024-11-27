@@ -84,7 +84,7 @@ const RecetaDetail = () => {
       <div className="cards-container">
         {/* Pasos de la Receta */}
         {selectedCard === "receta" && (
-          <div className="receta-card">
+          <div className="card-p">
             <h3>Pasos de la Receta</h3>
             {receta.length === 0 ? (
               <p>No hay pasos de receta asociados a este producto.</p>
@@ -115,7 +115,7 @@ const RecetaDetail = () => {
                 </tbody>
               </table>
             )}
-            <div className="receta-form-container">
+            
               <h3>Agregar Paso</h3>
               <form>
                 <label>Paso Número:</label>
@@ -138,10 +138,10 @@ const RecetaDetail = () => {
                   type="button"
                   onClick={handleAddStep}
                 >
-                  Agregar Paso
+                  Guardar
                 </button>
               </form>
-            </div>
+            
           </div>
         )}
       </div>

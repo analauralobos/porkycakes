@@ -141,7 +141,7 @@
   padding: 20px;
   border-radius: 8px;
   max-width: 600px;
-  width: 80%;
+  width: 400px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -154,7 +154,9 @@
 .pedido-list-container .modal-content li {
   margin: 10px 0;
 }
-
+.pedido-list-container .button-pp{
+  align-items: center;
+}
 .pedido-list-container button {
   background-color: #ff9595;
   color: white;
@@ -163,6 +165,17 @@
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.modal-content button {
+  background-color: #ff9595;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100px;
 }
 
 .pedido-list-container button:hover {

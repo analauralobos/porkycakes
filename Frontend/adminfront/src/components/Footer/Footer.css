@@ -11,7 +11,7 @@
     width: 100%;
     color: #fff;
     font-family: 'Roboto';
-    top: 30px
+    /*top: 30px*/ /*porque se ve un espacio en carrito*/
 }
 
 .footer-section {

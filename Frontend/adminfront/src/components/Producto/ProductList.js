@@ -155,37 +155,35 @@ const ProductList = () => {
       {showModal && (
         <>
           {/* Fondo borroso */}
-          <div className="modal-overlay"></div>
+          <div className="modal-overlayy"></div>
 
           {/* Modal de confirmación */}
           <div className="modal show" style={{ display: "block" }}>
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header">
+                <div className="modal-headerr">
                   <h5 className="modal-title">Confirmar eliminación</h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={handleCloseModal}
-                  ></button>
+                  
                 </div>
                 <div className="modal-body">
                   <p>¿Estás seguro de que deseas eliminar este producto?</p>
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footerr">
+                  
                   <button
                     type="button"
                     className="btn btn-secondaryModal"
-                    onClick={handleCloseModal}
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-dangerModal"
                     onClick={handleDelete}
                   >
                     Aceptar
+                  </button>
+                  <button
+                    type="button"
+                    
+                    className="btn btn-dangerModal"
+                    onClick={handleCloseModal}
+                  >
+                    Cancelar
                   </button>
                 </div>
               </div>
