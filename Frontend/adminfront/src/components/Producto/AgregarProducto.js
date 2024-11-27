@@ -5,6 +5,7 @@ import './AgregarProducto.css';
 
 const AgregarProducto = () => {
   const [formData, setformData] = useState({ nombre: '', precio: '', cantPorciones: '', descripcion: '', categoria: '', imagen: '' });
+  const [previewImage, setPreviewImage] = useState(null); // Estado para la vista previa
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -27,7 +28,6 @@ const AgregarProducto = () => {
     formDataToSend.append("descripcion_producto", formData.descripcion);
     formDataToSend.append("p_categoria", parseInt(formData.categoria));
 
-    // Adjuntar archivo
     if (formData.imagen) {
       formDataToSend.append("imagen", formData.imagen);
     }
@@ -37,13 +37,23 @@ const AgregarProducto = () => {
       console.log("Producto creado:", response);
       alert("Producto creado exitosamente");
       setformData({ nombre: '', precio: '', cantPorciones: '', descripcion: '', categoria: '', imagen: '' });
+      setPreviewImage(null); // Limpiar vista previa
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
-
     } catch (error) {
       console.error("Error al crear el producto:", error);
       alert("Hubo un error al crear el producto");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setformData({ ...formData, imagen: file });
+      setPreviewImage(URL.createObjectURL(file)); // Crear URL de vista previa
+    } else {
+      setPreviewImage(null);
     }
   };
 
@@ -62,15 +72,22 @@ const AgregarProducto = () => {
         <div className="card-p">
           <h2 className="h2AgrProd">Agregar Producto</h2>
           <form onSubmit={handleAgregarProducto} className="agregar-producto-form">
-            <div>
-              <label>Nombre del Producto:</label>
-              <input
-                type="text"
-                value={formData.nombre}
-                onChange={(e) => setformData({ ...formData, nombre: e.target.value })}
-                required
-                className="form-control"
-              />
+            <div className="form-row">
+              <div className="form-field">
+                <label>Nombre del Producto:</label>
+                <input
+                  type="text"
+                  value={formData.nombre}
+                  onChange={(e) => setformData({ ...formData, nombre: e.target.value })}
+                  required
+                  className="form-control"
+                />
+              </div>
+              {previewImage && (
+                <div className="preview-container">
+                  <img src={previewImage} alt="Vista previa" className="preview-image" />
+                </div>
+              )}
             </div>
             <div>
               <label>Precio de Venta:</label>
@@ -124,7 +141,7 @@ const AgregarProducto = () => {
               <input
                 type="file"
                 required
-                onChange={(e) => setformData({ ...formData, imagen: e.target.files[0] })}
+                onChange={handleFileChange}
                 className="form-control"
                 ref={fileInputRef}
               />
