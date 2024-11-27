@@ -108,6 +108,11 @@ public class App {
         put("porkys/productos/modificar/:id", ProductoController.modificarProducto);
         delete("porkys/productos/eliminar/:id", ProductoController.eliminarProducto);
         post("porkys/productos/:id/imagen", ProductoController.crearProducto);
+
+        put("porkys/productos/:id/disminuir-porciones", ProductoController.disminuirPorcionesProducto);
+        get("porkys/productos/:id/porciones", ProductoController.getPorcionesProducto);
+        post("porkys/productos/:id/disminuir-mp", ProductoController.disminuirMPdeProducto);
+
         // ProductosXPedido
         get("porkys/productosXpedido/todos", ProductosPorPedidoController.getTodosProductosXpedido);
         post("porkys/productosXpedido/crear", ProductosPorPedidoController.crearProductoXPedido);
