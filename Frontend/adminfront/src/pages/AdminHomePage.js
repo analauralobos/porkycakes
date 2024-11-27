@@ -9,7 +9,7 @@ function AdminHomePage({ onLogout }) {
         <h3>Panel de Administración</h3>
         <p>Bienvenido a la administración de Porky Cakes</p>        
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

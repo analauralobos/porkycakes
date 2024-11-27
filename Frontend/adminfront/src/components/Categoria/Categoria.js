@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Categoria = () => {
   const [categorias, setCategorias] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +26,8 @@ const Categoria = () => {
         setCategorias(categoriasConImagenes);
       } catch (error) {
         console.error('Error al cargar las categorías:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,6 +37,10 @@ const Categoria = () => {
   const handleCategoriaClick = (categoria) => {
     navigate(`/menu/${categoria.nombre}`);
   };
+
+  if (loading) {
+    return <div className="loading">Cargando productos...</div>;
+  }
 
   return (
     <div className="c-menu container">

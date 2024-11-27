@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.sql2o.Connection;
+
+import com.example.MateriaPrima.Material;
 import com.example.db.Sql2oDAO;
 
 public class ProductoDAO {
@@ -114,6 +116,21 @@ public class ProductoDAO {
         }
     }
 
+    // Método para agregar porciones de un producto
+    public boolean aumentarPorcionesProducto(int id_Producto, int cant_porciones) {
+        String disminuirSQL = "UPDATE producto SET cant_porciones = cant_porciones + :cant_porciones WHERE id_Producto = :id_Producto;";
+        try (Connection con = Sql2oDAO.getSql2o().open()) {
+            con.createQuery(disminuirSQL)
+                    .addParameter("id_Producto", id_Producto)
+                    .addParameter("cant_porciones", cant_porciones)
+                    .executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error al disminuir la cantidad de producto: " + e.getMessage());
+            return false;
+        }
+    }
+
     // Método para obtener porciones un producto
     public Integer getPorcionesProducto(int id_Producto) {
         String porcionesSQL = "SELECT cant_porciones FROM producto WHERE id_Producto = :id_Producto;"; // Añadido 'FROM
@@ -130,47 +147,38 @@ public class ProductoDAO {
     }
 
     // Método para disminuir MP de un producto al ser comprado
-    public boolean disminuirMPdeProducto(int id_Producto, float cantComprado) {
+    public boolean disminuirMPdeProducto(int id_Producto, int cantComprado) {
         // Primero, verificar que hay suficiente stock de cada materia prima
-        String verificarStockSQL = "SELECT mp.id_MateriaPrima, mp.unidades, i.cantidad * :cantComprado AS cantidadNecesaria "
-                +
-                "FROM materia_prima mp " +
-                "JOIN ingrediente i ON mp.id_MateriaPrima = i.id_MateriaPrima " +
-                "WHERE i.id_Producto = :id_Producto;";
+        String verificarStockSQL = "SELECT materia_prima.id_MateriaPrima, materia_prima.unidades, " +
+                "ingrediente.cantidad * :cantComprado AS cantidadNecesaria " +
+                "FROM materia_prima " +
+                "JOIN ingrediente ON materia_prima.id_MateriaPrima = ingrediente.id_MateriaPrima " +
+
+                "WHERE ingrediente.id_Producto = :id_Producto;";
 
         try (Connection con = Sql2oDAO.getSql2o().open()) {
             // Ejecutar la consulta
-            List<Map<String, Object>> materiales = con.createQuery(verificarStockSQL)
+            List<Material> materiales = con.createQuery(verificarStockSQL)
                     .addParameter("id_Producto", id_Producto)
                     .addParameter("cantComprado", cantComprado)
-                    .executeAndFetchTable()
-                    .asList();
+                    .executeAndFetch(Material.class);
 
-            // Agregar depuración para ver los resultados
-            System.out.println("Resultados de la consulta:");
-            for (Map<String, Object> material : materiales) {
-                System.out.println("ID Materia Prima: " + material.get("id_MateriaPrima"));
-                System.out.println("Unidades: " + material.get("unidades"));
-                System.out.println("Cantidad: " + material.get("cantidad"));
-                System.out.println("Cantidad Necesaria: " + material.get("cantidadNecesaria"));
+            // Iterar sobre los materiales mapeados
+            for (Material material : materiales) {
+                System.out.println("ID Materia Prima: " + material.getId_MateriaPrima());
+                System.out.println("Unidades: " + material.getUnidades());
+                System.out.println("Cantidad Necesaria: " + material.getCantidadNecesaria());
             }
 
             // Iterar sobre los materiales para verificar si hay suficiente stock
-            for (Map<String, Object> material : materiales) {
-                // Asegurarse de que los valores no sean nulos
-                Object unidadesDisponiblesObj = material.get("unidades");
-                Object cantidadObj = material.get("cantidad");
-                Object cantidadNecesariaObj = material.get("cantidadNecesaria");
-
-                // Depuración para ver los valores
-                System.out.println("Unidad disponible: " + unidadesDisponiblesObj);
-                System.out.println("Cantidad: " + cantidadObj);
-                System.out.println("Cantidad necesaria: " + cantidadNecesariaObj);
+            for (Material material : materiales) {
+                Object unidadesDisponiblesObj = material.getUnidades();
+                Object cantidadNecesariaObj = material.getCantidadNecesaria();
 
                 // Si alguna de las propiedades es null, mostramos un mensaje de error
                 if (unidadesDisponiblesObj == null || cantidadNecesariaObj == null) {
                     System.err.println("Faltan datos de stock o cantidad necesaria para la materia prima ID "
-                            + material.get("id_MateriaPrima"));
+                            + material.getId_MateriaPrima());
                     return false;
                 }
 
@@ -181,7 +189,7 @@ public class ProductoDAO {
 
                     if (unidadesDisponibles < cantidadNecesaria) {
                         System.err.println(
-                                "No hay suficiente stock de la materia prima ID " + material.get("id_MateriaPrima") +
+                                "No hay suficiente stock de la materia prima ID " + material.getId_MateriaPrima() +
                                         ". Necesitas " + cantidadNecesaria + " y solo hay " + unidadesDisponibles);
                         return false;
                     }
@@ -192,8 +200,8 @@ public class ProductoDAO {
             }
 
             // Si pasamos todas las verificaciones, disminuimos el stock
-            String disminuirSQL = "UPDATE materia_prima mp " +
-                    "JOIN ingrediente i ON mp.id_MateriaPrima = i.id_MateriaPrima " +
+            String disminuirSQL = "UPDATE materia_prima AS mp " +
+                    "JOIN ingrediente AS i ON mp.id_MateriaPrima = i.id_MateriaPrima " +
                     "SET mp.unidades = mp.unidades - (i.cantidad * :cantComprado) " +
                     "WHERE i.id_Producto = :id_Producto;";
 
@@ -208,7 +216,6 @@ public class ProductoDAO {
             System.err.println("Error al disminuir la cantidad de MP: " + e.getMessage());
             return false; // En caso de error
         }
-
     }
 
 }

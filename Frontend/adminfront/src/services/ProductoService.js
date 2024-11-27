@@ -62,4 +62,26 @@ export const getProductsByCategory = async (nombreCategoria) => {
   return response.data;
 };
 
+// Disminuir porciones de Producto
+export const disminuirPorciones = async (id_Producto, cantidad) => {
+  const response = await axios.put(`${API_URL}/${id_Producto}/disminuir-porciones?cant_porciones=${cantidad}`);
+  return response.data;
+};
 
+// Aumentar porciones de Producto
+export const agregarPorciones = async (id_Producto, cantidad) => {
+  const response = await axios.put(`${API_URL}/${id_Producto}/agregar-porciones?cant_porciones=${cantidad}`);
+  return response.data;
+};
+
+// Disminuir MP que ocupa un producto al ser cocinado
+export const disminuirMP = async (id_Producto, cantComprado) => {
+  const response = await axios.post(`${API_URL}/${id_Producto}/disminuir-mp?cant_comprado=${cantComprado}`);
+  return response.data;
+};
+
+// Obtener las porciones del producto
+export const obtenerPorcionesProd = async (id_Producto) => {
+  const response = await axios.get(`${API_URL}/${id_Producto}/porciones`);
+  return response.data;
+};

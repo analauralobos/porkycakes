@@ -5,7 +5,6 @@ function AdminPage({ onLogout }) {
         <div>
             <h1>Panel de Administración</h1>
             <button onClick={onLogout}>Cerrar Sesión</button>
-            
         </div>
     );
 }

@@ -10,7 +10,7 @@ const Producto = ({ userRole }) => {
   const [productos, setProductos] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [mensajeToast, setMensajeToast] = useState('');
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -28,6 +28,8 @@ const Producto = ({ userRole }) => {
         setProductos(productosConImagenes);
       } catch (error) {
         console.error("Error al cargar los productos:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -46,6 +48,10 @@ const Producto = ({ userRole }) => {
     setMensajeToast(`${producto.Nombre_Producto} eliminado del carrito`);
     setShowToast(true);
   };
+
+  if (loading) {
+    return <div className="loading">Cargando productos...</div>;
+  }
 
   return (
     <div>
@@ -72,14 +78,16 @@ const Producto = ({ userRole }) => {
                   {userRole === 'cliente' && (
                     <div>
                       <button
-                        className="boton-activoProd"
+                        className={`${producto.cant_porciones === 0 ? 'boton-desactivado' : 'boton-activoProd'}`}
                         onClick={() => handleAgregarAlCarrito(producto)}
+                        disabled={producto.cant_porciones === 0}
                       >
                         🛒 Agregar
                       </button>
                       <button
-                        className="boton-activoProd"
+                        className={`${producto.cant_porciones === 0 ? 'boton-desactivado' : 'boton-activoProd'}`}
                         onClick={() => handleEliminarDelCarrito(producto.id_Producto, producto)}
+                        disabled={producto.cant_porciones === 0}
                       >
                         ❌ Quitar
                       </button>
