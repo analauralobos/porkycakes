@@ -6,7 +6,6 @@
   padding: 20px;
   background: #f9f1f1;
   font-family: 'Roboto', sans-serif;
-
 }
 
 /* Encabezado */
@@ -116,14 +115,12 @@
 
 /* Fondo borroso cuando se abre el modal */
 .modal-overlay {
-  position: fixed;
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  z-index: 1040; /* Detrás del modal */
+  background-color: rgba(0, 0, 0, 0.5); /* Oscurecer fondo */
 }
 
 /* Header del modal */
@@ -144,7 +141,7 @@
 }
 
 /* Botones del modal */
-.modal-footer .btn-secondary {
+.modal-footer .btn-secondaryModal {
   background: #f8a9bc;
   border: none;
   padding: 10px 20px;
@@ -152,7 +149,7 @@
   font-size: 1rem;
 }
 
-.modal-footer .btn-danger {
+.modal-footer .btn-dangerModal {
   background: #ff0741;
   border: none;
   padding: 10px 20px;
@@ -160,8 +157,12 @@
   font-size: 1rem;
 }
 
-.modal-footer .btn-danger:hover {
+.modal-footer .btn-dangerModal:hover {
   background: #ff3856;
+}
+
+.modal-footer .btn-secondaryModal:hover {
+  background: #f8a9bc;
 }
 
 /* Botón de cerrar */
@@ -178,6 +179,8 @@
 
 /* Animación de aparición del modal */
 .modal-content {
+  margin-top: 150px;
+  margin-left: 50px; 
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -191,3 +194,5 @@
     opacity: 1;
   }
 }
+
+

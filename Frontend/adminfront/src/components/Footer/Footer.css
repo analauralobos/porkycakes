@@ -37,9 +37,8 @@
     width: 100%;
     position: relative;
     bottom: 0;
+    top: 35px
 }
-
-
 
 .footer-section {
     flex: 1;
