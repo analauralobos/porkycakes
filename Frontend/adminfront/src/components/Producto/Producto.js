@@ -34,7 +34,7 @@ const Producto = ({ userRole }) => {
     };
 
     fetchProductos();
-  }, []);
+  }, [productos]);
 
 
   const handleAgregarAlCarrito = (producto) => {

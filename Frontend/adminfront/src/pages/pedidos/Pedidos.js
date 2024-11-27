@@ -36,16 +36,13 @@ const Pedidos = () => {
         }
 
         // Si el cliente está en los pedidos, buscar los pedidos específicos
-
         const pedidosData = await getPedidosByCliente(idCliente);
-
         const pedidosConDetalles = await Promise.all(
           pedidosData.map(async (pedido) => {
             const productos = await getProductosByPedido(pedido.id_Pedido);
             return { ...pedido, productos };
           })
         );
-
         setPedidos(pedidosConDetalles);
       } catch (error) {
         console.error("Error al cargar los pedidos: ", error);
@@ -54,7 +51,6 @@ const Pedidos = () => {
 
     fetchPedidos();
   }, [pedidos]);
-
 
   const getEstadoPedido = (estado) => {
     switch (estado) {
@@ -99,6 +95,11 @@ const Pedidos = () => {
     setPedidoId(idPedido);
     setActionToPerform(accion);
     setShowModal(true); // Abre el modal
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); // Cierra el modal
+    setPedidoId(null);
   };
 
   return (
@@ -151,14 +152,37 @@ const Pedidos = () => {
 
       {/* Modal de confirmación */}
       {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>¿Estás seguro?</h3>
-            <p>¿Deseas {actionToPerform === 'cancelar' ? 'cancelar' : 'eliminar'} este pedido?</p>
-            <button className="botonConfirmarAccion" onClick={handleConfirmarAccion}>Sí</button>
-            <button className="botonCancelarAccion" onClick={() => setShowModal(false)}>No</button>
+        <>
+          <div className="modal-overlay"></div>
+          <div className="modal show" style={{ display: "block" }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirmar acción</h5>
+                </div>
+                <div className="modal-body">
+                  <p>¿Estás seguro de que deseas {actionToPerform === 'cancelar' ? 'cancelar' : 'eliminar'} este pedido?</p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-aceptarModal"
+                    onClick={handleConfirmarAccion}
+                  >
+                    Aceptar
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-cancelarModal"
+                    onClick={handleCloseModal}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

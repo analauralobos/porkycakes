@@ -143,14 +143,16 @@ const Menu = ({ userRole }) => {
                   {userRole === 'cliente' && (
                     <div>
                     <button
-                      className="boton-activoProd"
+                      className={`${producto.cant_porciones === 0 ? 'boton-desactivado' : 'boton-activoProd'}`}
                       onClick={() => handleAgregarAlCarrito(producto)}
+                      disabled={producto.cant_porciones === 0}
                     >
                       🛒 Agregar
                     </button>
                     <button
-                      className="boton-activoProd"
+                      className={`${producto.cant_porciones === 0 ? 'boton-desactivado' : 'boton-activoProd'}`}
                       onClick={() => handleEliminarDelCarrito(producto.id_Producto, producto)}
+                      disabled={producto.cant_porciones === 0}
                     >
                       ❌ Quitar
                     </button>
